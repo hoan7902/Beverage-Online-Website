@@ -1,0 +1,54 @@
+image: node:14
+
+stages:
+  - lint
+  - build
+  - deploy
+
+# Cache the folder node_modules
+cache:
+  paths:
+    - node_modules/
+
+lint_jobs:
+  stage: lint
+  script: 
+    - npm i
+    - npm run lint
+  only:
+    - merge_requests
+  
+  
+
+build_jobs:
+  stage: build
+  script:
+    - npm i
+    - npm run build 
+  only:
+    - merge_requests
+  
+
+
+deploy_beta:
+  stage: deploy
+  script:
+    - npm i
+    - npm run build
+  #Todo script to deploy
+  only: 
+    - develop
+  
+
+
+release:
+  stage: deploy
+  script:
+    - npm i 
+    - npm run build
+  #Todo script to release
+  only:
+    - master
+
+  
+
