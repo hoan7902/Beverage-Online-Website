@@ -1,20 +1,26 @@
 {
-  "name": "do-an-cnpm",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "next": "12.3.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
-  },
-  "devDependencies": {
-    "eslint": "8.23.0",
-    "eslint-config-next": "12.3.0"
-  }
+    "name": "do-an-cnpm",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "format": "prettier --write ."
+    },
+    "postinstall": "husky install",
+    "dependencies": {
+        "husky": "^8.0.1",
+        "next": "12.3.0",
+        "prettier": "^2.7.1",
+        "react": "18.2.0",
+        "react-dom": "18.2.0"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^17.1.2",
+        "@commitlint/config-conventional": "^17.1.0",
+        "eslint": "8.23.0",
+        "eslint-config-next": "12.3.0"
+    }
 }
