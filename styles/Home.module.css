@@ -115,6 +115,82 @@
     }
 }
 
+.bannerPicture {
+    background: url('../assets/image/Slide_banner-1-1.jpg') no-repeat center;
+    background-size: cover;
+}
+
+.imageProduct {
+    transition: all 0.5s;
+    border-radius: 6px 6px 0 0;
+}
+
+.imageProduct:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.mainButton {
+    border: 1px solid #d3b673;
+    transition: all 0.4s;
+}
+
+.mainButton:hover {
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.mainButton:hover .textButton {
+    color: #d3b673;
+}
+
+.homeFooter {
+    background: url('../assets/image/footer-img.png') no-repeat center;
+    background-size: cover;
+}
+
+.shipIconWrapper {
+    box-shadow: 2px 4.6px 27px 3px rgb(0 0 0 / 43%);
+    position: fixed;
+    bottom: 45px;
+    right: 32px;
+    z-index: 9;
+    border-radius: 50%;
+    width: 60px;
+}
+
+.shipIcon {
+    width: 60px !important;
+    transition: all 0.5s;
+    animation-name: ring-ring;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+}
+
+.mouseMove {
+    padding: 50px 0;
+    animation: slide-up 0.5s infinite alternate;
+    inset: none !important;
+}
+
+@keyframes slide-up {
+    from {
+      margin-top: 100%;
+      height: 300%;
+    }
+    to {
+      margin-top: 00%;
+      height: 100%;
+    }
+  }
+  
+
+@keyframes ring-ring {
+    50% {transform: rotate(90deg);}
+}
+
+
+
 @media (prefers-color-scheme: dark) {
     .card,
     .footer {
