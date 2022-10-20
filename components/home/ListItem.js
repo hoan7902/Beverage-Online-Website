@@ -1,4 +1,4 @@
-import { Box, Typography, Stack, Button} from '@mui/material'
+import { Box, Typography, Stack } from '@mui/material'
 import Image from 'next/image'
 import homeStyles from '../../styles/Home.module.css'
 import Item from './Item'
@@ -53,7 +53,7 @@ const fakeApi = [
     
 ]
 
-const ListItem = ({ title, orange }) => {
+const ListItem = ({ title, description }) => {
   return (
     <Stack
         flexDirection='column'
@@ -62,8 +62,8 @@ const ListItem = ({ title, orange }) => {
         alignItems='center'
         mt='60px'
     >
-        <Typography p='10px' textTransform='uppercase' color='#d3b673' variant='h3' fontSize='25px' fontWeight={700}>Menu</Typography>
-        <Typography p='10px' textTransform='uppercase' letterSpacing={1.8} fontWeight='700' fontSize='36px' color='#00000'>Sản phẩm nổi bật</Typography>
+        <Typography p='10px' textTransform='uppercase' color='#d3b673' variant='h3' fontSize='25px' fontWeight={700}>{title}</Typography>
+        <Typography p='10px' textTransform='uppercase' letterSpacing={1.8} fontWeight='700' fontSize='36px' color='#00000'>{description}</Typography>
         <Image src={Homeline} alt='home-line'/>
         <Stack
             width='70%'

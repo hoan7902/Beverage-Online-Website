@@ -19,7 +19,7 @@ const Advertisement = () => {
         >
             <Image src={Drink} alt='drink' height={200} width={200}/>
             <Typography margin='20px 0' fontWeight={600} fontSize='20px'>Curated bevarages</Typography>
-            <Typography>From small bites to big meals, we won't limit your <br/> appetite. Go ahead and order all you want.</Typography>
+            <Typography>From small bites to big meals, we won&apos;t limit your <br/> appetite. Go ahead and order all you want.</Typography>
         </Stack>
         <Stack
             textAlign='center'

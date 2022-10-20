@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import Banner from '../../assets/image/banner_about_us.png'
 import Homeline from '../../assets/image/home_line.webp'

@@ -1,7 +1,6 @@
 import { Typography, Box, Stack, } from '@mui/material'
 import Appstore from '../../assets/image/logo-appstore.svg'
 import Playstore from '../../assets/image/logo-playstore.svg'
-import FooterImage from '../../assets/image/footer-img.png'
 import Image from 'next/image'
 import homeStyles from '../../styles/Home.module.css'
 

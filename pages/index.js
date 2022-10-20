@@ -1,6 +1,3 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 import Banner from '../components/home/Banner'
 import ListItem from '../components/home/ListItem'
 import Advertisement from '../components/home/Advertisement'
@@ -14,7 +11,7 @@ export default function Home() {
     <div>
       <Shipper/>
       <Banner/>
-      <ListItem title='Hot Jucify'/>
+      <ListItem title='Menu' description='Các sản phẩm nổi bật'/>
       <BannerAboutUs/>
       <Promotion/>
       <Advertisement/>
