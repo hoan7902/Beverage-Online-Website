@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import Image from 'next/image'
 import {Icon} from 'react-icons-kit';
 import {eyeOff} from 'react-icons-kit/feather/eyeOff';
 import {eye} from 'react-icons-kit/feather/eye';
@@ -66,7 +67,7 @@ export default function Login()
                         <div className="phone-number-input-logo">
                             <div className="phone">
                                 <span className="logo-number">
-                                    <img className="phone-image" src="https://flyfood.vn/static/img/vietnam-flag.png" alt="Logo Việt Nam" />
+                                    <Image className="phone-image" src="https://flyfood.vn/static/img/vietnam-flag.png" alt="Logo Việt Nam" />
                                     <span>+84</span>
                                 </span>
                             <input className="phone-input" value={phoneNumber} onChange={handlePhoneChange} type="text"/>
