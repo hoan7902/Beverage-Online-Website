@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import {Icon} from 'react-icons-kit';
 import {eyeOff} from 'react-icons-kit/feather/eyeOff';
 import {eye} from 'react-icons-kit/feather/eye';
+import Image from 'next/image'
 export default function Register()
 {
     const [phoneNumber,setPhoneNumber]=useState("");
@@ -78,7 +79,7 @@ export default function Register()
                         <div className="phone-number-input-logo">
                             <div className="phone">
                                 <span className="logo-number">
-                                    <img className="phone-image" src="https://flyfood.vn/static/img/vietnam-flag.png" alt="Logo Việt Nam" />
+                                    <Image className="phone-image" src="https://flyfood.vn/static/img/vietnam-flag.png" alt="Logo Việt Nam" />
                                     <span>+84</span>
                                 </span>
                             <input className="phone-input" value={phoneNumber} onChange={handlePhoneChange} type="text"/>
@@ -115,7 +116,7 @@ export default function Register()
                     </div>
                     
             </div>
-            <span className="min-text">Vui lòng nhấn "Tiếp theo" để nhận mã xác thực. Mã xác thực sẽ được gửi đến tin nhắn điện thoại của bạn</span>
+            <span className="min-text">Vui lòng nhấn &quotTiếp theo&quot để nhận mã xác thực. Mã xác thực sẽ được gửi đến tin nhắn điện thoại của bạn</span>
             <button type="submit" className="Orange_Button">
                 <span>Tiếp theo</span>
             </button>
