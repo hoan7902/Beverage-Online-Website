@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import Image from 'next/image'
 export default function MissPassword()
 {
   const [phoneNumber,setPhoneNumber]=useState('');
@@ -27,13 +28,13 @@ return (
       <div className="auth-form-container-miss-password">
         <form onSubmit={handleSubmit}>
             <h2>Quên mật khẩu</h2>
-            <span className="min-text-block">Chỉ cần nhập số điện thoại của bạn và bấm vào nút "Gửi", chúng tôi sẽ gửi mật khẩu tạm thời đến số điện thoại của bạn ngay lập tức</span>
+            <span className="min-text-block">Chỉ cần nhập số điện thoại của bạn và bấm vào nút &quotGửi&quot, chúng tôi sẽ gửi mật khẩu tạm thời đến số điện thoại của bạn ngay lập tức</span>
                 <div className="phone-number"> 
                     <span id="phone-size">Số điện thoại</span>
                         <div className="phone-number-input-logo">
                             <div className="phone">
                                 <span className="logo-number">
-                                    <img className="phone-image" src="https://flyfood.vn/static/img/vietnam-flag.png" alt="Logo Việt Nam" />
+                                    <Image className="phone-image" src="https://flyfood.vn/static/img/vietnam-flag.png" alt="Logo Việt Nam" />
                                     <span>+84</span>
                             </span>
                             <input className="phone-input" value={phoneNumber} onChange={handlePhoneChange} type="text"/>
