@@ -1,6 +1,5 @@
 import React from "react";
 import ResponsiveAppBar from "./menu";
-
 function Layout({ children }) {
     return (
         <>
