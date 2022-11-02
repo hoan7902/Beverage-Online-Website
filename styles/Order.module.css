@@ -1,0 +1,16 @@
+.wrapperListOrder {
+    opacity: 1;
+    transition: all 0.7s linear;
+}
+
+.wrapperListOrderHidden {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.7s ease;
+    height: 0 !important;
+}
+
+.iconDownListOrder img{
+    width: 20px !important;
+    height: 20px !important;
+}
