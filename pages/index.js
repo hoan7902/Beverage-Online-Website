@@ -5,7 +5,6 @@ import Footer from '../components/home/Footer'
 import BannerAboutUs from '../components/home/BannerAboutUs'
 import Promotion from '../components/home/Promotion'
 import Shipper from '../components/home/Shipper'
-import { useEffect, useRef } from 'react'
 
 export default function Home() {
   return (
