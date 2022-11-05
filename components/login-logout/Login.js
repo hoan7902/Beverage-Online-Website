@@ -27,6 +27,26 @@ export default function Login() {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
+        // creates entity
+fetch("https://sleepy-scrubland-61892.herokuapp.com/user/login-user", {
+    "method": "POST",
+    "headers": {
+      "content-type": "application/json",
+      "accept": "application/json"
+    },
+    "body": JSON.stringify({
+        "phoneNumber": phoneNumber,
+        "password": pass
+    })
+  })
+  .then(response => response.json())
+  .then(response => {
+    console.log(response)
+  })
+  .catch(err => {
+    console.log(err);
+  });
+        
     };
 
     return (
