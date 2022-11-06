@@ -6,7 +6,12 @@ import homeStyles from "../../styles/Home.module.css";
 
 const Footer = () => {
     return (
-        <Box className={homeStyles.homeFooter} position="relative" zIndex="2">
+        <Box
+            className={homeStyles.homeFooter}
+            position="relative"
+            zIndex="2"
+            width="100vw"
+        >
             <Box
                 position="absolute"
                 width="100%"

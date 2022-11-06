@@ -1,9 +1,10 @@
 import React from "react";
 import ResponsiveAppBar from "./menu";
-function Layout({ children }) {
+function Layout({ inputColor, children }) {
+    console.log(inputColor);
     return (
         <>
-            <ResponsiveAppBar />
+            <ResponsiveAppBar inputColor={inputColor} />
             <main>{children}</main>
         </>
     );

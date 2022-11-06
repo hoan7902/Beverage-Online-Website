@@ -3,8 +3,9 @@ import Image from "next/image";
 import { Icon } from "react-icons-kit";
 import { eyeOff } from "react-icons-kit/feather/eyeOff";
 import { eye } from "react-icons-kit/feather/eye";
-import styles from '../../styles/Login.module.css';
-import Logo from '../../assets/image/vietnam-flag.png';
+import styles from "../../styles/Login.module.css";
+import Logo from "../../assets/image/vietnam-flag.png";
+import Link from "next/link";
 export default function Login() {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [pass, setPass] = useState("");
@@ -28,25 +29,24 @@ export default function Login() {
     const handleSubmit = (e) => {
         e.preventDefault();
         // creates entity
-fetch("https://sleepy-scrubland-61892.herokuapp.com/user/login-user", {
-    "method": "POST",
-    "headers": {
-      "content-type": "application/json",
-      "accept": "application/json"
-    },
-    "body": JSON.stringify({
-        "phoneNumber": phoneNumber,
-        "password": pass
-    })
-  })
-  .then(response => response.json())
-  .then(response => {
-    console.log(response)
-  })
-  .catch(err => {
-    console.log(err);
-  });
-        
+        fetch("https://sleepy-scrubland-61892.herokuapp.com/user/login-user", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                accept: "application/json",
+            },
+            body: JSON.stringify({
+                phoneNumber: phoneNumber,
+                password: pass,
+            }),
+        })
+            .then((response) => response.json())
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     return (
@@ -92,25 +92,29 @@ fetch("https://sleepy-scrubland-61892.herokuapp.com/user/login-user", {
                         </span>
                     </div>
                 </div>
-                <span className={`${styles["min-text-gray"]} ${styles["min-text"]}`}>
+                <span
+                    className={`${styles["min-text-gray"]} ${styles["min-text"]}`}
+                >
                     Quên mật khẩu?
-                    <a href="/misspassword" className={`${styles["forward"]} ${styles["min-text"]}`}>
+                    <Link
+                        href="/misspassword"
+                        className={`${styles["forward"]} ${styles["min-text"]}`}
+                    >
                         Cài đặt lại mật khẩu
-                    </a>
+                    </Link>
                 </span>
                 <button type="submit" className={styles["Orange_Button"]}>
                     <span>Đăng nhập</span>
                 </button>
             </form>
             <div className={styles["note"]}>
-            <span className={styles["medium-text"]}>
-                Chưa có tài khoản?
-                <a href="/register" className={styles.forward}>
-                    Đăng ký
-                </a>
-            </span>
+                <span className={styles["medium-text"]}>
+                    Chưa có tài khoản?
+                    <Link href="/register" className={styles.forward}>
+                        Đăng ký
+                    </Link>
+                </span>
             </div>
-            
         </div>
     );
 }

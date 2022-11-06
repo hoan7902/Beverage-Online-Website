@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import styles from '../../styles/Login.module.css';
-import Logo from '../../assets/image/vietnam-flag.png';
+import styles from "../../styles/Login.module.css";
+import Logo from "../../assets/image/vietnam-flag.png";
 export default function MissPassword() {
     const [phoneNumber, setPhoneNumber] = useState("");
     const handlePhoneChange = (e) => {
@@ -16,9 +16,9 @@ export default function MissPassword() {
                 <h2 className={styles.title}>Quên mật khẩu</h2>
                 <div>
                     <span className={styles["min-text-block"]}>
-                        Chỉ cần nhập số điện thoại của bạn và bấm vào nút
+                        {`Chỉ cần nhập số điện thoại của bạn và bấm vào nút
                         "Gửi", chúng tôi sẽ gửi mật khẩu tạm thời đến số
-                        điện thoại của bạn ngay lập tức
+                        điện thoại của bạn ngay lập tức`}
                     </span>
                 </div>
                 <div className={styles["phone-number"]}>

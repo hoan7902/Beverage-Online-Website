@@ -3,13 +3,13 @@ import { Icon } from "react-icons-kit";
 import { eyeOff } from "react-icons-kit/feather/eyeOff";
 import { eye } from "react-icons-kit/feather/eye";
 import Image from "next/image";
-import styles from '../../styles/Login.module.css';
-import Logo from '../../assets/image/vietnam-flag.png';
-const PassWord=({name})=>{
-    const [pass, setPass] = useState('');
-    
+import styles from "../../styles/Login.module.css";
+import Logo from "../../assets/image/vietnam-flag.png";
+import Link from "next/link";
+const PassWord = ({ name }) => {
+    const [pass, setPass] = useState("");
+
     const handlePassChange = (e) => {
-      
         setPass(e.target.value);
     };
     const [type, setType] = useState("");
@@ -24,29 +24,26 @@ const PassWord=({name})=>{
         }
     };
     return (
-            <div className={styles["pass-word"]}>
-                    <span id={styles["medium-text-icon"]}>{name}</span>
-                    <div className={styles["pass-word-input"]}>
-                        <span className={styles["pass-word-input-hide"]}>
-                            <input
-                                className={styles["pass-input"]}
-                                value={pass}
-                                onChange={handlePassChange}
-                                type={type}
-                                
-                            />
-                            <Icon
-                                className={styles["pass-word-icon"]}
-                                onClick={handleHidePassword}
-                                icon={icon}
-                            />
-                        </span>
-                    </div>
-                </div>
-        
-                
+        <div className={styles["pass-word"]}>
+            <span id={styles["medium-text-icon"]}>{name}</span>
+            <div className={styles["pass-word-input"]}>
+                <span className={styles["pass-word-input-hide"]}>
+                    <input
+                        className={styles["pass-input"]}
+                        value={pass}
+                        onChange={handlePassChange}
+                        type={type}
+                    />
+                    <Icon
+                        className={styles["pass-word-icon"]}
+                        onClick={handleHidePassword}
+                        icon={icon}
+                    />
+                </span>
+            </div>
+        </div>
     );
-}
+};
 export default function Register() {
     const [phoneNumber, setPhoneNumber] = useState("");
     const handlePhoneChange = (e) => {
@@ -80,26 +77,24 @@ export default function Register() {
                         </div>
                     </div>
                 </div>
-                <PassWord name="Mật khẩu"/>
-                <PassWord name="Nhập lại mật khẩu"/>
+                <PassWord name="Mật khẩu" />
+                <PassWord name="Nhập lại mật khẩu" />
                 <span className={styles["min-text"]}>
-                    Vui lòng nhấn "Tiếp theo" để nhận mã xác thực. Mã
-                    xác thực sẽ được gửi đến tin nhắn điện thoại của bạn
+                    {`Vui lòng nhấn "Tiếp theo" để nhận mã xác thực. Mã
+                    xác thực sẽ được gửi đến tin nhắn điện thoại của bạn`}
                 </span>
                 <button type="submit" className={styles["Orange_Button"]}>
                     <span>Tiếp theo</span>
                 </button>
-                
             </form>
             <div className={styles["note"]}>
-            <span>
+                <span>
                     Đã có tài khoản?
-                    <a href="/login" className={styles.forward}>
+                    <Link href="/login" className={styles.forward}>
                         Đăng nhập
-                    </a>
+                    </Link>
                 </span>
             </div>
-           
         </div>
     );
 }
