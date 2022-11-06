@@ -19,10 +19,12 @@ const ItemOrder = ({ item }) => {
         </Box>
         <Stack
           p='10px 0'
+          justifyContent='center'
+          alignItems='center'
         >
           <Typography p='10px' textTransform='capitalize' fontWeight='600' fontSize='13px'>{item.name}</Typography>
-          <Typography fontSize='13px'>{item.price}</Typography>
-          <Box className={homeStyles.mainButton} m='10px 20px' p='5px 10px' backgroundColor='#d3b673' borderRadius='6px' style={{cursor: 'pointer'}}>
+          <Typography fontSize='13px'>{item.price}đ</Typography>
+          <Box className={homeStyles.mainButton} width='100px' m='10px 20px' p='5px 10px' backgroundColor='#d3b673' borderRadius='6px' style={{cursor: 'pointer'}}>
                 <Typography className={homeStyles.textButton} textTransform='uppercase' color='#fff' fontSize='13px'>Đặt hàng</Typography>
           </Box>
         </Stack>

@@ -10,12 +10,12 @@ const Category = ({ listNameCategory }) => {
             <Typography ml='10px' fontSize='14px' variant='h2' fontWeight={700}>DANH MỤC</Typography>
         </Stack>
         {listNameCategory ? listNameCategory.map(item => (
-          <Link id={item.id} to={item._id} spy={true} smooth={true}>
-          <Stack sx={{cursor: 'pointer'}} p='10px' flexDirection='row' justifyContent='space-between' alignItems='center' borderBottom='1px solid #f1f1f1'>
-            <Typography fontSize='14px' variant='h3' color='#282828'>{item.name}</Typography>
-            <Typography fontSize='14px' variant='h3' color='#282828'>22</Typography>
-          </Stack>
-        </Link>
+          <Link key={item._id} id={item._id} to={item._id} spy={true} smooth={true}>
+            <Stack sx={{cursor: 'pointer'}} p='10px' flexDirection='row' justifyContent='space-between' alignItems='center' borderBottom='1px solid #f1f1f1'>
+              <Typography fontSize='14px' variant='h3' color='#282828'>{item.name}</Typography>
+              <Typography fontSize='14px' variant='h3' color='#282828'>22</Typography>
+            </Stack>
+          </Link>
         )) : ''}
       </Stack>
     </>

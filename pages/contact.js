@@ -6,7 +6,7 @@ import Footer from '../components/home/Footer'
 import Advertisement from '../components/home/Advertisement'
 import homeStyles from '../styles/Home.module.css'
 
-const contact = () => {
+const Contact = () => {
   return (
     <Stack 
         className={contactStyles.backgroundImage}
@@ -63,4 +63,4 @@ const contact = () => {
   )
 }
 
-export default contact
+export default Contact

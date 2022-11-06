@@ -25,8 +25,7 @@ const ListItem = ({ title, description,dataProduct }) => {
             justifyContent='center'
             m='30px 0'
         >   
-            {dataProduct ? dataProduct.map(item => (<Item key={item._id} item={item} title=''/>)) : ''}
-d
+            {dataProduct ? dataProduct.slice(0,9).map(item => (<Item key={item._id} item={item} title=''/>)) : ''}
             <Box className={homeStyles.mainButton} mt='20px' p='10px 20px' backgroundColor='#d3b673' borderRadius='6px' style={{cursor: 'pointer'}}>
                 <Link href='/order'>
                     <Typography className={homeStyles.textButton} textTransform='uppercase' color='#fff'>Xem tất cả</Typography>

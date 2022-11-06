@@ -23,7 +23,7 @@ const Item = ({ item }) => {
           p='30px 0'
         >
           <Typography pb='10px' textTransform='capitalize' fontWeight='600' fontSize='20px'>{item.name}</Typography>
-          <Typography>{item.price}</Typography>
+          <Typography>{item.price}đ</Typography>
           <Box className={homeStyles.mainButton} m='20px 80px 0 80px' p='8px 15px' backgroundColor='#d3b673' borderRadius='6px' style={{cursor: 'pointer'}}>
             <Link href='/order'>
                 <Typography className={homeStyles.textButton} textTransform='uppercase' color='#fff'>Đặt hàng</Typography>

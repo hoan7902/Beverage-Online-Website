@@ -5,16 +5,13 @@ import CartOrder from '../components/order/CartOrder'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const order = () => {
+const Order = () => {
   const [listNameCategory, setListNameCategory] = useState('')
-  const [dataProduct, setDataProduct] = useState('')
 
   useEffect(() => {
     const fetchExercisesData = async () => {
       const res = await axios ('https://sleepy-scrubland-61892.herokuapp.com/category/get-category') 
-      const listProduct = await axios ('https://sleepy-scrubland-61892.herokuapp.com/product/get-product')
       setListNameCategory(res.data.data.listCategory)
-      setDataProduct(listProduct.data.data.listProduct)
     }
     fetchExercisesData()
   })
@@ -24,7 +21,7 @@ const order = () => {
           <CategoryOrder listNameCategory={listNameCategory}/>
         </Box>
         <Stack width='33.33%'>
-          {listNameCategory ? listNameCategory.map(item => <ListOrder id={item._id} title={item.name}/>) : ''}
+          {listNameCategory ? listNameCategory.map(item => <ListOrder key={item._id} id={item._id} title={item.name}/>) : ''}
         </Stack>
         <Box width='33.33%'>
           <CartOrder/>
@@ -33,4 +30,4 @@ const order = () => {
   )
 }
 
-export default order
+export default Order
