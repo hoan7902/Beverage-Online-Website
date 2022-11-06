@@ -9,7 +9,7 @@
     border-radius: 2px;
     margin:auto;
     margin-top:185px;
-    border: solid #333;
+    box-shadow:0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%), 0 9px 28px 8px rgb(0 0 0 / 5%);
     position:relative;
   }
   .auth-form-container-register{
@@ -22,8 +22,8 @@
     height: 600px;
     border-radius: 2px;
     margin:auto;
-    margin-top:185px;
-    border: solid #333;
+    margin-top:100px;
+    box-shadow:0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%), 0 9px 28px 8px rgb(0 0 0 / 5%);
     position:relative;
   }
   .auth-form-container-miss-password{
@@ -38,7 +38,7 @@
     border-radius: 2px;
     margin:auto;
     margin-top:185px;
-    border: solid #333;
+    box-shadow:0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%), 0 9px 28px 8px rgb(0 0 0 / 5%);
     position:relative;
   }
   .Orange_Button{
