@@ -17,7 +17,7 @@ const Item = ({ item }) => {
         m='15px 15px'
     >   
         <Box borderRadius='6px' grey className={homeStyles.wrapperImage}>
-            <Image class={homeStyles.imageProduct} alt='product' src={item.image} style={{height: 50}} borderRadius='5px'/>
+            <Image class={homeStyles.imageProduct} height='300px' width='300px' alt='product' src={item.image} style={{height: 50}} borderRadius='5px'/>
         </Box>
         <Box
           p='30px 0'

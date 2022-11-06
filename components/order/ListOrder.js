@@ -1,6 +1,7 @@
 import { Typography, Stack } from '@mui/material'
 import ItemOrder from './ItemOrder'
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
+import axios from 'axios'
 import orderStyles from '../../styles/Order.module.css'
 import Image from 'next/image'
 import Down from '../../assets/image/chevron-down-solid.svg'
@@ -74,10 +75,25 @@ const fakeApi = [
 
 const ListOrder = ({ title, id }) => {
   const [orderCategory, setOrderCategory] = useState(true)
+  const [listCategoryProduct, setListCategoryProduct] = useState('')
   const element = useRef()
   const handleClick = () => {
     setOrderCategory(!orderCategory)
   }
+
+  useEffect(() => {
+    const fetchExercisesData = async () => {
+      const res = await axios (`https://sleepy-scrubland-61892.herokuapp.com/product/get-product?typeId=${id}`) 
+    //   setListCategoryProduct(res.data.listProduct)
+    //   console.log(listCategoryProduct)
+        if (res.data.data) {
+            setListCategoryProduct(res.data.data.listProduct)
+        }
+        console.log(listCategoryProduct)
+    }
+    fetchExercisesData()
+  }, [id])
+
   return (
     <Stack
         flexDirection='column'
@@ -99,7 +115,7 @@ const ListOrder = ({ title, id }) => {
             ref={element}
             className={orderCategory ? orderStyles.wrapperListOrder : orderStyles.wrapperListOrderHidden}
         >   
-            {fakeApi.map(item => (<ItemOrder key={item.id} item={item} title=''/>))}
+            {listCategoryProduct ? listCategoryProduct.map(item => (<ItemOrder key={item._id} item={item} title=''/>)) : ''}
         </Stack>
     </Stack>
   )

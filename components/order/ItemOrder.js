@@ -15,7 +15,7 @@ const ItemOrder = ({ item }) => {
         mb='15px'
     >   
         <Box borderRadius='6px' grey className={homeStyles.wrapperImage}>
-            <Image class={homeStyles.imageProduct} alt='product' src={item.image} style={{height: 50}} borderRadius='5px'/>
+            <Image class={homeStyles.imageProduct} width='161.25px' height='161.25px' alt='product' src={item.image} style={{height: 50}} borderRadius='5px'/>
         </Box>
         <Stack
           p='10px 0'

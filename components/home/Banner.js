@@ -3,6 +3,7 @@ import { Box, Typography, Stack} from '@mui/material'
 import Mouse from '../../assets/image/ic_scoll.webp'
 import homeStyles from '../../styles/Home.module.css'
 import { Link }  from 'react-scroll'
+import axios from 'axios'
 
 const Banner = () => {
   return (
