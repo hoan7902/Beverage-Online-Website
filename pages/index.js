@@ -11,7 +11,7 @@ import axios from 'axios'
 
 export default function Home() {
   const [dataProduct, setDataProduct] = useState('')
-
+  const { id } = useParams()
   useEffect(() => {
     const fetchExercisesData = async () => {
       const listProduct = await axios ('https://sleepy-scrubland-61892.herokuapp.com/product/get-product')
