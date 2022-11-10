@@ -21,7 +21,7 @@ import Link from "next/link";
 
 const pages = [
     { title: "TRANG CHỦ", link: "/" },
-    { title: "LOẠI ĐỒ UỐNG", link: "#" },
+    { title: "LOẠI ĐỒ UỐNG", link: "/order" },
     { title: "LIÊN HỆ", link: "/contact" },
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
