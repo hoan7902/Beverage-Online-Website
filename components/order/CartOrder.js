@@ -12,7 +12,7 @@ const CartOrder = () => {
                 p="20px"
                 justifyContent="center"
                 backgroundColor="#fff"
-                m="10px 100px"
+                m="60px 100px"
                 borderRadius="5px"
                 height="fit-content"
                 boxShadow="0 2px 7px 0 rgb(0 0 0 / 5%)"

@@ -1,6 +1,7 @@
 import React from "react";
 import { Stack, Typography } from "@mui/material";
 import { Link } from "react-scroll";
+import LoaderWaiting from '../Loader'
 
 const Category = ({ listNameCategory }) => {
     return (
@@ -13,7 +14,7 @@ const Category = ({ listNameCategory }) => {
                 p="20px"
                 justifyContent="center"
                 backgroundColor="#fff"
-                m="10px 100px"
+                m="60px 100px"
                 borderRadius="5px"
                 height="fit-content"
                 boxShadow="0 2px 7px 0 rgb(0 0 0 / 5%)"
@@ -39,11 +40,11 @@ const Category = ({ listNameCategory }) => {
                     ? listNameCategory.map((item) => (
                           <Link
                               key={item._id}
-                              id={item._id}
                               to={item._id}
                               spy={true}
                               smooth={true}
                           >
+                              {console.log(item)}
                               <Stack
                                   sx={{ cursor: "pointer" }}
                                   p="10px"
@@ -64,12 +65,12 @@ const Category = ({ listNameCategory }) => {
                                       variant="h3"
                                       color="#282828"
                                   >
-                                      22
+                                    0
                                   </Typography>
                               </Stack>
                           </Link>
                       ))
-                    : ""}
+                    : <Stack p='20px 0' alignItems='center' justifyContent='center' width='100%'><LoaderWaiting/></Stack>}
             </Stack>
         </>
     );

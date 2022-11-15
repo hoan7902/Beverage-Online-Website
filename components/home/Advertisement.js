@@ -10,7 +10,7 @@ const Advertisement = () => {
         <Stack
             flexDirection="row"
             justifyContent="space-around"
-            backgroundColor="#eee"
+            backgroundColor="#fbfbfb"
             padding="50px 0"
             width="100vw"
         >
