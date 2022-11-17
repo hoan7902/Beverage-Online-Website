@@ -9,6 +9,24 @@ export default function MissPassword() {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
+        fetch("https://sleepy-scrubland-61892.herokuapp.com/user/forgot-password", 
+        {
+        "method": "POST",
+        "headers": {
+        "content-type": "application/json",
+        "accept": "application/json"
+    },
+        "body": JSON.stringify({
+            "phoneNumber": phoneNumber,
+    })
+  })
+  .then(response => response.json())
+  .then(response => {
+    console.log(response)
+  })
+  .catch(err => {
+    console.log(err);
+  });
     };
     return (
         <div className={styles["auth-form-container-miss-password"]}>
