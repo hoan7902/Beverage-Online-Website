@@ -6,7 +6,9 @@ import { useState, useEffect } from "react";
 import 'semantic-ui-css/semantic.min.css'
 import axios from "axios";
 
+
 const Order = () => {
+    const [cart, setCart] = useState([])
     const [listNameCategory, setListNameCategory] = useState("");
     const [listTopping, setListTopping] = useState()
 
@@ -27,7 +29,6 @@ const Order = () => {
         fetchData();
     }, []);
 
-   
     return (
         <Stack
             position="relative"
@@ -47,12 +48,14 @@ const Order = () => {
                               id={item._id}
                               title={item.name}
                               listTopping={listTopping}
+                              cart={cart}
+                              setCart={setCart}
                           />
                       ))
                     : ""}
             </Stack>
             <Box width="30%">
-                <CartOrder />
+                <CartOrder cart={cart} setCart={setCart} />
             </Box>
         </Stack>
     );

@@ -44,7 +44,6 @@ const Category = ({ listNameCategory }) => {
                               spy={true}
                               smooth={true}
                           >
-                              {console.log(item)}
                               <Stack
                                   sx={{ cursor: "pointer" }}
                                   p="10px"

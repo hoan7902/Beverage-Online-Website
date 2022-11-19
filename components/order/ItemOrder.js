@@ -4,7 +4,7 @@ import homeStyles from "../../styles/Home.module.css";
 import Popup from './Popup'
 import { useState } from 'react'
 
-const ItemOrder = ({ item, listTopping }) => {
+const ItemOrder = ({ item, listTopping, cart, setCart }) => {
     const [pop, setPop] = useState(false);
 
     const handleClick = () => {
@@ -68,7 +68,13 @@ const ItemOrder = ({ item, listTopping }) => {
                     </Box>
                 </Stack>
             </Stack>
-            <Popup listTopping={listTopping} item={item} trigger={pop} setPop={setPop}/>
+            <Popup
+                cart={cart}
+                setCart={setCart}
+                listTopping={listTopping}
+                item={item}
+                trigger={pop}
+                setPop={setPop}/>
         </>
     );
 };

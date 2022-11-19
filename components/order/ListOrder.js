@@ -7,7 +7,7 @@ import Image from "next/image";
 import Down from "../../assets/image/chevron-down-solid.svg";
 import LoaderWaiting from '../Loader'
 
-const ListOrder = ({ title, id, listTopping }) => {
+const ListOrder = ({ title, id, listTopping, cart, setCart }) => {
     const [orderCategory, setOrderCategory] = useState(true);
     const [listCategoryProduct, setListCategoryProduct] = useState("");
     const element = useRef();
@@ -80,8 +80,15 @@ const ListOrder = ({ title, id, listTopping }) => {
                 >
                     {listCategoryProduct
                         ? listCategoryProduct.map((item) => (
-                            <ItemOrder listTopping={listTopping} key={item._id} item={item} title="" />
-                        ))
+                            <ItemOrder 
+                                cart={cart}
+                                setCart={setCart}
+                                listTopping={listTopping}
+                                key={item._id}
+                                item={item}
+                                title=""
+                                />
+                            ))
                         : <Stack alignItems='center' justifyContent='center' width='100%'><LoaderWaiting/></Stack>}
                 </Stack>
             </Stack>

@@ -3,17 +3,75 @@ import stylesOrder from '../../styles/Order.module.css'
 import stylesHome from '../../styles/Home.module.css'
 import Image from 'next/image'
 import CloseIcon from '@mui/icons-material/Close';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-const Popup = ({ item, trigger, setPop, listTopping }) => {
+
+const typeTopping = []
+const Popup = ({ item, trigger, setPop, listTopping, cart, setCart }) => {
+  const [isChecked, setIsChecked] = useState(false)
+  const [arrItem, setArrItem] = useState([])
+  const [totalPrice, setTotalPrice] = useState(item.price)
   const [quantity, setQuantity] = useState(1)
 
+  useEffect(() => {
+    const priceOfTopping = 0
+    totalPrice = item.price
+    typeTopping = []
+    listTopping.map((topping, index) => {
+      if(arrItem.includes(index)) {
+        priceOfTopping += topping.price
+        const object = {
+          name: topping.name,
+          price: topping.price
+        }
+        typeTopping.push(object)
+      }
+    })
+    setTotalPrice((totalPrice + priceOfTopping) * quantity)
+  }, [isChecked])
+
   const dropQuantity = () => {
-    if (quantity >= 1) setQuantity(quantity - 1)
+    if (quantity >= 1) {
+      setQuantity(quantity - 1)
+      setTotalPrice(totalPrice - totalPrice / (quantity))
+    }
   }
 
   const riseQuantity = () => {
     setQuantity(quantity + 1)
+    setTotalPrice(totalPrice + totalPrice / (quantity))
+
+  }
+
+  const addToCart = () => {
+      setCart([...cart, {
+        name: item.name,
+        totalPrice: totalPrice,
+        image: item.image,
+        quantity: quantity,
+        typeTopping: typeTopping
+      }])
+      setTotalPrice(item.price)
+      setQuantity(1)
+      setArrItem([])
+      setPop(false)
+      typeTopping = []
+  }
+  const handleChange = (price, value) => {
+    //arrItem is array of Topping
+    if(!arrItem.includes(value)) {
+      setArrItem(arrItem => [...arrItem, value])
+      setIsChecked(!isChecked)
+    }
+    else {
+      const indexRm = arrItem.indexOf(value)
+      setArrItem(pre => {
+        const temp = pre
+        temp.splice(indexRm, 1)
+        setIsChecked(!isChecked)
+        return temp
+      })
+    }
   }
 
   return (
@@ -44,15 +102,19 @@ const Popup = ({ item, trigger, setPop, listTopping }) => {
                     fontSize='14px'
                     variant='h1'
                     letterSpacing={1}
+                    onClick={addToCart}
                   >
-                    {quantity * item.price}đ
+                    {totalPrice}đ
                   </Typography>
                 </Box>
               </Stack>
             </Stack>
             <CloseIcon className={stylesOrder.closeButton} onClick={() => {
-              setPop(false)
+              setTotalPrice(item.price)
               setQuantity(1)
+              setArrItem([])
+              setPop(false)
+              typeTopping = []
             }}
               cursor='pointer' />
           </Stack>
@@ -78,14 +140,13 @@ const Popup = ({ item, trigger, setPop, listTopping }) => {
               </Typography>
             </Stack>
             {listTopping
-              ? listTopping.map((item) => (
+              ? listTopping.map((item, index) => (
                 <Stack
                   key={item._id}
                   to={item._id}
                   spy={true}
                   smooth={true}
                 >
-                  {console.log(item)}
                   <Stack
                     sx={{ cursor: "pointer" }}
                     p="10px"
@@ -112,7 +173,11 @@ const Popup = ({ item, trigger, setPop, listTopping }) => {
                       >
                         + {item.price}đ
                       </Typography>
-                      <input type='checkbox'/>
+                      <input 
+                        type='checkbox'
+                        value={isChecked}
+                        onChange={() => handleChange(item.price, index)}  
+                      />
                     </Stack>
                     
                   </Stack>
