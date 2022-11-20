@@ -2,10 +2,10 @@ import React, { useState} from "react";
 import styles from '../../styles/Login.module.css';
 export default function Authentication()
 {
-    const [phoneNumber,setPhoneNumber]=useState("");
-    const handlePhoneNumberChage = (e) => {
+    const [code,setCode]=useState("");
+    const handleCodeChange = (e) => {
       
-        setPhoneNumber(e.target.value);
+        setCode(e.target.value);
     };
     const handleSubmit=(e)=>{
         e.preventDefault();
@@ -17,7 +17,7 @@ export default function Authentication()
         "accept": "application/json"
     },
         "body": JSON.stringify({
-            "phoneNumber": phoneNumber,
+            "phoneNumber": localStorage.getItem("phoneNumber").slice(1,localStorage.getItem("phoneNumber").length-1)
     })
   })
   .then(response => response.json())
@@ -34,17 +34,17 @@ export default function Authentication()
                 <h2 className={styles.title}>Xác thực số điện thoại</h2>
                 <div>
                     <span className={styles["min-text-block"]}>
-                        Vui lòng nhập số điện thoại để xác thực và sau đó nhấn nút "Gửi".
+                        Vui lòng nhập mã được gửi đến số điện thoại để xác thực và sau đó nhấn nút "Gửi".
                     </span>
                 </div>
                 <div className={styles["pass-word"]}>
-                    <span id={styles["medium-text-icon"]}>Số điện thoại</span>
+                    <span id={styles["medium-text-icon"]}>Mã xác thực</span>
                     <div className={styles["pass-word-input"]}>
                         <span className={styles["pass-word-input-hide"]}>
                             <input
                                 className={styles["pass-input"]}
-                                value={phoneNumber}
-                                onChange={handlePhoneNumberChage}
+                                value={code}
+                                onChange={handleCodeChange}
                                 type="text"
                                 
                             />
