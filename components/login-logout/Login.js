@@ -1,20 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, createContext, useContext} from "react";
 import Image from "next/image";
 import { Icon } from "react-icons-kit";
 import { eyeOff } from "react-icons-kit/feather/eyeOff";
 import { eye } from "react-icons-kit/feather/eye";
 import styles from '../../styles/Login.module.css';
 import Logo from '../../assets/image/vietnam-flag.png';
-export default function Login() {
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [pass, setPass] = useState("");
-    const handlePhoneChange = (e) => {
-        setPhoneNumber(e.target.value);
-    };
+const PassWord=({name})=>{
+    const {pass,setPass}=useContext(PassContext);
     const handlePassChange = (e) => {
-        setPass(e.target.value);
+      setPass(e.target.value);
     };
-    const [type, setType] = useState("password");
+    const [type, setType] = useState("");
     const [icon, setIcon] = useState(eyeOff);
     const handleHidePassword = () => {
         if (type === "password") {
@@ -25,6 +21,38 @@ export default function Login() {
             setType("password");
         }
     };
+    return (
+            <div className={styles["pass-word"]}>
+                    <span id={styles["medium-text-icon"]}>{name}</span>
+                    <div className={styles["pass-word-input"]}>
+                        <span className={styles["pass-word-input-hide"]}>
+                            <input
+                                className={styles["pass-input"]}
+                                value={pass}
+                                onChange={handlePassChange}
+                                type={type}
+                                
+                            />
+                            <Icon
+                                className={styles["pass-word-icon"]}
+                                onClick={handleHidePassword}
+                                icon={icon}
+                            />
+                        </span>
+                    </div>
+                </div>
+        
+                
+    );
+}
+export const PassContext=createContext();
+export default function Login() {
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [pass, setPass] = useState("");
+    const handlePhoneChange = (e) => {
+        setPhoneNumber(e.target.value);
+    };
+  
     const handleSubmit = (e) => {
         e.preventDefault();
         // creates entity
@@ -36,21 +64,29 @@ fetch("https://sleepy-scrubland-61892.herokuapp.com/user/login-user", {
     },
     "body": JSON.stringify({
         "phoneNumber": phoneNumber,
-        "password": pass
+        "password": pass,
+
     })
+   
   })
+  
   .then(response => response.json())
   .then(response => {
-    console.log(response)
+    console.log(response);
+    localStorage.setItem("_id",JSON.stringify(response.data.user._id));
+    localStorage.setItem("phoneNumber",JSON.stringify(response.data.user.phoneNumber));
+    localStorage.setItem('pass',pass);
   })
   .catch(err => {
     console.log(err);
   });
-        
+   
     };
 
     return (
-        <div className={styles["auth-form-container-login"]}>
+        
+        <PassContext.Provider value={{pass,setPass}}>
+            <div className={styles["auth-form-container-login"]}>
             <form onSubmit={handleSubmit} className={styles.login}>
                 <h2 className={styles.title}>Đăng nhập</h2>
                 <div className={styles["phone-number"]}>
@@ -74,24 +110,8 @@ fetch("https://sleepy-scrubland-61892.herokuapp.com/user/login-user", {
                         </div>
                     </div>
                 </div>
-                <div className={styles["pass-word"]}>
-                    <span id={styles["phone-size"]}>Mật khẩu</span>
-                    <div className={styles["pass-word-input"]}>
-                        <span className={styles["pass-word-input-hide"]}>
-                            <input
-                                className={styles["pass-input"]}
-                                value={pass}
-                                onChange={handlePassChange}
-                                type={type}
-                            />
-                            <Icon
-                                className={styles["pass-word-icon"]}
-                                onClick={handleHidePassword}
-                                icon={icon}
-                            />
-                        </span>
-                    </div>
-                </div>
+                <PassWord name="Mật Khẩu"/>
+                
                 <span className={`${styles["min-text-gray"]} ${styles["min-text"]}`}>
                     Quên mật khẩu?
                     <a href="/misspassword" className={`${styles["forward"]} ${styles["min-text"]}`}>
@@ -112,5 +132,7 @@ fetch("https://sleepy-scrubland-61892.herokuapp.com/user/login-user", {
             </div>
             
         </div>
+        </PassContext.Provider>
+        
     );
 }

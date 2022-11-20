@@ -91,25 +91,27 @@ export default function Register() {
     const [confirmpass,setConFirmPass]=useState("");
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch("https://sleepy-scrubland-61892.herokuapp.com/user/create-user", 
-        {
-        "method": "POST",
-        "headers": {
-        "content-type": "application/json",
-        "accept": "application/json"
-    },
-        "body": JSON.stringify({
-            "phoneNumber": phoneNumber,
-            "password":pass
-    })
-  })
-  .then(response => response.json())
-  .then(response => {
-    console.log(response)
-  })
-  .catch(err => {
-    console.log(err);
-  });
+//         fetch("https://sleepy-scrubland-61892.herokuapp.com/user/create-user", 
+//         {
+//         "method": "POST",
+//         "headers": {
+//         "content-type": "application/json",
+//         "accept": "application/json"
+//     },
+//         "body": JSON.stringify({
+//             "phoneNumber": phoneNumber,
+//             "password":pass
+//     })
+//   })
+//   .then(response => response.json())
+//   .then(response => {
+//     console.log(response);
+       localStorage.setItem("phoneNumber",JSON.stringify(response.data.user.phoneNumber));
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
+console.log(pass);
     };
     return (
         <PassContext.Provider value={{pass,setPass}}>
@@ -165,5 +167,6 @@ export default function Register() {
         </div>
         </ConFirmPassContext.Provider>
         </PassContext.Provider>
+        
     );
 }
