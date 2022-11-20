@@ -38,7 +38,7 @@ export default function Authentication()
                     </span>
                 </div>
                 <div className={styles["pass-word"]}>
-                    <span id={styles["medium-text-icon"]}>Số điện thoại</span>
+                    <span id={styles["medium-text-icon"]}>Mã xác thực</span>
                     <div className={styles["pass-word-input"]}>
                         <span className={styles["pass-word-input-hide"]}>
                             <input
