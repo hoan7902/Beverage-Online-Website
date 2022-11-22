@@ -34,7 +34,7 @@ export default function Authentication()
                 <h2 className={styles.title}>Xác thực số điện thoại</h2>
                 <div>
                     <span className={styles["min-text-block"]}>
-                        Vui lòng nhập mã được gửi đến số điện thoại để xác thực và sau đó nhấn nút "Gửi".
+                        Vui lòng nhập mã được gửi đến số điện thoại để xác thực và sau đó nhấn nút &quot;Gửi&quot;.
                     </span>
                 </div>
                 <div className={styles["pass-word"]}>

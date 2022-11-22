@@ -1,4 +1,3 @@
-import {Typography} from "@mui/material";
 import Box from '@mui/material/Box';
 import ResponsiveAppBar from '../../components/menu';
 import styles from '../../styles/Profile.module.css';
@@ -7,6 +6,7 @@ import Advertisement from '../../components/home/Advertisement';
 import * as React from 'react';
 import styled from "styled-components";
 import Link from "next/link";
+
 function Address(){
     
     return (
@@ -114,10 +114,3 @@ margin-top:100px;
 width:300px;
 background-color:#fff;
 `;
-const PhoneInput=styled.div`
-display:flex;
-justify-content:flex-start;
-`;
-const SmallTitle=styled.span`
-padding-bottom:10px;
-`

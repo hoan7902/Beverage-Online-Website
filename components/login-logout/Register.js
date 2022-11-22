@@ -6,6 +6,8 @@ import Image from "next/image";
 import styles from '../../styles/Login.module.css';
 import Logo from '../../assets/image/vietnam-flag.png';
 import Link from "next/link";
+import styled from "styled-components";
+
 const PassWord=({name})=>{
     const {pass,setPass}=useContext(PassContext);
     const handlePassChange = (e) => {
@@ -91,26 +93,26 @@ export default function Register() {
     const [confirmpass,setConFirmPass]=useState("");
     const handleSubmit = (e) => {
         e.preventDefault();
-//         fetch("https://sleepy-scrubland-61892.herokuapp.com/user/create-user", 
-//         {
-//         "method": "POST",
-//         "headers": {
-//         "content-type": "application/json",
-//         "accept": "application/json"
-//     },
-//         "body": JSON.stringify({
-//             "phoneNumber": phoneNumber,
-//             "password":pass
-//     })
-//   })
-//   .then(response => response.json())
-//   .then(response => {
-//     console.log(response);
-       localStorage.setItem("phoneNumber",JSON.stringify(response.data.user.phoneNumber));
-//   })
-//   .catch(err => {
-//     console.log(err);
-//   });
+        fetch("https://sleepy-scrubland-61892.herokuapp.com/user/create-user", 
+        {
+        "method": "POST",
+        "headers": {
+        "content-type": "application/json",
+        "accept": "application/json"
+    },
+        "body": JSON.stringify({
+            "phoneNumber": phoneNumber,
+            "password":pass
+    })
+  })
+  .then(response => response.json())
+  .then(response => {
+    console.log(response);
+    localStorage.setItem("phoneNumber",JSON.stringify(response.data.user.phoneNumber));
+  })
+  .catch(err => {
+    console.log(err);
+  });
 console.log(pass);
     };
     return (
@@ -145,7 +147,7 @@ console.log(pass);
                     <ConFirmPassWord name="Nhập lại mật khẩu"/>
                     
                 <span className={styles["min-text"]}>
-                    Vui lòng nhấn "Tiếp theo" để nhận mã xác thực. Mã
+                    Vui lòng nhấn &quot;Tiếp theo&quot; để nhận mã xác thực. Mã
                     xác thực sẽ được gửi đến tin nhắn điện thoại của bạn
                 </span>
                 <button type="submit" className={styles["Orange_Button"]}>
@@ -156,11 +158,11 @@ console.log(pass);
                 
             </form>
             <div className={styles["note"]}>
-            <span>
+            <span style={{display:'flex'}}>
                     Đã có tài khoản?
-                    <a href="/login" className={styles.forward}>
-                        Đăng nhập
-                    </a>
+                    <Link href="/login">
+                        <CustomLink style={{color:"orange"}}>Đăng nhập</CustomLink>
+                    </Link>
                 </span>
             </div>
            
@@ -170,3 +172,11 @@ console.log(pass);
         
     );
 }
+const CustomLink=styled.p`
+padding-left: 5px;
+color:rgb(235, 113, 0);
+font-size: 16px;
+text-decoration: none;
+margin:0;
+cursor:pointer;
+`;

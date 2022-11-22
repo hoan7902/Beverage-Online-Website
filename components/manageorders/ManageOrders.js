@@ -1,5 +1,3 @@
-import {Typography} from "@mui/material";
-import Box from '@mui/material/Box';
 import ResponsiveAppBar from '../../components/menu';
 import styles from '../../styles/Profile.module.css';
 import Footer from '../../components/home/Footer';
@@ -8,7 +6,6 @@ import * as React from 'react';
 import styled from "styled-components";
 import Link from "next/link";
 import {useState} from 'react';
-import FontAwesomeIcon from '@fortawesome/free-solid-svg-icons';
 
 function ManageOrders(){
     const [status,setStatus]=useState(1);

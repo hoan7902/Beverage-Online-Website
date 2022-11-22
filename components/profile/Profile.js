@@ -265,6 +265,3 @@ const PhoneInput=styled.div`
 display:flex;
 justify-content:flex-start;
 `;
-const SmallTitle=styled.span`
-padding-bottom:10px;
-`

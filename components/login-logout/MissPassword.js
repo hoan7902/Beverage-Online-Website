@@ -35,7 +35,7 @@ export default function MissPassword() {
                 <div>
                     <span className={styles["min-text-block"]}>
                         Chỉ cần nhập số điện thoại của bạn và bấm vào nút
-                        "Gửi", chúng tôi sẽ gửi mật khẩu tạm thời đến số
+                        &quot;Gửi&quot;, chúng tôi sẽ gửi mật khẩu tạm thời đến số
                         điện thoại của bạn ngay lập tức
                     </span>
                 </div>

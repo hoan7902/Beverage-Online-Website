@@ -5,6 +5,9 @@ import { eyeOff } from "react-icons-kit/feather/eyeOff";
 import { eye } from "react-icons-kit/feather/eye";
 import styles from '../../styles/Login.module.css';
 import Logo from '../../assets/image/vietnam-flag.png';
+import Link from "next/link";
+import styled from "styled-components";
+
 const PassWord=({name})=>{
     const {pass,setPass}=useContext(PassContext);
     const handlePassChange = (e) => {
@@ -114,9 +117,9 @@ fetch("https://sleepy-scrubland-61892.herokuapp.com/user/login-user", {
                 
                 <span className={`${styles["min-text-gray"]} ${styles["min-text"]}`}>
                     Quên mật khẩu?
-                    <a href="/misspassword" className={`${styles["forward"]} ${styles["min-text"]}`}>
-                        Cài đặt lại mật khẩu
-                    </a>
+                    <Link href="/misspassword">
+                        <SmallLink>Cài đặt lại mật khẩu</SmallLink>
+                    </Link>
                 </span>
                 <button type="submit" className={styles["Orange_Button"]}>
                     <span>Đăng nhập</span>
@@ -125,9 +128,11 @@ fetch("https://sleepy-scrubland-61892.herokuapp.com/user/login-user", {
             <div className={styles["note"]}>
             <span className={styles["medium-text"]}>
                 Chưa có tài khoản?
-                <a href="/register" className={styles.forward}>
-                    Đăng ký
-                </a>
+                
+                <Link href="/register">
+                    <CustomLink>Đăng ký</CustomLink>
+                </Link>
+               
             </span>
             </div>
             
@@ -136,3 +141,20 @@ fetch("https://sleepy-scrubland-61892.herokuapp.com/user/login-user", {
         
     );
 }
+
+const CustomLink=styled.p`
+padding-left: 5px;
+color:rgb(235, 113, 0);
+font-size: 16px;
+text-decoration: none;
+margin:0;
+cursor:pointer;
+`;
+const SmallLink=styled.p`
+padding-left: 5px;
+color:rgb(235, 113, 0);
+font-size: 14px;
+text-decoration: none;
+margin:0;
+cursor:pointer;
+`;
