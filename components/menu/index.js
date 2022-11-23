@@ -287,10 +287,7 @@ function ResponsiveAppBar({ inputColor }) {
                                     onClick={handleCloseUserMenu}
                                 >
                                     <Typography textAlign="center">
-                                        <Link href='/profile'>
-                                        {setting}
-                                        </Link>
-                                        
+                                        <Link href="/profile">{setting}</Link>
                                     </Typography>
                                 </MenuItem>
                             ))}
