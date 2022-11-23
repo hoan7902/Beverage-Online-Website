@@ -7,9 +7,9 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
+// import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
+// import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import SearchIcon from "@mui/icons-material/Search";
@@ -18,10 +18,14 @@ import InputBase from "@mui/material/InputBase";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import style from "./style.module.scss";
 import Link from "next/link";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 42d5d66c2abe252cbc80b1c088d724b5f26b135f
 const pages = [
-    { title: "TRANG CHỦ", href: "/" },
-    { title: "LOẠI ĐỒ UỐNG", link: "" },
-    { title: "LIÊN HỆ", link: "" },
+    { title: "TRANG CHỦ", link: "/" },
+    { title: "LOẠI ĐỒ UỐNG", link: "#" },
+    { title: "LIÊN HỆ", link: "/contact" },
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -67,17 +71,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({ inputColor }) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const [color, setColor] = React.useState("transparent");
+    const [color, setColor] = React.useState(inputColor || "transparent");
 
+    console.log(inputColor);
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
-    };
+    // const handleOpenUserMenu = (event) => {
+    //     setAnchorElUser(event.currentTarget);
+    // };
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
@@ -96,7 +101,7 @@ function ResponsiveAppBar() {
         return () => {
             removeEventListener("scroll", changeColor);
         };
-    }, []);
+    }, [inputColor]);
 
     return (
         <AppBar
@@ -104,7 +109,11 @@ function ResponsiveAppBar() {
             color={color}
             id="menu-top"
             className={
-                color === "transparent" ? style.transparent : style.green
+                !inputColor
+                    ? color === "transparent"
+                        ? style.transparent
+                        : style.green
+                    : style.green
             }
         >
             <Container maxWidth="xl">
@@ -169,9 +178,11 @@ function ResponsiveAppBar() {
                                     key={page.title}
                                     onClick={handleCloseNavMenu}
                                 >
-                                    <Typography textAlign="center">
-                                        {page.title}
-                                    </Typography>
+                                    <Link href={page?.link}>
+                                        <Typography textAlign="center">
+                                            {page.title}
+                                        </Typography>
+                                    </Link>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -209,7 +220,7 @@ function ResponsiveAppBar() {
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: "white", display: "block" }}
                             >
-                                {page.title}
+                                <Link href={page?.link}>{page.title}</Link>
                             </Button>
                         ))}
                     </Box>
@@ -242,7 +253,7 @@ function ResponsiveAppBar() {
                         <ShoppingCartIcon />
                     </Box>
                     <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
+                        {/* <Tooltip title="Open settings">
                             <IconButton
                                 onClick={handleOpenUserMenu}
                                 sx={{ p: 0 }}
@@ -252,7 +263,12 @@ function ResponsiveAppBar() {
                                     src="/static/images/avatar/2.jpg"
                                 />
                             </IconButton>
-                        </Tooltip>
+                        </Tooltip> */}
+                        <Link href="/login">
+                            <Button variant="outlined" color="inherit">
+                                Đăng Nhập
+                            </Button>
+                        </Link>
                         <Menu
                             sx={{ mt: "45px" }}
                             id="menu-appbar"

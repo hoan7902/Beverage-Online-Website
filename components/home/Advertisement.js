@@ -10,9 +10,9 @@ const Advertisement = () => {
         <Stack
             flexDirection="row"
             justifyContent="space-around"
-            mt="100px"
             backgroundColor="#eee"
             padding="50px 0"
+            width="100vw"
         >
             <Stack textAlign="center">
                 <Image src={Drink} alt="drink" height={200} width={200} />

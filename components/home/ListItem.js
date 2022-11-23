@@ -1,58 +1,11 @@
 import { Box, Typography, Stack } from "@mui/material";
+import Link from "next/link";
 import Image from "next/image";
 import homeStyles from "../../styles/Home.module.css";
 import Item from "./Item";
 import Homeline from "../../assets/image/home_line.webp";
 
-const fakeApi = [
-    {
-        id: "1",
-        price: "69.000 VND",
-        name: "Trà Sữa Truyền Thống",
-    },
-    {
-        id: "2",
-        price: "69.000 VND",
-        name: "Trà Sữa Truyền Thống",
-    },
-    {
-        id: "3",
-        price: "69.000 VND",
-        name: "Trà Sữa Truyền Thống",
-    },
-    {
-        id: "4",
-        price: "69.000 VND",
-        name: "Trà Sữa Truyền Thống",
-    },
-    {
-        id: "5",
-        price: "69.000 VND",
-        name: "Trà Sữa Truyền Thống",
-    },
-    {
-        id: "6",
-        price: "69.000 VND",
-        name: "Trà Sữa Truyền Thống",
-    },
-    {
-        id: "7",
-        price: "69.000 VND",
-        name: "Trà Sữa Truyền Thống",
-    },
-    {
-        id: "8",
-        price: "69.000 VND",
-        name: "Trà Sữa Truyền Thống",
-    },
-    {
-        id: "9",
-        price: "69.000 VND",
-        name: "Trà Sữa Truyền Thống",
-    },
-];
-
-const ListItem = ({ title, description }) => {
+const ListItem = ({ title, description, dataProduct }) => {
     return (
         <Stack
             flexDirection="column"
@@ -60,6 +13,7 @@ const ListItem = ({ title, description }) => {
             justifyContent="center"
             alignItems="center"
             mt="60px"
+            id="home"
         >
             <Typography
                 p="10px"
@@ -89,9 +43,13 @@ const ListItem = ({ title, description }) => {
                 justifyContent="center"
                 m="30px 0"
             >
-                {fakeApi.map((item) => (
-                    <Item key={item.id} item={item} title="" />
-                ))}
+                {dataProduct
+                    ? dataProduct
+                          .slice(0, 9)
+                          .map((item) => (
+                              <Item key={item._id} item={item} title="" />
+                          ))
+                    : ""}
                 <Box
                     className={homeStyles.mainButton}
                     mt="20px"
@@ -100,13 +58,15 @@ const ListItem = ({ title, description }) => {
                     borderRadius="6px"
                     style={{ cursor: "pointer" }}
                 >
-                    <Typography
-                        className={homeStyles.textButton}
-                        textTransform="uppercase"
-                        color="#fff"
-                    >
-                        Xem tất cả
-                    </Typography>
+                    <Link href="/order">
+                        <Typography
+                            className={homeStyles.textButton}
+                            textTransform="uppercase"
+                            color="#fff"
+                        >
+                            Xem tất cả
+                        </Typography>
+                    </Link>
                 </Box>
             </Stack>
         </Stack>

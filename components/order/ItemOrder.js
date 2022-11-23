@@ -1,63 +1,61 @@
 import { Box, Typography, Stack } from "@mui/material";
 import Image from "next/image";
 import homeStyles from "../../styles/Home.module.css";
-import Link from "next/link";
 
-const Item = ({ item }) => {
+const ItemOrder = ({ item }) => {
     return (
         <Stack
             justifyContent="center"
             textAlign="center"
-            width="300px"
-            margin="0 20px"
+            width="31.5%"
             backgroundColor="#fff"
             borderRadius="5px"
             boxShadow="0px 2px 1.5px 0px #ccc"
-            className={homeStyles.item}
-            m="15px 15px"
+            alignItems="center"
+            mb="15px"
         >
             <Box borderRadius="6px" grey className={homeStyles.wrapperImage}>
                 <Image
                     class={homeStyles.imageProduct}
-                    height="300px"
-                    width="300px"
+                    width="161.25px"
+                    height="161.25px"
                     alt="product"
                     src={item.image}
                     style={{ height: 50 }}
                     borderRadius="5px"
                 />
             </Box>
-            <Box p="30px 0">
+            <Stack p="10px 0" justifyContent="center" alignItems="center">
                 <Typography
-                    pb="10px"
+                    p="10px"
                     textTransform="capitalize"
                     fontWeight="600"
-                    fontSize="20px"
+                    fontSize="13px"
                 >
                     {item.name}
                 </Typography>
-                <Typography>{item.price}đ</Typography>
+                <Typography fontSize="13px">{item.price}đ</Typography>
                 <Box
                     className={homeStyles.mainButton}
-                    m="20px 80px 0 80px"
-                    p="8px 15px"
+                    width="100px"
+                    m="10px 20px"
+                    p="5px 10px"
                     backgroundColor="#d3b673"
                     borderRadius="6px"
                     style={{ cursor: "pointer" }}
                 >
-                    <Link href="/order">
-                        <Typography
-                            className={homeStyles.textButton}
-                            textTransform="uppercase"
-                            color="#fff"
-                        >
-                            Đặt hàng
-                        </Typography>
-                    </Link>
+                    <Typography
+                        className={homeStyles.textButton}
+                        textTransform="uppercase"
+                        color="#fff"
+                        fontSize="13px"
+                    >
+                        Đặt hàng
+                    </Typography>
                 </Box>
-            </Box>
+            </Stack>
         </Stack>
     );
 };
 
-export default Item;
+export default ItemOrder;

@@ -6,7 +6,12 @@ import homeStyles from "../../styles/Home.module.css";
 
 const Promotion = () => {
     return (
-        <Stack justifyContent="center" alignItems="center" width="100%">
+        <Stack
+            justifyContent="center"
+            alignItems="center"
+            width="100%"
+            mb="100px"
+        >
             <Stack justifyContent="center" alignItems="center">
                 <Typography
                     p="10px"
