@@ -34,15 +34,9 @@ export default function MissPassword() {
                 <h2 className={styles.title}>Quên mật khẩu</h2>
                 <div>
                     <span className={styles["min-text-block"]}>
-<<<<<<< HEAD
                         Chỉ cần nhập số điện thoại của bạn và bấm vào nút
                         &quot;Gửi&quot;, chúng tôi sẽ gửi mật khẩu tạm thời đến số
                         điện thoại của bạn ngay lập tức
-=======
-                        {`Chỉ cần nhập số điện thoại của bạn và bấm vào nút
-                        "Gửi", chúng tôi sẽ gửi mật khẩu tạm thời đến số
-                        điện thoại của bạn ngay lập tức`}
->>>>>>> 42d5d66c2abe252cbc80b1c088d724b5f26b135f
                     </span>
                 </div>
                 <div className={styles["phone-number"]}>
