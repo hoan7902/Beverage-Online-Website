@@ -5,8 +5,9 @@ import axios from "axios";
 import orderStyles from "../../styles/Order.module.css";
 import Image from "next/image";
 import Down from "../../assets/image/chevron-down-solid.svg";
+import LoaderWaiting from "../Loader";
 
-const ListOrder = ({ title, id }) => {
+const ListOrder = ({ title, id, listTopping, cart, setCart }) => {
     const [orderCategory, setOrderCategory] = useState(true);
     const [listCategoryProduct, setListCategoryProduct] = useState("");
     const element = useRef();
@@ -19,8 +20,6 @@ const ListOrder = ({ title, id }) => {
             const res = await axios(
                 `https://sleepy-scrubland-61892.herokuapp.com/product/get-product?typeId=${id}`
             );
-            //   setListCategoryProduct(res.data.listProduct)
-            //   console.log(listCategoryProduct)
             if (res.data.data) {
                 setListCategoryProduct(res.data.data.listProduct);
             }
@@ -29,61 +28,78 @@ const ListOrder = ({ title, id }) => {
     }, [id]);
 
     return (
-        <Stack
-            flexDirection="column"
-            width="100%"
-            justifyContent="center"
-            mt="10px"
-            id={id}
-        >
+        <>
             <Stack
-                flexDirection="row"
-                alignItems="center"
-                justifyContent="space-between"
+                flexDirection="column"
+                width="100%"
+                justifyContent="center"
+                mt="10px"
+                id={id}
             >
-                <Typography
-                    m="20px 0px"
-                    fontWeight={600}
-                    variant="h1"
-                    fontSize="16px"
+                <Stack
+                    flexDirection="row"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    m="15px 0"
                 >
-                    {title}
-                </Typography>
-                <Typography
-                    onClick={handleClick}
-                    style={{ cursor: "pointer" }}
-                    m="20px 0px"
-                    fontWeight={600}
-                    variant="h2"
-                    fontSize="16px"
+                    <Typography
+                        ml="20px"
+                        fontWeight={600}
+                        variant="h1"
+                        fontSize="16px"
+                    >
+                        {title}
+                    </Typography>
+                    <Typography
+                        onClick={handleClick}
+                        style={{ cursor: "pointer" }}
+                        fontWeight={600}
+                        variant="h2"
+                        fontSize="16px"
+                        mr="20px"
+                    >
+                        <Image
+                            className={orderStyles.iconDownListOrder}
+                            height={15}
+                            width={15}
+                            src={Down}
+                            alt="down"
+                        />
+                    </Typography>
+                </Stack>
+                <Stack
+                    flexDirection="row"
+                    flexWrap="wrap"
+                    ref={element}
+                    className={
+                        orderCategory
+                            ? orderStyles.wrapperListOrder
+                            : orderStyles.wrapperListOrderHidden
+                    }
                 >
-                    <Image
-                        className={orderStyles.iconDownListOrder}
-                        height={15}
-                        width={15}
-                        src={Down}
-                        alt="down"
-                    />
-                </Typography>
+                    {listCategoryProduct ? (
+                        listCategoryProduct.map((item) => (
+                            <ItemOrder
+                                cart={cart}
+                                setCart={setCart}
+                                listTopping={listTopping}
+                                key={item._id}
+                                item={item}
+                                title=""
+                            />
+                        ))
+                    ) : (
+                        <Stack
+                            alignItems="center"
+                            justifyContent="center"
+                            width="100%"
+                        >
+                            <LoaderWaiting />
+                        </Stack>
+                    )}
+                </Stack>
             </Stack>
-            <Stack
-                flexDirection="row"
-                flexWrap="wrap"
-                justifyContent="space-between"
-                ref={element}
-                className={
-                    orderCategory
-                        ? orderStyles.wrapperListOrder
-                        : orderStyles.wrapperListOrderHidden
-                }
-            >
-                {listCategoryProduct
-                    ? listCategoryProduct.map((item) => (
-                          <ItemOrder key={item._id} item={item} title="" />
-                      ))
-                    : ""}
-            </Stack>
-        </Stack>
+        </>
     );
 };
 

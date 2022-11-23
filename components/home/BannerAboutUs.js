@@ -6,7 +6,7 @@ import Homeline from "../../assets/image/home_line.webp";
 const BannerAboutUs = () => {
     return (
         <Stack
-            m="40px 180px"
+            m="5px 180px 40px 180px"
             flexDirection="row"
             justifyContent="flex-end"
             position="relative"
