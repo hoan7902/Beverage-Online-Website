@@ -3,6 +3,7 @@ image: node:14
 stages:
     - lint
     - build
+    - deploy
 
 # Cache the folder node_modules
 cache:
