@@ -3,17 +3,20 @@ import Image from "next/image";
 import homeStyles from "../../styles/Home.module.css";
 import Popup from './Popup'
 import { useState } from 'react'
+import Router from "next/router";
 
 const ItemOrder = ({ item, listTopping, cart, setCart }) => {
     const [pop, setPop] = useState(false);
-
     const handleClick = () => {
-        setPop(true)
+        const test = localStorage.getItem('_id');
+        if(test) setPop(true)
+        else Router.push('/login')
+        setPop(true);
     }
     return (
         <>
             <Stack
-                position='relative'
+                position="relative"
                 justifyContent="center"
                 textAlign="center"
                 width="31.5%"
@@ -22,9 +25,13 @@ const ItemOrder = ({ item, listTopping, cart, setCart }) => {
                 boxShadow="0px 2px 1.5px 0px #ccc"
                 alignItems="center"
                 mb="10px"
-                ml='10px'
+                ml="10px"
             >
-                <Box borderRadius="6px" grey className={homeStyles.wrapperImage}>
+                <Box
+                    borderRadius="6px"
+                    grey
+                    className={homeStyles.wrapperImage}
+                >
                     <Image
                         class={homeStyles.imageProduct}
                         width="161.25px"
@@ -36,7 +43,11 @@ const ItemOrder = ({ item, listTopping, cart, setCart }) => {
                     />
                 </Box>
                 <Stack p="10px 0" justifyContent="center" alignItems="center">
-                    <Stack height='80px' justifyContent='space-between' mb='15px'>
+                    <Stack
+                        height="80px"
+                        justifyContent="space-between"
+                        mb="15px"
+                    >
                         <Typography
                             p="10px"
                             textTransform="capitalize"
@@ -55,13 +66,13 @@ const ItemOrder = ({ item, listTopping, cart, setCart }) => {
                         backgroundColor="#d3b673"
                         borderRadius="6px"
                         style={{ cursor: "pointer" }}
+                        onClick={handleClick}
                     >
                         <Typography
                             className={homeStyles.textButton}
                             textTransform="uppercase"
                             color="#fff"
                             fontSize="13px"
-                            onClick={handleClick}
                         >
                             Đặt hàng
                         </Typography>
@@ -74,7 +85,8 @@ const ItemOrder = ({ item, listTopping, cart, setCart }) => {
                 listTopping={listTopping}
                 item={item}
                 trigger={pop}
-                setPop={setPop}/>
+                setPop={setPop}
+            />
         </>
     );
 };

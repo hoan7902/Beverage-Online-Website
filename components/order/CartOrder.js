@@ -1,27 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Stack, Typography, Box } from "@mui/material";
 import homeStyles from "../../styles/Home.module.css";
+import axios from 'axios'
 
-var getCart = undefined
+// var getCart = undefined
 
 const CartOrder = ({ cart, setCart }) => {
 
-    if (typeof window !== 'undefined') {
-        localStorage.setItem('myCart', JSON.stringify(cart))
-        const temp = localStorage.getItem('myCart')
-        getCart = JSON.parse(temp)
-        console.log(getCart)
-    }
+    const [listProduct, setListProduct] = useState()
+
+    // if (typeof window !== 'undefined') {
+    //     localStorage.setItem('myCart', JSON.stringify(cart))
+    //     const temp = localStorage.getItem('myCart')
+    //     getCart = JSON.parse(temp)
+    // }
 
     const handleDeleteAll = () => {
-        setCart([])
+        // setCart([])
     }
-    
+
+    const deleteItem = async (_id) => {
+        const userId = localStorage.getItem("_id");
+        axios
+            .delete(
+                `https://sleepy-scrubland-61892.herokuapp.com/cart/remove-from-cart?userId=${userId}/${_id}`, {
+                    userId: userId,
+                    productId: _id
+                }
+            )
+            .then((res) =>
+                console.log(
+                    "Delete Success",
+                    res.data,
+                    localStorage.getItem("_id"),
+                    _id
+                )
+            );
+    }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const userId = localStorage.getItem('_id')
+            const res = await axios(
+                `https://sleepy-scrubland-61892.herokuapp.com/cart/get-all-cart?userId=${userId}`
+            );
+            if (res.data.data) {
+                setListProduct(res.data.data);
+            }
+        };
+        fetchData();
+    }, [cart])
 
     return (
-        <>
+        <Box>
             <Stack
-                position="fixed"
+                // position="fixed"
                 width="300px"
                 top="0"
                 right="0"
@@ -60,83 +93,108 @@ const CartOrder = ({ cart, setCart }) => {
                     borderBottom="1px solid #f1f1f1"
                 >
                     {
-                        getCart === undefined || getCart.length === 0 ?
+                        listProduct === undefined || listProduct.length === 0 ?
                             <Typography
                                 width='100%'
                                 fontSize="14px"
                                 variant="h3"
                                 color="#282828"
                             >
+                                
                                 Chưa có sản phẩm nào!
                             </Typography>
                             : 
                             <Stack width='100%'>
                                 {
-                                    getCart.map((item, index) => {
+                                    listProduct.map((item, index) => {
                                         return (
                                             <Stack
-                                                pb='10px'
+                                                pb="10px"
                                                 key={index}
-                                                borderBottom='1px solid #f1f1f1'
+                                                borderBottom="1px solid #f1f1f1"
                                             >
                                                 <Stack
-                                                    p='6px'
-                                                    flexDirection='row'
-                                                    justifyContent='space-between'
+                                                    p="6px"
+                                                    flexDirection="row"
+                                                    justifyContent="space-between"
+                                                    alignItems='center'
                                                 >
                                                     <Typography
-                                                        maxWidth='97px'
-                                                        fontWeight='600'
-                                                        mr='10px'
-                                                        textTransform='capitalize'
-                                                        variant='h3'
-                                                        fontSize='14px'
+                                                        fontWeight="600"
+                                                        maxWidth="120px"
+                                                        mr="10px"
+                                                        variant="h3"
+                                                        fontSize="14px"
                                                     >
-                                                        {item.name}
+                                                        {item.product.name} x{" "}
+                                                        {item.quantity}
                                                     </Typography>
-                                                    <Typography
-                                                        fontWeight={600}
-                                                    >
-                                                        x{item.quantity}
-                                                    </Typography>
-                                                    <Typography fontWeight={600}>{item.totalPrice}đ</Typography>
-                                                </Stack>
-                                                {
-                                                    item.typeTopping.length === 0 ? ''
-                                                        :
-                                                        <Stack
-                                                            ml='20px'
-                                                            justifyContent='space-between'
+
+                                                    <Stack flexDirection="row" justifyContent='center' alignItems='center'>
+                                                        <Typography
+                                                            fontWeight={600}
+                                                            mr="5px"
                                                         >
-                                                            {item.typeTopping.map((item, index) => {
+                                                            {item.product.price}
+                                                            đ
+                                                        </Typography>
+                                                        <Typography onClick={() => deleteItem(item.product._id)} p='10px' style={{cursor: 'pointer'}}>
+                                                            Xóa
+                                                        </Typography>
+                                                    </Stack>
+                                                </Stack>
+                                                {item.listTopping.length ===
+                                                0 ? (
+                                                    ""
+                                                ) : (
+                                                    <Stack
+                                                        ml="20px"
+                                                        justifyContent="space-between"
+                                                    >
+                                                        {item.listTopping.map(
+                                                            (value, index) => {
                                                                 return (
-                                                                    <>
+                                                                    <Box
+                                                                        key={
+                                                                            index
+                                                                        }
+                                                                    >
                                                                         <Stack
-                                                                            key={index}
-                                                                            flexDirection='row'
-                                                                            justifyContent='space-between'
+                                                                            key={
+                                                                                index
+                                                                            }
+                                                                            flexDirection="row"
+                                                                            justifyContent="space-between"
                                                                         >
                                                                             <Typography
-                                                                                p='2px'
-                                                                                fontSize='12px'
-                                                                                mr='10px'
+                                                                                p="2px"
+                                                                                fontSize="12px"
+                                                                                mr="10px"
                                                                             >
-                                                                                {item.name}
+                                                                                {
+                                                                                    value.name
+                                                                                }
                                                                             </Typography>
                                                                             <Typography
-                                                                                p='2px'
-                                                                                fontSize='12px'
+                                                                                p="2px"
+                                                                                fontSize="12px"
                                                                             >
-                                                                                +{item.price}đ
+                                                                                +
+                                                                                {
+                                                                                    value.price
+                                                                                }
+
+                                                                                đ
                                                                             </Typography>
                                                                         </Stack>
-                                                                    </>
-                                                                )
-                                                            })}
-                                                        </Stack>
-                                                }
+                                                                    </Box>
+                                                                );
+                                                            }
+                                                        )}
+                                                    </Stack>
+                                                )}
                                             </Stack>
-                                        )
+                                        );
                                     })
                                 }
                             </Stack>
@@ -160,7 +218,7 @@ const CartOrder = ({ cart, setCart }) => {
                     </Typography>
                 </Box>
             </Stack>
-        </>
+        </Box>
     );
 };
 

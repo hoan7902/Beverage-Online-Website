@@ -6,11 +6,11 @@ import { useState, useEffect } from "react";
 import 'semantic-ui-css/semantic.min.css'
 import axios from "axios";
 
-
 const Order = () => {
     const [cart, setCart] = useState([])
     const [listNameCategory, setListNameCategory] = useState("");
     const [listTopping, setListTopping] = useState()
+    const [render, setRender] = useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -43,15 +43,15 @@ const Order = () => {
             <Stack width="40%">
                 {listNameCategory
                     ? listNameCategory.map((item) => (
-                          <ListOrder
-                              key={item._id}
-                              id={item._id}
-                              title={item.name}
-                              listTopping={listTopping}
-                              cart={cart}
-                              setCart={setCart}
-                          />
-                      ))
+                            <ListOrder
+                                key={item._id}
+                                id={item._id}
+                                title={item.name}
+                                listTopping={listTopping}
+                                cart={cart}
+                                setCart={setCart}
+                            />
+                        ))
                     : ""}
             </Stack>
             <Box width="30%">

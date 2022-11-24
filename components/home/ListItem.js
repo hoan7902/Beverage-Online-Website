@@ -50,15 +50,15 @@ const ListItem = ({ title, description, dataProduct }) => {
                               <Item key={item._id} item={item} title="" />
                           ))
                     : ""}
-                <Box
-                    className={homeStyles.mainButton}
-                    mt="20px"
-                    p="10px 20px"
-                    backgroundColor="#d3b673"
-                    borderRadius="6px"
-                    style={{ cursor: "pointer" }}
-                >
-                    <Link href="/order">
+                <Link href="/order">
+                    <Box
+                        className={homeStyles.mainButton}
+                        mt="20px"
+                        p="10px 20px"
+                        backgroundColor="#d3b673"
+                        borderRadius="6px"
+                        style={{ cursor: "pointer" }}
+                    >
                         <Typography
                             className={homeStyles.textButton}
                             textTransform="uppercase"
@@ -66,8 +66,8 @@ const ListItem = ({ title, description, dataProduct }) => {
                         >
                             Xem tất cả
                         </Typography>
-                    </Link>
-                </Box>
+                    </Box>
+                </Link>
             </Stack>
         </Stack>
     );

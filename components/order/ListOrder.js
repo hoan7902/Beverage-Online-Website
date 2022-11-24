@@ -5,7 +5,7 @@ import axios from "axios";
 import orderStyles from "../../styles/Order.module.css";
 import Image from "next/image";
 import Down from "../../assets/image/chevron-down-solid.svg";
-import LoaderWaiting from '../Loader'
+import LoaderWaiting from "../Loader";
 
 const ListOrder = ({ title, id, listTopping, cart, setCart }) => {
     const [orderCategory, setOrderCategory] = useState(true);
@@ -29,7 +29,6 @@ const ListOrder = ({ title, id, listTopping, cart, setCart }) => {
 
     return (
         <>
-        
             <Stack
                 flexDirection="column"
                 width="100%"
@@ -41,10 +40,10 @@ const ListOrder = ({ title, id, listTopping, cart, setCart }) => {
                     flexDirection="row"
                     alignItems="center"
                     justifyContent="space-between"
-                    m='15px 0'
+                    m="15px 0"
                 >
                     <Typography
-                        ml='20px'
+                        ml="20px"
                         fontWeight={600}
                         variant="h1"
                         fontSize="16px"
@@ -57,7 +56,7 @@ const ListOrder = ({ title, id, listTopping, cart, setCart }) => {
                         fontWeight={600}
                         variant="h2"
                         fontSize="16px"
-                        mr='20px'
+                        mr="20px"
                     >
                         <Image
                             className={orderStyles.iconDownListOrder}
@@ -78,18 +77,26 @@ const ListOrder = ({ title, id, listTopping, cart, setCart }) => {
                             : orderStyles.wrapperListOrderHidden
                     }
                 >
-                    {listCategoryProduct
-                        ? listCategoryProduct.map((item) => (
-                            <ItemOrder 
+                    {listCategoryProduct ? (
+                        listCategoryProduct.map((item) => (
+                            <ItemOrder
                                 cart={cart}
                                 setCart={setCart}
                                 listTopping={listTopping}
                                 key={item._id}
                                 item={item}
                                 title=""
-                                />
-                            ))
-                        : <Stack alignItems='center' justifyContent='center' width='100%'><LoaderWaiting/></Stack>}
+                            />
+                        ))
+                    ) : (
+                        <Stack
+                            alignItems="center"
+                            justifyContent="center"
+                            width="100%"
+                        >
+                            <LoaderWaiting />
+                        </Stack>
+                    )}
                 </Stack>
             </Stack>
         </>
