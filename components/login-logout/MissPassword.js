@@ -9,24 +9,26 @@ export default function MissPassword() {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch("https://sleepy-scrubland-61892.herokuapp.com/user/forgot-password", 
-        {
-        "method": "POST",
-        "headers": {
-        "content-type": "application/json",
-        "accept": "application/json"
-    },
-        "body": JSON.stringify({
-            "phoneNumber": phoneNumber,
-    })
-  })
-  .then(response => response.json())
-  .then(response => {
-    console.log(response)
-  })
-  .catch(err => {
-    console.log(err);
-  });
+        fetch(
+            "https://sleepy-scrubland-61892.herokuapp.com/user/forgot-password",
+            {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    accept: "application/json",
+                },
+                body: JSON.stringify({
+                    phoneNumber: phoneNumber,
+                }),
+            }
+        )
+            .then((response) => response.json())
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
     return (
         <div className={styles["auth-form-container-miss-password"]}>
@@ -35,8 +37,8 @@ export default function MissPassword() {
                 <div>
                     <span className={styles["min-text-block"]}>
                         Chỉ cần nhập số điện thoại của bạn và bấm vào nút
-                        &quot;Gửi&quot;, chúng tôi sẽ gửi mật khẩu tạm thời đến số
-                        điện thoại của bạn ngay lập tức
+                        &quot;Gửi&quot;, chúng tôi sẽ gửi mật khẩu tạm thời đến
+                        số điện thoại của bạn ngay lập tức
                     </span>
                 </div>
                 <div className={styles["phone-number"]}>

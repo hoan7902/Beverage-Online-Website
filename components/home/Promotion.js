@@ -10,7 +10,7 @@ const Promotion = () => {
             justifyContent="center"
             alignItems="center"
             width="100%"
-            mb="100px"
+            mb="50px"
         >
             <Stack justifyContent="center" alignItems="center">
                 <Typography
@@ -48,7 +48,7 @@ const Promotion = () => {
                     boxShadow="0px 2px 1.5px 0px #ccc"
                     width="300px"
                     m="15px"
-                    backgroundColor="#eee"
+                    backgroundColor="#fbfbfb"
                     className={homeStyles.imageProduct}
                 >
                     <Image
@@ -62,6 +62,7 @@ const Promotion = () => {
                         textTransform="uppercase"
                         p="20px 20px"
                         textAlign="center"
+                        color="#000"
                     >
                         Nhân đôi sự ngọt ngào mùa lễ hội
                     </Typography>
@@ -71,7 +72,7 @@ const Promotion = () => {
                     boxShadow="0px 2px 1.5px 0px #ccc"
                     width="300px"
                     m="15px"
-                    backgroundColor="#eee"
+                    backgroundColor="#fbfbfb"
                     className={homeStyles.imageProduct}
                 >
                     <Image
@@ -85,6 +86,7 @@ const Promotion = () => {
                         textTransform="uppercase"
                         p="20px 20px"
                         textAlign="center"
+                        color="#000"
                     >
                         Nhân đôi sự ngọt ngào mùa lễ hội
                     </Typography>
@@ -94,7 +96,7 @@ const Promotion = () => {
                     boxShadow="0px 2px 1.5px 0px #ccc"
                     width="300px"
                     m="15px"
-                    backgroundColor="#eee"
+                    backgroundColor="#fbfbfb"
                     className={homeStyles.imageProduct}
                 >
                     <Image
@@ -108,6 +110,7 @@ const Promotion = () => {
                         textTransform="uppercase"
                         p="20px 20px"
                         textAlign="center"
+                        color="#000"
                     >
                         Nhân đôi sự ngọt ngào mùa lễ hội
                     </Typography>

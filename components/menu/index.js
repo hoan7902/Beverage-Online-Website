@@ -20,7 +20,7 @@ import style from "./style.module.scss";
 import Link from "next/link";
 const pages = [
     { title: "TRANG CHỦ", link: "/" },
-    { title: "LOẠI ĐỒ UỐNG", link: "#" },
+    { title: "LOẠI ĐỒ UỐNG", link: "/order" },
     { title: "LIÊN HỆ", link: "/contact" },
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -287,10 +287,7 @@ function ResponsiveAppBar({ inputColor }) {
                                     onClick={handleCloseUserMenu}
                                 >
                                     <Typography textAlign="center">
-                                        <Link href='/profile'>
-                                        {setting}
-                                        </Link>
-                                        
+                                        <Link href="/profile">{setting}</Link>
                                     </Typography>
                                 </MenuItem>
                             ))}
