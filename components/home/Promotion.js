@@ -62,7 +62,7 @@ const Promotion = () => {
                         textTransform="uppercase"
                         p="20px 20px"
                         textAlign="center"
-                        color='#000'
+                        color="#000"
                     >
                         Nhân đôi sự ngọt ngào mùa lễ hội
                     </Typography>
@@ -86,7 +86,7 @@ const Promotion = () => {
                         textTransform="uppercase"
                         p="20px 20px"
                         textAlign="center"
-                        color='#000'
+                        color="#000"
                     >
                         Nhân đôi sự ngọt ngào mùa lễ hội
                     </Typography>
@@ -110,7 +110,7 @@ const Promotion = () => {
                         textTransform="uppercase"
                         p="20px 20px"
                         textAlign="center"
-                        color='#000'
+                        color="#000"
                     >
                         Nhân đôi sự ngọt ngào mùa lễ hội
                     </Typography>

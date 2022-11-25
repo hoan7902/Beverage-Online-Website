@@ -6,41 +6,36 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useEffect, useState } from 'react'
 import axios from 'axios';
 
-
-const typeTopping = []
+const typeTopping = [];
 const Popup = ({ item, trigger, setPop, listTopping, cart, setCart }) => {
-  const [isChecked, setIsChecked] = useState(false)
-  const [arrItem, setArrItem] = useState([])
-  const [totalPrice, setTotalPrice] = useState(item.price)
-  const [quantity, setQuantity] = useState(1)
+    const [isChecked, setIsChecked] = useState(false);
+    const [arrItem, setArrItem] = useState([]);
+    const [totalPrice, setTotalPrice] = useState(item.price);
+    const [quantity, setQuantity] = useState(1);
 
-  useEffect(() => {
-    const priceOfTopping = 0
-    setTotalPrice(item.price)
-    typeTopping = []
-    listTopping.map((topping, index) => {
-      if(arrItem.includes(index)) {
-        priceOfTopping += topping.price
-        const object = {
-            toppingId: topping._id,
-            quantity: 1,
-            price: topping.price,
-            name: topping.name,
-        };
-        typeTopping.push(object)
-      }
-    })
-    setTotalPrice(
-      totalPrice => (totalPrice / quantity + priceOfTopping) * quantity
-    );
-  }, [isChecked])
+    useEffect(() => {
+        const priceOfTopping = 0;
+        setTotalPrice(item.price);
+        typeTopping = [];
+        listTopping.map((topping, index) => {
+            if (arrItem.includes(index)) {
+                priceOfTopping += topping.price;
+                const object = {
+                    name: topping.name,
+                    price: topping.price,
+                };
+                typeTopping.push(object);
+            }
+        });
+        setTotalPrice((totalPrice + priceOfTopping) * quantity);
+    }, [isChecked]);
 
-  const dropQuantity = () => {
-    if (quantity >= 1) {
-      setQuantity(quantity - 1)
-      setTotalPrice(totalPrice - totalPrice / (quantity))
-    }
-  }
+    const dropQuantity = () => {
+        if (quantity >= 1) {
+            setQuantity(quantity - 1);
+            setTotalPrice(totalPrice - totalPrice / quantity);
+        }
+    };
 
   const riseQuantity = () => {
     setQuantity(quantity + 1)
@@ -59,9 +54,9 @@ const Popup = ({ item, trigger, setPop, listTopping, cart, setCart }) => {
         .post(
             "https://sleepy-scrubland-61892.herokuapp.com/cart/add-to-cart",ItemToPost
         )
-      .then((res) => console.log("Data...", res.data));
-    
-    setCart([
+        .then((res) => console.log("Data...", res.data));
+
+      setCart([
         ...cart,
         {
             name: item.name,
@@ -241,4 +236,4 @@ const Popup = ({ item, trigger, setPop, listTopping, cart, setCart }) => {
   );
 }
 
-export default Popup
+export default Popup;

@@ -2,28 +2,27 @@ import React, { useEffect, useState } from "react";
 import { Stack, Typography, Box } from "@mui/material";
 import homeStyles from "../../styles/Home.module.css";
 import axios from 'axios'
+import Router from "next/router";
 
 // var getCart = undefined
 
-const CartOrder = ({ cart, setCart }) => {
+const CartOrder = ({ setCart }) => {
 
     const [listProduct, setListProduct] = useState()
 
-    // if (typeof window !== 'undefined') {
-    //     localStorage.setItem('myCart', JSON.stringify(cart))
-    //     const temp = localStorage.getItem('myCart')
-    //     getCart = JSON.parse(temp)
-    // }
-
     const handleDeleteAll = () => {
-        // setCart([])
+        setCart([])
+    }
+
+    const checkout = () => {
+        Router.push('/checkout')
     }
 
     const deleteItem = async (_id) => {
         const userId = localStorage.getItem("_id");
         axios
             .delete(
-                `https://sleepy-scrubland-61892.herokuapp.com/cart/remove-from-cart?userId=${userId}/${_id}`, {
+                'https://sleepy-scrubland-61892.herokuapp.com/cart/remove-from-cart', {
                     userId: userId,
                     productId: _id
                 }
@@ -41,23 +40,26 @@ const CartOrder = ({ cart, setCart }) => {
     useEffect(() => {
         const fetchData = async () => {
             const userId = localStorage.getItem('_id')
+
             const res = await axios(
                 `https://sleepy-scrubland-61892.herokuapp.com/cart/get-all-cart?userId=${userId}`
             );
+
             if (res.data.data) {
                 setListProduct(res.data.data);
             }
         };
         fetchData();
-    }, [cart])
+    })
 
     return (
         <Box>
             <Stack
-                // position="fixed"
+                position="relative"
+                overflowY= 'scroll'
                 width="300px"
                 top="0"
-                right="0"
+                right='0'
                 p="20px"
                 justifyContent="center"
                 backgroundColor="#fff"
@@ -213,6 +215,7 @@ const CartOrder = ({ cart, setCart }) => {
                         color="#fff"
                         textAlign="center"
                         fontSize="14px"
+                        onClick={checkout}
                     >
                         Thanh toán
                     </Typography>

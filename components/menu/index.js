@@ -18,7 +18,6 @@ import InputBase from "@mui/material/InputBase";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import style from "./style.module.scss";
 import Link from "next/link";
-
 const pages = [
     { title: "TRANG CHỦ", link: "/" },
     { title: "LOẠI ĐỒ UỐNG", link: "/order" },
@@ -288,7 +287,7 @@ function ResponsiveAppBar({ inputColor }) {
                                     onClick={handleCloseUserMenu}
                                 >
                                     <Typography textAlign="center">
-                                        {setting}
+                                        <Link href="/profile">{setting}</Link>
                                     </Typography>
                                 </MenuItem>
                             ))}

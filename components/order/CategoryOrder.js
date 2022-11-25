@@ -1,14 +1,15 @@
 import React from "react";
 import { Stack, Typography } from "@mui/material";
 import { Link } from "react-scroll";
-import LoaderWaiting from '../Loader'
+import LoaderWaiting from "../Loader";
 
 const Category = ({ listNameCategory }) => {
     return (
         <>
             <Stack
                 position="fixed"
-                width="300px"
+                sx={{display: {lg: 'block', xs: 'none'}}}
+                minWidth="250px"
                 top="0"
                 left="0"
                 p="20px"
@@ -36,40 +37,42 @@ const Category = ({ listNameCategory }) => {
                         DANH MỤC
                     </Typography>
                 </Stack>
-                {listNameCategory
-                    ? listNameCategory.map((item) => (
-                          <Link
-                              key={item._id}
-                              to={item._id}
-                              spy={true}
-                              smooth={true}
-                          >
-                              <Stack
-                                  sx={{ cursor: "pointer" }}
-                                  p="10px"
-                                  flexDirection="row"
-                                  justifyContent="space-between"
-                                  alignItems="center"
-                                  borderBottom="1px solid #f1f1f1"
-                              >
-                                  <Typography
-                                      fontSize="14px"
-                                      variant="h3"
-                                      color="#282828"
-                                  >
-                                      {item.name}
-                                  </Typography>
-                                  <Typography
-                                      fontSize="14px"
-                                      variant="h3"
-                                      color="#282828"
-                                  >
-                                    0
-                                  </Typography>
-                              </Stack>
-                          </Link>
-                      ))
-                    : <Stack p='20px 0' alignItems='center' justifyContent='center' width='100%'><LoaderWaiting/></Stack>}
+                {listNameCategory ? (
+                    listNameCategory.map((item) => (
+                        <Link
+                            key={item._id}
+                            to={item._id}
+                            spy={true}
+                            smooth={true}
+                        >
+                            <Stack
+                                sx={{ cursor: "pointer" }}
+                                p="10px"
+                                flexDirection="row"
+                                justifyContent="space-between"
+                                alignItems="center"
+                                borderBottom="1px solid #f1f1f1"
+                            >
+                                <Typography
+                                    fontSize="14px"
+                                    variant="h3"
+                                    color="#282828"
+                                >
+                                    {item.name}
+                                </Typography>
+                            </Stack>
+                        </Link>
+                    ))
+                ) : (
+                    <Stack
+                        p="20px 0"
+                        alignItems="center"
+                        justifyContent="center"
+                        width="100%"
+                    >
+                        <LoaderWaiting />
+                    </Stack>
+                )}
             </Stack>
         </>
     );

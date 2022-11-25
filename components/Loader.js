@@ -1,6 +1,6 @@
-import React from 'react'
-import { Loader } from 'semantic-ui-react'
+import React from "react";
+import { Loader } from "semantic-ui-react";
 
-const LoaderWaiting = () => <Loader active inline />
+const LoaderWaiting = () => <Loader active inline />;
 
-export default LoaderWaiting
+export default LoaderWaiting;

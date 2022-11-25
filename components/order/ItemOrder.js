@@ -7,12 +7,14 @@ import Router from "next/router";
 
 const ItemOrder = ({ item, listTopping, cart, setCart }) => {
     const [pop, setPop] = useState(false);
+
     const handleClick = () => {
         const test = localStorage.getItem('_id');
         if(test) setPop(true)
         else Router.push('/login')
         setPop(true);
     }
+
     return (
         <>
             <Stack

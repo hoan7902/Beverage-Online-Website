@@ -15,16 +15,12 @@ lint_jobs:
     script:
         - npm i
         - npm run lint
-    only:
-        - merge_requests
 
 build_jobs:
     stage: build
     script:
         - npm i
         - npm run build
-    only:
-        - merge_requests
 
 deploy_beta:
     stage: deploy

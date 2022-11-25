@@ -1,7 +1,6 @@
 import { Box, Typography, Stack } from "@mui/material";
 import Image from "next/image";
 import homeStyles from "../../styles/Home.module.css";
-import Link from "next/link";
 
 const Item = ({ item }) => {
     return (
@@ -37,7 +36,7 @@ const Item = ({ item }) => {
                     {item.name}
                 </Typography>
                 <Typography>{item.price}đ</Typography>
-                <Link href="/order">
+                {/*<Link href="/order">
                     <Box
                         className={homeStyles.mainButton}
                         m="20px 80px 0 80px"
@@ -54,7 +53,7 @@ const Item = ({ item }) => {
                             Đặt hàng
                         </Typography>
                     </Box>
-                </Link>
+                </Link>*/}
             </Box>
         </Stack>
     );

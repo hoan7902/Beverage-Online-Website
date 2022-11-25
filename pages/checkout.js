@@ -1,13 +1,36 @@
 import { Stack, Box, Typography } from "@mui/material";
 import contactStyles from "../styles/Contact.module.css";
 import motor from "../assets/image/motor-scooter.png";
-import trash from "../assets/image/delete-dismiss-24-filled.png";
 import Image from "next/image";
 import Footer from "../components/home/Footer";
 import Advertisement from "../components/home/Advertisement";
 import homeStyles from "../styles/Home.module.css";
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const Checkout = () => {
+    const [listProduct, setListProduct] = useState()
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const userId = localStorage.getItem('_id')
+            const res = await axios(
+                `https://sleepy-scrubland-61892.herokuapp.com/cart/get-all-cart?userId=${userId}`
+            );
+            if (res.data.data) {
+                setListProduct(res.data.data);
+            }
+        };
+        fetchData();
+    })
+
+    if (listProduct) {
+        var totalPrice = 0
+        for (let i = 0; i < listProduct.length; i++) {
+            totalPrice += listProduct[i].product.price
+        }
+    }
+
     return (
         <Stack
             className={contactStyles.backgroundImage}
@@ -85,53 +108,40 @@ const Checkout = () => {
                 >
                     Đơn hàng của bạn
                 </Typography>
-                <Stack m="10px 0">
-                    <Stack
-                        mb="5px"
-                        flexDirection="row"
-                        justifyContent="space-between"
-                    >
-                        <Stack flexDirection="row">
-                            <Typography mr="10px">1x</Typography>
-                            <Typography>Trà Sữa Matcha</Typography>
+                {
+                    listProduct === undefined || listProduct.length === 0 ?
+                        <Typography
+                            width='100%'
+                            fontSize="14px"
+                            variant="h3"
+                            color="#282828"
+                        >
+
+                            Chưa có sản phẩm nào!
+                        </Typography> :
+
+                        <Stack m="10px 0">
+                            {listProduct.map((item, index) => {
+                                return (
+                                    <Stack
+                                        key={index}
+                                        mb="5px"
+                                        flexDirection="row"
+                                        justifyContent="space-between"
+                                    >
+                                        <Stack flexDirection="row">
+                                            <Typography mr="10px">{item.quantity}x</Typography>
+                                            <Typography>{item.product.name}</Typography>
+                                        </Stack>
+                                        <Stack flexDirection="row">
+                                            <Typography mr="10px">{item.product.price}đ</Typography>
+                                        </Stack>
+                                    </Stack>
+                                )
+                            })}
                         </Stack>
-                        <Stack flexDirection="row">
-                            <Typography mr="10px">69.000đ</Typography>
-                            <Image
-                                src={trash}
-                                alt="trash"
-                                width="20px"
-                                height="20px"
-                            />
-                        </Stack>
-                    </Stack>
-                    <Stack
-                        mb="5px"
-                        flexDirection="row"
-                        justifyContent="space-between"
-                    >
-                        <Stack flexDirection="row">
-                            <Typography mr="10px">1x</Typography>
-                            <Typography>Trà Sữa Matcha</Typography>
-                        </Stack>
-                        <Stack flexDirection="row">
-                            <Typography mr="10px">69.000đ</Typography>
-                            <Image
-                                src={trash}
-                                alt="trash"
-                                width="20px"
-                                height="20px"
-                            />
-                        </Stack>
-                    </Stack>
-                </Stack>
-                <Typography
-                    color="#d3b673"
-                    fontWeight={700}
-                    textShadow="0 0 3px #FF0000"
-                >
-                    + Thêm món
-                </Typography>
+                }
+
             </Stack>
             {/* Chốt đơn */}
             <Stack
@@ -158,7 +168,7 @@ const Checkout = () => {
                             <Typography mr="10px">Tổng đơn</Typography>
                         </Stack>
                         <Stack flexDirection="row">
-                            <Typography mr="10px">138.000đ</Typography>
+                            <Typography mr="10px">{totalPrice}đ</Typography>
                         </Stack>
                     </Stack>
                     <Stack

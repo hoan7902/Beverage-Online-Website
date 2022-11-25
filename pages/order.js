@@ -3,14 +3,14 @@ import CategoryOrder from "../components/order/CategoryOrder";
 import ListOrder from "../components/order/ListOrder";
 import CartOrder from "../components/order/CartOrder";
 import { useState, useEffect } from "react";
-import 'semantic-ui-css/semantic.min.css'
+import "semantic-ui-css/semantic.min.css";
 import axios from "axios";
 
 const Order = () => {
-    const [cart, setCart] = useState([])
+    const [cart, setCart] = useState([]);
     const [listNameCategory, setListNameCategory] = useState("");
     const [listTopping, setListTopping] = useState()
-    const [render, setRender] = useState(false)
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -23,7 +23,7 @@ const Order = () => {
                 `https://sleepy-scrubland-61892.herokuapp.com/topping/get-topping`
             );
             if (resTopping.data.data) {
-              setListTopping(resTopping.data.data.listTopping);
+                setListTopping(resTopping.data.data.listTopping);
             }
         };
         fetchData();
