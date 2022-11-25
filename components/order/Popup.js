@@ -14,8 +14,6 @@ const Popup = ({ item, trigger, setPop, listTopping, cart, setCart }) => {
   const [totalPrice, setTotalPrice] = useState(item.price)
   const [quantity, setQuantity] = useState(1)
 
-  localStorage.setItem('_id', '792002')
-
   useEffect(() => {
     const priceOfTopping = 0
     setTotalPrice(item.price)
