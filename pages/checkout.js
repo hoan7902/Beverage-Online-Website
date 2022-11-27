@@ -7,9 +7,26 @@ import Advertisement from "../components/home/Advertisement";
 import homeStyles from "../styles/Home.module.css";
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Modal } from '@mui/material';
 
 const Checkout = () => {
     const [listProduct, setListProduct] = useState()
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const finalPrice = 0
+    const feeShip = 69000
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -23,13 +40,6 @@ const Checkout = () => {
         };
         fetchData();
     })
-
-    if (listProduct) {
-        var totalPrice = 0
-        for (let i = 0; i < listProduct.length; i++) {
-            totalPrice += listProduct[i].product.price
-        }
-    }
 
     return (
         <Stack
@@ -122,6 +132,12 @@ const Checkout = () => {
 
                         <Stack m="10px 0">
                             {listProduct.map((item, index) => {
+                                const totalOfTopping = 0
+                                for (let i = 0; i < item.listTopping.length; i++) {
+                                    totalOfTopping += item.listTopping[i].price
+                                }
+                                const totalPrice = (item.product.price + totalOfTopping) * item.quantity
+                                finalPrice += totalPrice
                                 return (
                                     <Stack
                                         key={index}
@@ -134,7 +150,7 @@ const Checkout = () => {
                                             <Typography>{item.product.name}</Typography>
                                         </Stack>
                                         <Stack flexDirection="row">
-                                            <Typography mr="10px">{item.product.price}đ</Typography>
+                                            <Typography mr="10px">{totalPrice}đ</Typography>
                                         </Stack>
                                     </Stack>
                                 )
@@ -147,7 +163,7 @@ const Checkout = () => {
             <Stack
                 width="700px"
                 mb="40px"
-                p="20px"
+                p="15px"
                 backgroundColor="#fff"
                 borderRadius="8px"
             >
@@ -156,7 +172,7 @@ const Checkout = () => {
                     fontSize="20px"
                     fontWeight={600}
                 >
-                    Đơn hàng của bạn
+                    Tổng tiền
                 </Typography>
                 <Stack m="10px 0">
                     <Stack
@@ -168,7 +184,20 @@ const Checkout = () => {
                             <Typography mr="10px">Tổng đơn</Typography>
                         </Stack>
                         <Stack flexDirection="row">
-                            <Typography mr="10px">{totalPrice}đ</Typography>
+                            <Typography mr="10px">{finalPrice}đ</Typography>
+                        </Stack>
+                    </Stack>
+                    <Stack
+                        mb="5px"
+                        flexDirection="row"
+                        justifyContent="space-between"
+                        borderBottom='solid 1px #f1f1f1'
+                    >
+                        <Stack flexDirection="row">
+                            <Typography mr="10px">Phí giao hàng</Typography>
+                        </Stack>
+                        <Stack flexDirection="row">
+                            <Typography mr="10px">{feeShip}đ</Typography>
                         </Stack>
                     </Stack>
                     <Stack
@@ -177,10 +206,10 @@ const Checkout = () => {
                         justifyContent="space-between"
                     >
                         <Stack flexDirection="row">
-                            <Typography mr="10px">Phí giao hàng</Typography>
+                            <Typography mr="10px">Thành tiền</Typography>
                         </Stack>
                         <Stack flexDirection="row">
-                            <Typography mr="10px">69.000đ</Typography>
+                            <Typography mr="10px">{finalPrice + feeShip}đ</Typography>
                         </Stack>
                     </Stack>
                 </Stack>
@@ -190,6 +219,7 @@ const Checkout = () => {
                     backgroundColor="#d3b673"
                     borderRadius="6px"
                     style={{ cursor: "pointer" }}
+                    onClick={handleOpen}
                 >
                     <Typography
                         textAlign="center"
@@ -201,6 +231,21 @@ const Checkout = () => {
                     >
                         Đặt hàng
                     </Typography>
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                Đặt hàng thành công
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                Cám ơn quý khách đã ủng hộ.
+                            </Typography>
+                        </Box>
+                    </Modal>
                 </Box>
             </Stack>
             <Advertisement />

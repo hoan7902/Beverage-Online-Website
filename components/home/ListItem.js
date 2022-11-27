@@ -4,6 +4,7 @@ import Image from "next/image";
 import homeStyles from "../../styles/Home.module.css";
 import Item from "./Item";
 import Homeline from "../../assets/image/home_line.webp";
+import LoaderWaiting from "../Loader";
 
 const ListItem = ({ title, description, dataProduct }) => {
     return (
@@ -43,13 +44,22 @@ const ListItem = ({ title, description, dataProduct }) => {
                 justifyContent="center"
                 m="30px 0"
             >
-                {dataProduct
-                    ? dataProduct
-                          .slice(0, 9)
-                          .map((item) => (
-                              <Item key={item._id} item={item} title="" />
-                          ))
-                    : ""}
+                {
+                    dataProduct
+                        ? dataProduct
+                            .slice(0, 9)
+                            .map((item) => (
+                                <Item key={item._id} item={item} title="" />
+                            ))
+                        :
+                        <Stack
+                            alignItems="center"
+                            justifyContent="center"
+                            width="100%"
+                        >
+                            <LoaderWaiting />
+                        </Stack>
+                }
                 <Link href="/order">
                     <Box
                         className={homeStyles.mainButton}

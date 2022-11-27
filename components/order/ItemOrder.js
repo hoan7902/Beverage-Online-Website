@@ -5,14 +5,13 @@ import Popup from './Popup'
 import { useState } from 'react'
 import Router from "next/router";
 
-const ItemOrder = ({ item, listTopping, cart, setCart }) => {
+const ItemOrder = ({ item, listTopping, cart, setCart, checkChange }) => {
     const [pop, setPop] = useState(false);
 
     const handleClick = () => {
         const test = localStorage.getItem('_id');
-        if(test) setPop(true)
+        if (test) setPop(true)
         else Router.push('/login')
-        setPop(true);
     }
 
     return (
@@ -88,6 +87,7 @@ const ItemOrder = ({ item, listTopping, cart, setCart }) => {
                 item={item}
                 trigger={pop}
                 setPop={setPop}
+                checkChange={checkChange}
             />
         </>
     );

@@ -6,11 +6,34 @@ import Router from "next/router";
 
 // var getCart = undefined
 
-const CartOrder = ({ setCart }) => {
+const CartOrder = ({ cart, setCart }) => {
 
     const [listProduct, setListProduct] = useState()
+    const [toDelete, setToDelete] = useState(false)
 
     const handleDeleteAll = () => {
+        const userId = JSON.parse(localStorage.getItem("_id"));
+        listProduct.forEach((item) => {
+
+            const objectDelete = {
+                userId: userId,
+                productId: item.product._id,
+            }
+
+            const functionDelete = async () => {
+                // DELETE request using axios with async/await
+                const res = await axios.delete('https://sleepy-scrubland-61892.herokuapp.com/cart/remove-from-cart',
+                    { data: objectDelete }, {
+                    headers: {
+                        'content-type': 'application/json'
+                    }
+                }
+                );
+                setToDelete(!toDelete)
+                console.log('Delete success', res)
+            }
+            functionDelete()
+        })
         setCart([])
     }
 
@@ -18,26 +41,36 @@ const CartOrder = ({ setCart }) => {
         Router.push('/checkout')
     }
 
-    const deleteItem = async (_id) => {
-        const userId = localStorage.getItem("_id");
-        axios
-            .delete(
-                'https://sleepy-scrubland-61892.herokuapp.com/cart/remove-from-cart', {
-                    userId: userId,
-                    productId: _id
+    const deleteItem = (_id) => {
+        const userId = JSON.parse(localStorage.getItem("_id"));
+        console.log(typeof userId, typeof _id)
+        console.log(userId, _id)
+
+        const objectDelete = {
+            userId: userId,
+            productId: _id,
+        }
+
+
+        const functionDelete = async () => {
+            // DELETE request using axios with async/await
+            const res = await axios.delete('https://sleepy-scrubland-61892.herokuapp.com/cart/remove-from-cart',
+                { data: objectDelete }, {
+                headers: {
+                    'content-type': 'application/json'
                 }
-            )
-            .then((res) =>
-                console.log(
-                    "Delete Success",
-                    res.data,
-                    localStorage.getItem("_id"),
-                    _id
-                )
+            }
             );
+            setToDelete(!toDelete)
+            console.log('Delete success', res)
+        }
+
+        functionDelete()
+
     }
 
     useEffect(() => {
+        console.log('đã refresh lại')
         const fetchData = async () => {
             const userId = localStorage.getItem('_id')
 
@@ -50,22 +83,22 @@ const CartOrder = ({ setCart }) => {
             }
         };
         fetchData();
-    })
+    }, [cart, toDelete])
 
     return (
         <Box>
             <Stack
-                position="relative"
-                overflowY= 'scroll'
+                position='fixed'
+                sx={{ overflowY: 'scroll' }}
+                // overflowY='scroll'
                 width="300px"
+                height="fit-content"
                 top="0"
                 right='0'
                 p="20px"
-                justifyContent="center"
                 backgroundColor="#fff"
                 m="60px 100px"
                 borderRadius="5px"
-                height="fit-content"
                 boxShadow="0 2px 7px 0 rgb(0 0 0 / 5%)"
             >
                 <Stack
@@ -102,13 +135,17 @@ const CartOrder = ({ setCart }) => {
                                 variant="h3"
                                 color="#282828"
                             >
-                                
                                 Chưa có sản phẩm nào!
                             </Typography>
-                            : 
+                            :
                             <Stack width='100%'>
                                 {
                                     listProduct.map((item, index) => {
+                                        const totalOfTopping = 0
+                                        for (let i = 0; i < item.listTopping.length; i++) {
+                                            totalOfTopping += item.listTopping[i].price
+                                        }
+                                        const totalPrice = (item.product.price + totalOfTopping) * item.quantity
                                         return (
                                             <Stack
                                                 pb="10px"
@@ -137,16 +174,16 @@ const CartOrder = ({ setCart }) => {
                                                             fontWeight={600}
                                                             mr="5px"
                                                         >
-                                                            {item.product.price}
+                                                            {totalPrice}
                                                             đ
                                                         </Typography>
-                                                        <Typography onClick={() => deleteItem(item.product._id)} p='10px' style={{cursor: 'pointer'}}>
+                                                        <Typography onClick={() => deleteItem(item.product._id)} p='10px' style={{ cursor: 'pointer' }}>
                                                             Xóa
                                                         </Typography>
                                                     </Stack>
                                                 </Stack>
                                                 {item.listTopping.length ===
-                                                0 ? (
+                                                    0 ? (
                                                     ""
                                                 ) : (
                                                     <Stack
@@ -209,19 +246,20 @@ const CartOrder = ({ setCart }) => {
                     backgroundColor="#d3b673"
                     borderRadius="6px"
                     style={{ cursor: "pointer" }}
+                    onClick={checkout}
                 >
                     <Typography
                         className={homeStyles.textButton}
                         color="#fff"
                         textAlign="center"
                         fontSize="14px"
-                        onClick={checkout}
                     >
                         Thanh toán
                     </Typography>
                 </Box>
             </Stack>
         </Box>
+
     );
 };
 

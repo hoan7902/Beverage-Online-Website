@@ -8,8 +8,8 @@ const Category = ({ listNameCategory }) => {
         <>
             <Stack
                 position="fixed"
-                sx={{display: {lg: 'block', xs: 'none'}}}
-                minWidth="250px"
+                sx={{ display: { lg: 'block', xs: 'none' } }}
+                minWidth="300px"
                 top="0"
                 left="0"
                 p="20px"

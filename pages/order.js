@@ -6,11 +6,12 @@ import { useState, useEffect } from "react";
 import "semantic-ui-css/semantic.min.css";
 import axios from "axios";
 
+var checkChange = false
+
 const Order = () => {
     const [cart, setCart] = useState([]);
     const [listNameCategory, setListNameCategory] = useState("");
     const [listTopping, setListTopping] = useState()
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -30,19 +31,21 @@ const Order = () => {
     }, []);
 
     return (
-        <Stack
-            position="relative"
-            backgroundColor="#fbfbfb"
-            flexDirection="row"
-            width="100vw"
-            justifyContent="space-around"
-        >
-            <Box width="30%">
-                <CategoryOrder listNameCategory={listNameCategory} />
-            </Box>
-            <Stack width="40%">
-                {listNameCategory
-                    ? listNameCategory.map((item) => (
+
+        <Box>
+            <Stack
+                position="relative"
+                backgroundColor="#fbfbfb"
+                flexDirection="row"
+                width="100vw"
+                justifyContent="space-around"
+            >
+                <Box width="30%">
+                    <CategoryOrder listNameCategory={listNameCategory} />
+                </Box>
+                <Stack width="40%">
+                    {listNameCategory
+                        ? listNameCategory.map((item) => (
                             <ListOrder
                                 key={item._id}
                                 id={item._id}
@@ -50,14 +53,16 @@ const Order = () => {
                                 listTopping={listTopping}
                                 cart={cart}
                                 setCart={setCart}
+                                checkChange={checkChange}
                             />
                         ))
-                    : ""}
+                        : ""}
+                </Stack>
+                <Box width="30%">
+                    <CartOrder checkChange={checkChange} cart={cart} setCart={setCart} />
+                </Box>
             </Stack>
-            <Box width="30%">
-                <CartOrder cart={cart} setCart={setCart} />
-            </Box>
-        </Stack>
+        </Box>
     );
 };
 
