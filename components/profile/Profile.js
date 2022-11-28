@@ -1,6 +1,5 @@
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import ResponsiveAppBar from "../../components/menu";
 import "../../styles/Profile.module.css";
 import Footer from "../../components/home/Footer";
 import Advertisement from "../../components/home/Advertisement";
@@ -14,6 +13,7 @@ import ChangePassWord from "./ChangePassWord";
 import { Icon } from "react-icons-kit";
 import { calendar } from "react-icons-kit/fa/calendar";
 import styles from "../../styles/Login.module.css";
+
 function Profile() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -46,7 +46,6 @@ function Profile() {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <ResponsiveAppBar />
                 <Box
                     sx={{
                         display: "flex",
