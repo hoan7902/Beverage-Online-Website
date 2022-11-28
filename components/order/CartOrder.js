@@ -12,7 +12,7 @@ const CartOrder = ({ cart, setCart }) => {
     const [toDelete, setToDelete] = useState(false)
 
     const handleDeleteAll = () => {
-        const userId = JSON.parse(localStorage.getItem("_id"));
+        const userId = (localStorage.getItem("_id"));
         listProduct.forEach((item) => {
 
             const objectDelete = {
@@ -42,7 +42,7 @@ const CartOrder = ({ cart, setCart }) => {
     }
 
     const deleteItem = (_id) => {
-        const userId = JSON.parse(localStorage.getItem("_id"));
+        const userId = (localStorage.getItem("_id"));
         console.log(typeof userId, typeof _id)
         console.log(userId, _id)
 
