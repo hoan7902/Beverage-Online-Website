@@ -118,10 +118,10 @@ const TiTleContain=styled.div`
     display:flex;
     background-color:#E3E3E3;
     justify-content:space-around;
-    margin:100px 50px 0 50px;
+    margin:10px 50px 0 50px;
 `;
 const TitleOrder=styled.p`
-    font-size:26px;
+    font-size:20px;
     color:#333;
 `;
 const ButtonBack=styled.button`

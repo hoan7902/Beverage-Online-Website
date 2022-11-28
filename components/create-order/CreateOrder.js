@@ -26,10 +26,6 @@ function CreateOrder(){
                    Địa chỉ giao hàng
                    <Icon icon={chevronRight} style={{marginLeft:"30px"}}/></TitleCurrent>
                 </TitleContain>
-                
-                    
-            
-                
                 <div style={{display:"flex"}}>
                     <div style={{borderRadius:"50%",height:"30px",width:"30px",textAlign:"center",marginRight:"10px",border:"1px solid #333"}}>
                         <span style={{fontSize:"20px",color:"#333"}}>2</span>
@@ -54,34 +50,49 @@ function CreateOrder(){
                         Xác nhận và mua hàng
                         <Icon icon={chevronRight} style={{marginLeft:"30px"}}/></Title>
                 </div>
-                
-                
             </TitleForward>
             <Content>
-                <InfoCustomer>
-                    <p style={{margin:"20px 40px", fontSize:"20px",fontWeight:600}}>Thông tin khách hàng</p>
-                    <div style={{margin:"10px 20px"}}>
-                        <p style={{margin:"0 20px"}}>Họ và tên</p>
-                        <Input style={{width:"90%"}}/>
+                <div style={{display:"flex",flexDirection:"column",flex:"1",position:"relative"}}>
+                    <InfoCustomer style={{height:"360px"}}>
+                        <p style={{margin:"20px 40px", fontSize:"20px",fontWeight:600}}>Thông tin khách hàng</p>
+                         <div style={{margin:"0 20px"}}>
+                            <p style={{margin:"0 20px"}}>Họ và tên</p>
+                            <Input style={{width:"90%"}}/>
+                        </div>
+                        <div style={{margin:"0 20px"}}>
+                            <p style={{margin:"0 20px"}}>Email</p>
+                            <Input style={{width:"90%"}}/>
+                        </div>
+                        <div style={{margin:"0 20px"}}>
+                            <p style={{margin:"0 20px"}}>Số điện thoại</p>
+                            <Input style={{width:"90%"}}/>
+                        </div>
+                    </InfoCustomer>
+                <div style={{display:"flex",height:"200px",margin:"10px 0"}}>
+                    <div style={{flex:"1",boxShadow: "0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%),0 9px 28px 8px rgb(0 0 0 / 5%)",margin: "0 10px"}}>
+                        <p style={{margin:"20px 40px", fontSize:"20px",fontWeight:600}}>Thời gian mong muốn nhận hàng</p>
+                    <div style={{margin:"10px 40px"}}>
+                            <input type="radio" name ="time" value="Sớm nhất có thể" onChange={handleTime}/>Sớm nhất có thể
                     </div>
-                    <div style={{margin:"10px 20px"}}>
-                        <p style={{margin:"0 20px"}}>Email</p>
-                        <Input style={{width:"90%"}}/>
+                    <div style={{margin:"10px 40px"}}>
+                            <input type="radio" name ="time" value="Chọn ngày muốn nhận" onChange={handleTime}/>Chọn ngày muốn nhận
                     </div>
-                    <div style={{margin:"10px 20px"}}>
-                        <p style={{margin:"0 20px"}}>Số điện thoại</p>
-                        <Input style={{width:"90%"}}/>
+                    <div style={{margin:"0 20px"}}>
+                        <Input style={{width:"90%",height:"40px",margin:"0 20px"}}/>
                     </div>
+                </div>
+            </div>
 
-                </InfoCustomer>
-                <Address>
+                </div>
+                
+                <Address style={{height:"570px"}}>
                     <p style={{margin:"20px 40px", fontSize:"20px",fontWeight:600}}>Địa chỉ giao hàng</p>
                 
-                    <div style={{margin:"10px 20px"}}>
+                    <div style={{margin:"0 20px"}}>
                         <p style={{margin:"0 20px"}}>Tỉnh/Thành phố</p>
                         <Input style={{width:"90%"}}/>
                     </div>
-                    <div style={{margin:"10px 20px",display:"flex",justifyContent:"space-between",width:"90%"}}>
+                    <div style={{margin:"0 20px",display:"flex",justifyContent:"space-between",width:"90%"}}>
                         <div>
                             <p style={{margin:"0 20px"}}>Quận/Huyện</p>
                             <Input style={{width:"250px"}}/>
@@ -92,11 +103,11 @@ function CreateOrder(){
                         </div>
                         
                     </div>
-                    <div style={{margin:"10px 20px"}}>
+                    <div style={{margin:"0 20px"}}>
                         <p style={{margin:"0 20px"}}>Địa chỉ cụ thể</p>
                         <Input style={{width:"90%"}}/>
                     </div>
-                    <div style={{margin:"10px 20px",display:"flex",justifyContent:"space-between",width:"90%"}}>
+                    <div style={{margin:"0 20px",display:"flex",justifyContent:"space-between",width:"90%"}}>
                         <div style={{margin:"0 20px"}}>
                             <input type="radio" name ="gender" value="Nhà ở" onChange={handleChange}/>Nhà ở
                         </div>
@@ -115,23 +126,7 @@ function CreateOrder(){
                 </Address>
             </Content>
             
-            <div style={{display:"flex",height:"250px",margin: "20px 40px"}}>
-                <div style={{flex:"1",boxShadow: "0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%),0 9px 28px 8px rgb(0 0 0 / 5%)",margin: "0 10px"}}>
-                    <p style={{margin:"20px 40px", fontSize:"20px",fontWeight:600}}>Thời gian mong muốn nhận hàng</p>
-                    <div style={{margin:"20px 40px"}}>
-                            <input type="radio" name ="time" value="Sớm nhất có thể" onChange={handleTime}/>Sớm nhất có thể
-                    </div>
-                    <div style={{margin:"20px 40px"}}>
-                            <input type="radio" name ="time" value="Chọn ngày muốn nhận" onChange={handleTime}/>Chọn ngày muốn nhận
-                    </div>
-                    <div style={{margin:"0 20px"}}>
-                        <Input style={{width:"90%",height:"40px",margin:"0 20px"}}/>
-                    </div>
-                </div>
-                <div style={{flex:"1",margin: "0 10px"}}>
-
-                </div>
-            </div>
+            
             <div style={{display:"flex",justifyContent:"flex-end",margin: "50px 50px"}}>
                 <ButtonCon> 
                 <Link href="/createorder/step2">Tiếp tục</Link>
@@ -151,7 +146,7 @@ const TitleForward=styled.div`
     display:flex;
     justify-content:space-between;
     height:40px;
-    margin: 100px 50px 100px 50px;
+    margin: 100px 50px 10px 50px;
 `;
 const TitleCurrent=styled.div`
     font-size:20px;
@@ -165,11 +160,10 @@ const Title=styled.div`
 `;
 const Content=styled.div`
     display:flex;
-    height:700px;
-    margin: 20px 40px;
+    height:580px;
+    margin: 0 40px;
 `;
 const InfoCustomer=styled.div`
-    flex:1;
     margin: 0 10px;
     flex-direction:column;
     display:flex;
@@ -184,7 +178,7 @@ const Address=styled.div`
 `;
 const Input=styled.input`
     height:40px;
-    margin:30px 20px;
+    margin:10px 20px;
     &:focus {
         outline-color: #00793f;
     }

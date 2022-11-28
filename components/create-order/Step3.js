@@ -59,8 +59,8 @@ function Step3(){
                 </div>
                 
                 
-            </TitleForward>
-            <p style={{fontSize:"28px",fontWeight:600,margin:"50px 50px 0 50px"}}>Chọn hình thức thành toán</p>
+        </TitleForward>
+            <p style={{fontSize:"28px",fontWeight:600,margin:"10px 50px 0 50px"}}>Chọn hình thức thành toán</p>
             <div style={{display:"flex",margin:"50px 50px 0 50px"}}>
                 <FormPay>
                     <div style={{display:"flex",marginLeft:"50px"}}>
@@ -94,7 +94,7 @@ function Step3(){
                     <p style={{fontSize:"25px",marginLeft:"50px",fontWeight:600,flex:"1"}}>Tổng chi phí</p>
                     <p style={{fontSize:"25px",marginLeft:"50px",fontWeight:600,flex:"0.2"}}>246.000đ</p>
                 </Cost>
-                <div style={{display:"flex",justifyContent:"space-between",margin: "60px 60px"}}>
+                <div style={{display:"flex",justifyContent:"space-between",margin: "50px 50px"}}>
                 <ButtonBack>
                 <Icon icon={arrowLeft} style={{marginRight:"10px"}}/>
                 <Link href="/createorder/step2">Quay lại</Link></ButtonBack>
@@ -113,11 +113,10 @@ const FormPay=styled.div`
     flex-direction:column;
     flex:1;
     position:relative;
-    margin:0 10px;
     height:300px;
 `;
 const Cost=styled.div`
-    margin:20px 60px;
+    margin:20px 50px;
     height:200px;
     box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%),0 9px 28px 8px rgb(0 0 0 / 5%);
     display:flex;
@@ -152,7 +151,7 @@ const TitleForward=styled.div`
     display:flex;
     justify-content:space-between;
     height:40px;
-    margin: 100px 50px 100px 50px;
+    margin: 100px 50px 10px 50px;
 `;
 const TitleCurrent=styled.div`
     font-size:20px;
