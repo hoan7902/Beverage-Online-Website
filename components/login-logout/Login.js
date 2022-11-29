@@ -9,6 +9,8 @@ import Link from "next/link";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useAppContext } from "../../contexts/AppProvider";
+import { message } from "antd";
+import { RepeatOneSharp } from "@mui/icons-material";
 
 const PassWord = ({ name }) => {
   const { pass, setPass } = useContext(PassContext);
@@ -74,10 +76,18 @@ export default function Login() {
       .then((response) => response.json())
       .then((response) => {
         setUser(response.data.user);
+        if(response.code==102){
+          message.success("Đăng nhập thành công");
+          router.push("/", "/");
+        }
+        else if(response.code==103){
+          message.error("Đăng nhập thất bại, mật khẩu không chính xác");
+        }
+        else if(response.code==110){
+          message.error("Người dùng không tồn tại, vui lòng đăng ký");
+        }
         localStorage.setItem("_id", response.data.user._id);
         localStorage.setItem("phoneNumber", response.data.user.phoneNumber);
-        localStorage.setItem("pass", pass);
-        router.push("/", "/");
       })
       .catch((err) => {
         console.log(err);

@@ -15,6 +15,9 @@ import { calendar } from "react-icons-kit/fa/calendar";
 import styles from "../../styles/Login.module.css";
 import { useAppContext } from "../../contexts/AppProvider";
 import { useRouter } from "next/router";
+import { message } from "antd";
+
+
 function Profile() {
   //Lấy thông tin hiện tại của user
   const { user } = useAppContext();
@@ -24,6 +27,18 @@ function Profile() {
       router.push("/login", "/login");
     }
   });
+  const [name,setName]=useState("");
+  const [email,setEmail]=useState("");
+  const [birthDate,setBirthDate]=useState("");
+  const handleName=(e)=>{
+    setName(e.target.value);
+  };
+  const handleEmail=(e)=>{
+    setEmail(e.target.value);
+  };
+  const handleBirthDate=(e)=>{
+    setBirthDate(e.target.value);
+  };
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -32,23 +47,33 @@ function Profile() {
   };
   const ChangeInfoAPI=(e)=>{
     e.preventDefault();
-    fetch("https://sleepy-scrubland-61892.herokuapp.com/user/get-detail-user", {
+    fetch("https://sleepy-scrubland-61892.herokuapp.com/user/change-user-information", {
       method: "POST",
       headers: {
         "content-type": "application/json",
         accept: "application/json",
       },
       body: JSON.stringify({
+        userName: "string",
+        avatar: "string",
+        email: email,
+        birthDate: birthDate,
         userId: localStorage.getItem("_id"),
       }),
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
+        if(response.code==111){
+          message.config({
+            top:"100px",
+        });
+          message.success("Cập nhật thông tin người dùng thành công");
+        }
       })
       .catch((err) => {
         console.log(err);
       });
+
   }
   return (
     <div>
@@ -100,7 +125,7 @@ function Profile() {
               >
                 Họ và Tên
               </Typography>
-              <Input />
+              <Input value={name} onChange={handleName} style={{fontSize:"16px"}}/>
             </Box>
             <Box
               sx={{
@@ -116,7 +141,7 @@ function Profile() {
                 Số điện thoại
               </Typography>
               <PhoneInput>
-                <Input />
+                <Input style={{fontSize:"16px"}}/>
                 <ButtonAuth>Gửi mã xác thực</ButtonAuth>
               </PhoneInput>
             </Box>
@@ -128,13 +153,14 @@ function Profile() {
               >
                 Email
               </Typography>
-              <Input />
+              <Input value={email} onChange={handleEmail} style={{fontSize:"16px"}}/>
               <Popup></Popup>
               <ButtonChangePass onClick={handleOpen}>
                 Thay đổi mật khẩu
               </ButtonChangePass>
               <Modal open={open} onClose={handleClose}>
-                <ChangePassWord handleClose={handleClose} />
+                <ChangePassWord handleClose={handleClose} setOpen={setOpen}/>
+                
               </Modal>
               <Typography>Giới tính</Typography>
               <RowRadioButtonsGroup />
@@ -149,7 +175,7 @@ function Profile() {
                   <span></span>
                   <div className={styles["pass-word-input"]}>
                     <span className={styles["pass-word-input-hide"]}>
-                      <input className={styles["pass-input"]} />
+                      <input className={styles["pass-input"]} value={birthDate} onChange={handleBirthDate}/>
                       <Icon
                         className={styles["pass-word-icon"]}
                         icon={calendar}

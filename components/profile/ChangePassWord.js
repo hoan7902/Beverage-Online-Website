@@ -4,6 +4,10 @@ import { eyeOff } from "react-icons-kit/feather/eyeOff";
 import { eye } from "react-icons-kit/feather/eye";
 import styles from "../../styles/Login.module.css";
 import styled from "styled-components";
+import { message } from "antd";
+import { Modal } from "@mui/material";
+import { faL } from "@fortawesome/free-solid-svg-icons";
+
 function PassWordInput({ name }) {
     const { pass, setPass } = useContext(PassWordContext);
     const handlePassChange = (e) => {
@@ -118,13 +122,13 @@ function ReNewPassWordInput({ name }) {
 export const PassWordContext = createContext();
 export const NewPassWordContext = createContext();
 export const ReNewPassWordContext = createContext();
-function ChangePassWord({ handleClose }) {
+function ChangePassWord({ setOpen,handleClose}) {
     const [pass, setPass] = useState("");
     const [newpass, setNewPass] = useState("");
     const [renewpass, setReNewPass] = useState("");
     const handleSubmit = (e) => {
         e.preventDefault();
-    }
+    };
     const ChangePassAPI = (e) => {
         e.preventDefault();
         fetch(
@@ -136,12 +140,7 @@ function ChangePassWord({ handleClose }) {
                     accept: "application/json",
                 },
                 body: JSON.stringify({
-                    phoneNumber: localStorage
-                        .getItem("phoneNumber")
-                        .slice(
-                            1,
-                            localStorage.getItem("phoneNumber").length - 1
-                        ),
+                    phoneNumber: localStorage.getItem("phoneNumber"),
                     password: pass,
                     newPassword: newpass,
                 }),
@@ -150,6 +149,22 @@ function ChangePassWord({ handleClose }) {
             .then((response) => response.json())
             .then((response) => {
                 console.log(response);
+                localStorage.setItem('code',response.code);
+        if(response.code==112)
+        {
+            setOpen(false);
+            message.config({
+                top:"100px",
+            });
+            message.success("Đổi mật khẩu thành công")
+        }
+        else if(response.code==114){
+            setOpen(false);
+            message.config({
+                top:"100px",
+            });
+            message.error("Vui lòng nhập lại mật khẩu, mật khẩu không chính xác")
+        }
             })
             .catch((err) => {
                 console.log(err);
@@ -187,7 +202,7 @@ function ChangePassWord({ handleClose }) {
             </form>
         </div>
     );
-}
+};
 export default ChangePassWord;
 const ButtonCancel = styled.button`
     color: rgba(0, 0, 0, 0.85);
