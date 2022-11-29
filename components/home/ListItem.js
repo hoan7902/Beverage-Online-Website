@@ -44,22 +44,21 @@ const ListItem = ({ title, description, dataProduct }) => {
                 justifyContent="center"
                 m="30px 0"
             >
-                {
+                {dataProduct ? (
                     dataProduct
-                        ? dataProduct
-                            .slice(0, 9)
-                            .map((item) => (
-                                <Item key={item._id} item={item} title="" />
-                            ))
-                        :
-                        <Stack
-                            alignItems="center"
-                            justifyContent="center"
-                            width="100%"
-                        >
-                            <LoaderWaiting />
-                        </Stack>
-                }
+                        .slice(0, 9)
+                        .map((item) => (
+                            <Item key={item._id} item={item} title="" />
+                        ))
+                ) : (
+                    <Stack
+                        alignItems="center"
+                        justifyContent="center"
+                        width="100%"
+                    >
+                        <LoaderWaiting />
+                    </Stack>
+                )}
                 <Link href="/order">
                     <Box
                         className={homeStyles.mainButton}

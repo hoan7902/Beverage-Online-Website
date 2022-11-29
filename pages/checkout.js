@@ -5,32 +5,32 @@ import Image from "next/image";
 import Footer from "../components/home/Footer";
 import Advertisement from "../components/home/Advertisement";
 import homeStyles from "../styles/Home.module.css";
-import { useState, useEffect } from 'react'
-import axios from 'axios'
-import { Modal } from '@mui/material';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Modal } from "@mui/material";
 
 const Checkout = () => {
-    const [listProduct, setListProduct] = useState()
+    const [listProduct, setListProduct] = useState();
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const finalPrice = 0
-    const feeShip = 69000
+    const finalPrice = 0;
+    const feeShip = 69000;
     const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
         width: 400,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
+        bgcolor: "background.paper",
+        border: "2px solid #000",
         boxShadow: 24,
         p: 4,
     };
 
     useEffect(() => {
         const fetchData = async () => {
-            const userId = localStorage.getItem('_id')
+            const userId = localStorage.getItem("_id");
             const res = await axios(
                 `https://sleepy-scrubland-61892.herokuapp.com/cart/get-all-cart?userId=${userId}`
             );
@@ -39,7 +39,7 @@ const Checkout = () => {
             }
         };
         fetchData();
-    })
+    });
 
     return (
         <Stack
@@ -118,46 +118,51 @@ const Checkout = () => {
                 >
                     Đơn hàng của bạn
                 </Typography>
-                {
-                    listProduct === undefined || listProduct.length === 0 ?
-                        <Typography
-                            width='100%'
-                            fontSize="14px"
-                            variant="h3"
-                            color="#282828"
-                        >
-
-                            Chưa có sản phẩm nào!
-                        </Typography> :
-
-                        <Stack m="10px 0">
-                            {listProduct.map((item, index) => {
-                                const totalOfTopping = 0
-                                for (let i = 0; i < item.listTopping.length; i++) {
-                                    totalOfTopping += item.listTopping[i].price
-                                }
-                                const totalPrice = (item.product.price + totalOfTopping) * item.quantity
-                                finalPrice += totalPrice
-                                return (
-                                    <Stack
-                                        key={index}
-                                        mb="5px"
-                                        flexDirection="row"
-                                        justifyContent="space-between"
-                                    >
-                                        <Stack flexDirection="row">
-                                            <Typography mr="10px">{item.quantity}x</Typography>
-                                            <Typography>{item.product.name}</Typography>
-                                        </Stack>
-                                        <Stack flexDirection="row">
-                                            <Typography mr="10px">{totalPrice}đ</Typography>
-                                        </Stack>
+                {listProduct === undefined || listProduct.length === 0 ? (
+                    <Typography
+                        width="100%"
+                        fontSize="14px"
+                        variant="h3"
+                        color="#282828"
+                    >
+                        Chưa có sản phẩm nào!
+                    </Typography>
+                ) : (
+                    <Stack m="10px 0">
+                        {listProduct.map((item, index) => {
+                            const totalOfTopping = 0;
+                            for (let i = 0; i < item.listTopping.length; i++) {
+                                totalOfTopping += item.listTopping[i].price;
+                            }
+                            const totalPrice =
+                                (item.product.price + totalOfTopping) *
+                                item.quantity;
+                            finalPrice += totalPrice;
+                            return (
+                                <Stack
+                                    key={index}
+                                    mb="5px"
+                                    flexDirection="row"
+                                    justifyContent="space-between"
+                                >
+                                    <Stack flexDirection="row">
+                                        <Typography mr="10px">
+                                            {item.quantity}x
+                                        </Typography>
+                                        <Typography>
+                                            {item.product.name}
+                                        </Typography>
                                     </Stack>
-                                )
-                            })}
-                        </Stack>
-                }
-
+                                    <Stack flexDirection="row">
+                                        <Typography mr="10px">
+                                            {totalPrice}đ
+                                        </Typography>
+                                    </Stack>
+                                </Stack>
+                            );
+                        })}
+                    </Stack>
+                )}
             </Stack>
             {/* Chốt đơn */}
             <Stack
@@ -191,7 +196,7 @@ const Checkout = () => {
                         mb="5px"
                         flexDirection="row"
                         justifyContent="space-between"
-                        borderBottom='solid 1px #f1f1f1'
+                        borderBottom="solid 1px #f1f1f1"
                     >
                         <Stack flexDirection="row">
                             <Typography mr="10px">Phí giao hàng</Typography>
@@ -209,7 +214,9 @@ const Checkout = () => {
                             <Typography mr="10px">Thành tiền</Typography>
                         </Stack>
                         <Stack flexDirection="row">
-                            <Typography mr="10px">{finalPrice + feeShip}đ</Typography>
+                            <Typography mr="10px">
+                                {finalPrice + feeShip}đ
+                            </Typography>
                         </Stack>
                     </Stack>
                 </Stack>
@@ -238,10 +245,17 @@ const Checkout = () => {
                         aria-describedby="modal-modal-description"
                     >
                         <Box sx={style}>
-                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                            <Typography
+                                id="modal-modal-title"
+                                variant="h6"
+                                component="h2"
+                            >
                                 Đặt hàng thành công
                             </Typography>
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            <Typography
+                                id="modal-modal-description"
+                                sx={{ mt: 2 }}
+                            >
                                 Cám ơn quý khách đã ủng hộ.
                             </Typography>
                         </Box>

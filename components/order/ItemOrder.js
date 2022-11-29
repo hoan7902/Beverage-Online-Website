@@ -1,18 +1,18 @@
 import { Box, Typography, Stack } from "@mui/material";
 import Image from "next/image";
 import homeStyles from "../../styles/Home.module.css";
-import Popup from './Popup'
-import { useState } from 'react'
+import Popup from "./Popup";
+import { useState } from "react";
 import Router from "next/router";
 
 const ItemOrder = ({ item, listTopping, cart, setCart, checkChange }) => {
     const [pop, setPop] = useState(false);
 
     const handleClick = () => {
-        const test = localStorage.getItem('_id');
-        if (test) setPop(true)
-        else Router.push('/login')
-    }
+        const test = localStorage.getItem("_id");
+        if (test) setPop(true);
+        else Router.push("/login");
+    };
 
     return (
         <>
