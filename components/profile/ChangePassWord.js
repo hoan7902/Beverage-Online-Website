@@ -154,7 +154,7 @@ function ChangePassWord({ handleClose }) {
     };
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            <form>
                 <ModalContainer>
                     <ModalContent>
                         <ModalTitle>
@@ -177,8 +177,8 @@ function ChangePassWord({ handleClose }) {
                         </PassWordContext.Provider>
                     </ModalContent>
                     <ButtonContainer>
-                        <ButtonCancel>Cancel</ButtonCancel>
-                        <ButtonOK>OK</ButtonOK>
+                        <ButtonCancel onClick={handleClose}>Cancel</ButtonCancel>
+                        <ButtonOK onClick={handleSubmit}>OK</ButtonOK>
                     </ButtonContainer>
                 </ModalContainer>
             </form>

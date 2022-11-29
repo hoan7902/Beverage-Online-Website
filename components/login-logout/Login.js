@@ -7,6 +7,8 @@ import styles from "../../styles/Login.module.css";
 import Logo from "../../assets/image/vietnam-flag.png";
 import Link from "next/link";
 import styled from "styled-components";
+import { message } from "antd";
+
 
 const PassWord = ({ name }) => {
     const { pass, setPass } = useContext(PassContext);
@@ -70,6 +72,9 @@ export default function Login() {
             .then((response) => response.json())
             .then((response) => {
                 console.log(response);
+                if(response.code===103){
+                    message.error("Đăng nhập thất bại, mật khẩu của bạn không đúng")
+                }
                 localStorage.setItem(
                     "_id",
                     JSON.stringify(response.data.user._id)

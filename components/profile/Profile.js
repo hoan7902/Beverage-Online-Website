@@ -18,7 +18,19 @@ function Profile() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [email,setEmail]=useState("");
+    const [birthDate,setBirthDate]=useState("");
+    const handleEmailChange=(e)=>{
+        setEmail(e.target.value);
+    };
+    const handleBirthDateChange=(e)=>{
+        setBirthDate(e.target.value);
+    }
     const handleSubmit = (e) => {
+        e.preventDefault();
+        
+    };
+    const API=(e)=>{
         e.preventDefault();
         fetch(
             "https://sleepy-scrubland-61892.herokuapp.com/user/get-detail-user",
@@ -29,9 +41,13 @@ function Profile() {
                     accept: "application/json",
                 },
                 body: JSON.stringify({
-                    userId: localStorage
-                        .getItem("_id")
-                        .slice(1, localStorage.getItem("_id").length - 1),
+                    
+                    userId:  localStorage
+                    .getItem("_id")
+                    .slice(
+                        1,
+                        localStorage.getItem("_id").length - 1
+                    ),
                 }),
             }
         )
@@ -128,7 +144,7 @@ function Profile() {
                             >
                                 Email
                             </Typography>
-                            <Input />
+                            <Input onChange={handleEmailChange}/>
                             <Popup></Popup>
                             <ButtonChangePass onClick={handleOpen}>
                                 Thay đổi mật khẩu
@@ -157,6 +173,7 @@ function Profile() {
                                         >
                                             <input
                                                 className={styles["pass-input"]}
+                                                onChange={handleBirthDateChange}
                                             />
                                             <Icon
                                                 className={
@@ -168,7 +185,7 @@ function Profile() {
                                     </div>
                                 </div>
 
-                                <ButtonSubmit>Cập nhật</ButtonSubmit>
+                                <ButtonSubmit onClick={API}>Cập nhật</ButtonSubmit>
                             </Box>
                         </Box>
                     </Box>
