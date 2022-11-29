@@ -1,6 +1,6 @@
 {
-    "extends": "next/core-web-vitals",
-    "rules": {
-        "no-unused-vars": ["error", { "vars": "all" }] // thêm vào dòng này
-    }
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "no-unused-vars": ["error", { "vars": "all" }] // thêm vào dòng này
+  }
 }
