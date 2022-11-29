@@ -11,30 +11,30 @@ import axios from "axios";
 import Layout from "../components/layout";
 
 export default function Home() {
-    const [dataProduct, setDataProduct] = useState("");
-    const { id } = useParams();
-    useEffect(() => {
-        const fetchExercisesData = async () => {
-            const listProduct = await axios(
-                "https://sleepy-scrubland-61892.herokuapp.com/product/get-product"
-            );
-            setDataProduct(listProduct.data.data.listProduct);
-        };
-        fetchExercisesData();
-    }, [id]);
-    return (
-        <Layout>
-            <Shipper />
-            <Banner />
-            <ListItem
-                dataProduct={dataProduct}
-                title="Menu"
-                description="Các sản phẩm nổi bật"
-            />
-            <BannerAboutUs />
-            <Promotion />
-            <Advertisement />
-            <Footer />
-        </Layout>
-    );
+  const [dataProduct, setDataProduct] = useState("");
+  const { id } = useParams();
+  useEffect(() => {
+    const fetchExercisesData = async () => {
+      const listProduct = await axios(
+        "https://sleepy-scrubland-61892.herokuapp.com/product/get-product"
+      );
+      setDataProduct(listProduct.data.data.listProduct);
+    };
+    fetchExercisesData();
+  }, [id]);
+  return (
+    <Layout>
+      <Shipper />
+      <Banner />
+      <ListItem
+        dataProduct={dataProduct}
+        title="Menu"
+        description="Các sản phẩm nổi bật"
+      />
+      <BannerAboutUs />
+      <Promotion />
+      <Advertisement />
+      <Footer />
+    </Layout>
+  );
 }
