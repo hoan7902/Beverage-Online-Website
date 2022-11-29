@@ -7,8 +7,6 @@ import styles from "../../styles/Login.module.css";
 import Logo from "../../assets/image/vietnam-flag.png";
 import Link from "next/link";
 import styled from "styled-components";
-import { message } from "antd";
-
 import { useRouter } from "next/router";
 import { useAppContext } from "../../contexts/AppProvider";
 

@@ -29,6 +29,9 @@ function Profile() {
   const handleClose = () => setOpen(false);
   const handleSubmit = (e) => {
     e.preventDefault();
+  };
+  const ChangeInfoAPI=(e)=>{
+    e.preventDefault();
     fetch("https://sleepy-scrubland-61892.herokuapp.com/user/get-detail-user", {
       method: "POST",
       headers: {
@@ -46,7 +49,7 @@ function Profile() {
       .catch((err) => {
         console.log(err);
       });
-  };
+  }
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -155,7 +158,7 @@ function Profile() {
                   </div>
                 </div>
 
-                <ButtonSubmit>Cập nhật</ButtonSubmit>
+                <ButtonSubmit onClick={ChangeInfoAPI}>Cập nhật</ButtonSubmit>
               </Box>
             </Box>
           </Box>

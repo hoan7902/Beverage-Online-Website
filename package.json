@@ -1,57 +1,4 @@
 {
-<<<<<<< HEAD
-    "name": "do-an-cnpm",
-    "version": "0.1.0",
-    "private": true,
-    "scripts": {
-        "dev": "next dev",
-        "build": "next build",
-        "start": "next start",
-        "lint": "next lint",
-        "format": "prettier --write ."
-    },
-    "postinstall": "husky install",
-    "dependencies": {
-        "@date-io/date-fns-jalali": "^2.16.0",
-        "@emotion/react": "^11.10.4",
-        "@emotion/styled": "^11.10.4",
-        "@fortawesome/fontawesome-svg-core": "^6.2.1",
-        "@fortawesome/free-brands-svg-icons": "^6.2.1",
-        "@fortawesome/free-regular-svg-icons": "^6.2.1",
-        "@fortawesome/free-solid-svg-icons": "^6.2.1",
-        "@fortawesome/react-fontawesome": "^0.2.0",
-        "@mui/icons-material": "^5.10.9",
-        "@mui/material": "^5.10.10",
-        "@mui/x-date-pickers": "^5.0.7",
-        "antd": "^5.0.2",
-        "axios": "^1.2.0",
-        "date-fns-jalali": "^2.13.0-0",
-        "dayjs": "^1.11.6",
-        "husky": "^8.0.1",
-        "material-jalali-moment-adapter": "^4.0.0",
-        "next": "^12.3.0",
-        "prettier": "^2.7.1",
-        "react": "18.2.0",
-        "react-datepicker": "^4.8.0",
-        "react-dom": "18.2.0",
-        "react-icons-kit": "^2.0.0",
-        "react-router-dom": "^6.4.3",
-        "react-scroll": "^1.8.8",
-        "react-window": "^1.8.8",
-        "reactjs-popup": "^2.0.5",
-        "sass": "^1.55.0",
-        "semantic-ui-css": "^2.5.0",
-        "semantic-ui-react": "^2.1.3",
-        "styled-components": "^5.3.6"
-    },
-    "devDependencies": {
-        "@commitlint/cli": "^17.1.2",
-        "@commitlint/config-conventional": "^17.1.0",
-        "@fortawesome/fontawesome-free": "^6.2.1",
-        "eslint": "8.23.0",
-        "eslint-config-next": "12.3.0"
-    }
-=======
   "name": "do-an-cnpm",
   "version": "0.1.0",
   "private": true,
@@ -75,6 +22,7 @@
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.10",
     "@mui/x-date-pickers": "^5.0.7",
+    "antd": "^5.0.2",
     "axios": "^1.2.0",
     "date-fns-jalali": "^2.13.0-0",
     "dayjs": "^1.11.6",
@@ -91,9 +39,9 @@
     "react-window": "^1.8.8",
     "reactjs-popup": "^2.0.5",
     "sass": "^1.55.0",
-    "styled-components": "^5.3.6",
     "semantic-ui-css": "^2.5.0",
-    "semantic-ui-react": "^2.1.3"
+    "semantic-ui-react": "^2.1.3",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
@@ -102,5 +50,4 @@
     "eslint": "8.23.0",
     "eslint-config-next": "12.3.0"
   }
->>>>>>> 33d97ac3bd5e1feaa5ad952cab44530d5f8fbd07
 }
