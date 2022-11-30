@@ -13,7 +13,7 @@ const PassWord = ({ name }) => {
   const handlePassChange = (e) => {
     setPass(e.target.value);
   };
-  const [type, setType] = useState("");
+  const [type, setType] = useState("password");
   const [icon, setIcon] = useState(eyeOff);
   const handleHidePassword = () => {
     if (type === "password") {
@@ -26,7 +26,7 @@ const PassWord = ({ name }) => {
   };
   return (
     <div className={styles["pass-word"]}>
-      <span id={styles["medium-text-icon"]}>{name}</span>
+      <span id={styles["medium-text"]}>{name}</span>
       <div className={styles["pass-word-input"]}>
         <span className={styles["pass-word-input-hide"]}>
           <input
