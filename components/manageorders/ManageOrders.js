@@ -49,10 +49,10 @@ function ManageOrders() {
           </div>
           <div className={style["color-title-forward"]}>QUẢN LÝ ĐƠN HÀNG</div>
           <div className={style["title-forward"]}>
-            <Link href="/profile/address">ĐỊA CHỈ GIAO HÀNG</Link>
+            ĐỊA CHỈ GIAO HÀNG
           </div>
           <div className={style["title-forward"]}>
-            <Link href="/profile/wishlist">DANH SÁCH YÊU THÍCH</Link>
+            DANH SÁCH YÊU THÍCH
           </div>
         </div>
 
