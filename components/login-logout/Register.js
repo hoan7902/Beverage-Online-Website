@@ -12,7 +12,7 @@ const PassWord = ({ name }) => {
   const handlePassChange = (e) => {
     setPass(e.target.value);
   };
-  const [type, setType] = useState("");
+  const [type, setType] = useState("password");
   const [icon, setIcon] = useState(eyeOff);
   const handleHidePassword = () => {
     if (type === "password") {
@@ -49,7 +49,7 @@ const ConFirmPassWord = ({ name }) => {
   const handelConFirmPassChange = (e) => {
     setConFirmPass(e.target.value);
   };
-  const [type, setType] = useState("");
+  const [type, setType] = useState("password");
   const [icon, setIcon] = useState(eyeOff);
   const handleHidePassword = () => {
     if (type === "password") {
