@@ -125,7 +125,7 @@ export default function Login() {
           <span className={`${styles["min-text-gray"]} ${styles["min-text"]}`}>
             Quên mật khẩu?
             <Link href="/misspassword">
-              <SmallLink>Cài đặt lại mật khẩu</SmallLink>
+              <p className={styles["small-link"]}>Cài đặt lại mật khẩu</p>
             </Link>
           </span>
           <button type="submit" className={styles["Orange_Button"]}>
@@ -136,7 +136,7 @@ export default function Login() {
           <span className={styles["medium-text"]}>
             Chưa có tài khoản?
             <Link href="/register">
-              <CustomLink>Đăng ký</CustomLink>
+              <p className={styles["custom-link"]}>Đăng ký</p>
             </Link>
           </span>
         </div>
@@ -144,20 +144,3 @@ export default function Login() {
     </PassContext.Provider>
   );
 }
-
-const CustomLink = styled.p`
-  padding-left: 5px;
-  color: rgb(235, 113, 0);
-  font-size: 16px;
-  text-decoration: none;
-  margin: 0;
-  cursor: pointer;
-`;
-const SmallLink = styled.p`
-  padding-left: 5px;
-  color: rgb(235, 113, 0);
-  font-size: 14px;
-  text-decoration: none;
-  margin: 0;
-  cursor: pointer;
-`;

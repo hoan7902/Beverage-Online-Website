@@ -207,3 +207,19 @@
 .note {
   margin-top: 10px;
 }
+.custom-link{
+  padding-left: 5px;
+  color: rgb(235, 113, 0);
+  font-size: 16px;
+  text-decoration: none;
+  margin: 0;
+  cursor: pointer;
+}
+.small-link{
+  padding-left: 5px;
+  color: rgb(235, 113, 0);
+  font-size: 14px;
+  text-decoration: none;
+  margin: 0;
+  cursor: pointer;
+}

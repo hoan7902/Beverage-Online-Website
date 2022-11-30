@@ -4,20 +4,16 @@ import "../../styles/Profile.module.css";
 import Footer from "../home/Footer";
 import Advertisement from "../home/Advertisement";
 import RowRadioButtonsGroup from "./Gender";
-import styled from "styled-components";
 import Link from "next/link";
-import Popup from "reactjs-popup";
 import { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import ChangePassWord from "./ChangePassWord";
 import { Icon } from "react-icons-kit";
 import { calendar } from "react-icons-kit/fa/calendar";
-import styles from "../../styles/Login.module.css";
+import style from "../../styles/Profile.module.css";
 import { useAppContext } from "../../contexts/AppProvider";
 import { useRouter } from "next/router";
 import { message } from "antd";
-import Form from '@mui/material';
-import Alert from '@mui/material/Alert';
 
 
 function Profile() {
@@ -70,9 +66,7 @@ function Profile() {
             top:"100px",
         });
           message.success("Cập nhật thông tin người dùng thành công");
-        //   <Alert variant="filled" severity="success">
-        //   Cập nhật thông tin người dùng thành công
-        // </Alert>
+        
         }
       })
       .catch((err) => {
@@ -89,20 +83,20 @@ function Profile() {
             backgroundColor: "#fafafa",
           }}
         >
-          <MenuContainer>
-            <ColorTitleForWard>
+          <div className={style["menu-container"]}>
+            <div className={style["color-title-forward"]}>
               <Link href="/profile">THÔNG TIN CÁ NHÂN</Link>
-            </ColorTitleForWard>
-            <TitleForWard>
+            </div>
+            <div className={style["title-forward"]}>
               <Link href="/profile/manageorders">QUẢN LÝ ĐƠN HÀNG</Link>
-            </TitleForWard>
-            <TitleForWard>
+            </div>
+            <div className={style["title-forward"]}>
               <Link href="/profile/address">ĐỊA CHỈ GIAO HÀNG</Link>
-            </TitleForWard>
-            <TitleForWard>
+            </div>
+            <div className={style["title-forward"]}>
               <Link href="/profile/wishlist">DANH SÁCH YÊU THÍCH</Link>
-            </TitleForWard>
-          </MenuContainer>
+            </div>
+          </div>
           <Box
             sx={{
               marginTop: "120px",
@@ -116,7 +110,7 @@ function Profile() {
                 width: "935px",
               }}
             >
-              <Title>Thông tin cá nhân</Title>
+              <div className={style["title"]}>Thông tin cá nhân</div>
             </Box>
             <Box
               sx={{
@@ -130,7 +124,7 @@ function Profile() {
               >
                 Họ và Tên
               </Typography>
-              <Input value={name} onChange={handleName} style={{fontSize:"16px"}}/>
+              <input className={style["Input"]} value={name} onChange={handleName} style={{fontSize:"16px"}}/>
             </Box>
             <Box
               sx={{
@@ -145,11 +139,12 @@ function Profile() {
               >
                 Số điện thoại
               </Typography>
-              <PhoneInput>
-                <Input style={{fontSize:"16px"}}/>
-                <ButtonAuth>Gửi mã xác thực</ButtonAuth>
-              </PhoneInput>
+              <div className={style["phone-input"]}>
+                <input className={style["Input"]}/>
+                <button className={style["button-auth"]}>Gửi mã xác thực</button>
+              </div>
             </Box>
+
             <Box padding="0 0 20px 20px">
               <Typography
                 sx={{
@@ -158,11 +153,12 @@ function Profile() {
               >
                 Email
               </Typography>
-              <Input value={email} onChange={handleEmail} style={{fontSize:"16px"}}/>
-              <Popup></Popup>
-              <ButtonChangePass onClick={handleOpen}>
+              <input className={style["Input"]} value={email} onChange={handleEmail} style={{fontSize:"16px"}}/>
+              
+              <button className={style["button-change-pass"]} onClick={handleOpen}>
                 Thay đổi mật khẩu
-              </ButtonChangePass>
+              </button>
+              
               <Modal open={open} onClose={handleClose}>
                 <ChangePassWord handleClose={handleClose} setOpen={setOpen}/>
                 
@@ -176,20 +172,20 @@ function Profile() {
                 }}
               >
                 <Typography margin="0 0 20px 0">Ngày sinh</Typography>
-                <div className={styles["pass-word"]}>
+                <div className={style["pass-word"]}>
                   <span></span>
-                  <div className={styles["pass-word-input"]}>
-                    <span className={styles["pass-word-input-hide"]}>
-                      <input className={styles["pass-input"]} value={birthDate} onChange={handleBirthDate}/>
+                  <div className={style["pass-word-input"]}>
+                    <span className={style["pass-word-input-hide"]}>
+                      <input className={style["pass-input"]} value={birthDate} onChange={handleBirthDate}/>
                       <Icon
-                        className={styles["pass-word-icon"]}
+                        className={style["pass-word-icon"]}
                         icon={calendar}
                       />
                     </span>
                   </div>
                 </div>
 
-                <ButtonSubmit onClick={ChangeInfoAPI}>Cập nhật</ButtonSubmit>
+                <button className={style["button-submit"]} onClick={ChangeInfoAPI}>Cập nhật</button>
               </Box>
             </Box>
           </Box>
@@ -202,88 +198,4 @@ function Profile() {
 }
 export default Profile;
 
-const TitleForWard = styled.div`
-  padding: 10px 20px;
-  font-size: 18px;
-  border-right: 1px solid rgb(221, 221, 221);
-  &:hover {
-    background-color: rgb(255, 228, 204);
-    border-right: 5px solid rgb(235, 113, 0);
-    color: rgb(235, 113, 0);
-    cursor: pointer;
-  }
-`;
-const ColorTitleForWard = styled.div`
-  padding: 10px 20px;
-  font-size: 18px;
-  border-right: 1px solid rgb(221, 221, 221);
-  background-color: rgb(255, 228, 204);
-  border-right: 5px solid rgb(235, 113, 0);
-  color: rgb(235, 113, 0);
-  cursor: pointer;
-`;
-const Input = styled.input`
-  margin-bottom: 60px;
-  width: 70%;
-  height: 40px;
-  padding: 6.5px 11px;
-  &:focus {
-    outline-color: #00793f;
-  }
-  &:hover {
-    border: 1px solid #00793f;
-  }
-`;
-const ButtonAuth = styled.button`
-  height: 40px;
-  width: 18%;
-  color: rgb(235, 113, 0);
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  background-color: rgb(255, 228, 204);
-  &:hover {
-    background-color: rgb(255, 228, 204);
-  }
-`;
-const ButtonChangePass = styled.button`
-  background-color: rgb(235, 113, 0);
-  color: #fff;
-  width: 70%;
-  height: 40px;
-  margin: 0 0 30px 0;
-  font-weight: 500;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-`;
-const ButtonSubmit = styled.button`
-  background-color: #00793f;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 500;
-  height: 40px;
-  margin: 30px 0 30px 0;
-  border: none;
-  border-radius: 5px;
-  width: 40%;
-  align-items: center;
-  justify-content: center;
-  margin-left: 30%;
-  cursor: pointer;
-`;
-const Title = styled.div`
-  font-size: 20px;
-  padding: 0 0 30px 20px;
-`;
-const MenuContainer = styled.div`
-  margin-left: 135px;
-  margin-top: 100px;
-  width: 300px;
-  background-color: #fff;
-`;
-const PhoneInput = styled.div`
-  display: flex;
-  justify-content: flex-start;
-`;
+

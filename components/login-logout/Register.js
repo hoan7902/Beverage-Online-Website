@@ -156,7 +156,7 @@ export default function Register() {
             <span style={{ display: "flex" }}>
               Đã có tài khoản?
               <Link href="/login">
-                <CustomLink style={{ color: "orange" }}>Đăng nhập</CustomLink>
+                <p className={styles["custom-link"]} style={{ color: "orange" }}>Đăng nhập</p>
               </Link>
             </span>
           </div>
@@ -165,11 +165,3 @@ export default function Register() {
     </PassContext.Provider>
   );
 }
-const CustomLink = styled.p`
-  padding-left: 5px;
-  color: rgb(235, 113, 0);
-  font-size: 16px;
-  text-decoration: none;
-  margin: 0;
-  cursor: pointer;
-`;
