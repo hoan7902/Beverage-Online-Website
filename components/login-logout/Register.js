@@ -6,7 +6,6 @@ import Image from "next/image";
 import styles from "../../styles/Login.module.css";
 import Logo from "../../assets/image/vietnam-flag.png";
 import Link from "next/link";
-import styled from "styled-components";
 
 const PassWord = ({ name }) => {
   const { pass, setPass } = useContext(PassContext);

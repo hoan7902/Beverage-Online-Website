@@ -5,8 +5,6 @@ import { eye } from "react-icons-kit/feather/eye";
 import styles from "../../styles/Login.module.css";
 import styled from "styled-components";
 import { message } from "antd";
-import { Modal } from "@mui/material";
-import { faL } from "@fortawesome/free-solid-svg-icons";
 
 function PassWordInput({ name }) {
     const { pass, setPass } = useContext(PassWordContext);

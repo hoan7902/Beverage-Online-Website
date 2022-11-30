@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import Icon from "react-icons-kit";
 import { chevronRight } from "react-icons-kit/fa/chevronRight";
 import { arrowRight } from "react-icons-kit/fa/arrowRight";
@@ -25,6 +24,7 @@ function CreateOrder() {
             </div>
             <div className={style["title-current"]}>
               Địa chỉ giao hàng
+              <Icon icon={chevronRight} style={{ marginLeft: "10px" }} />
             </div>
         </div>
         <div style={{display:"flex"}}>
@@ -33,6 +33,7 @@ function CreateOrder() {
             </div>
             <div className={style["title"]}>
               Kiểm tra đơn hàng
+              <Icon icon={chevronRight} style={{ marginLeft: "10px" }} />
             </div>
         </div>
         <div style={{display:"flex"}}>
@@ -41,6 +42,7 @@ function CreateOrder() {
             </div>
             <div className={style["title"]}>
               Hình thức thanh toán
+              <Icon icon={chevronRight} style={{ marginLeft: "10px" }} />
             </div>
         </div>
         <div style={{display:"flex"}}>
@@ -49,6 +51,7 @@ function CreateOrder() {
             </div>
             <div className={style["title"]}>
               Xác nhận và mua hàng
+              <Icon icon={chevronRight} style={{ marginLeft: "10px" }} />
             </div>
         </div>
       </div>
