@@ -11,7 +11,7 @@ function PassWordInput({ name }) {
     const handlePassChange = (e) => {
         setPass(e.target.value);
     };
-    const [type, setType] = useState("");
+    const [type, setType] = useState("password");
     const [icon, setIcon] = useState(eyeOff);
     const handleHidePassword = () => {
         if (type === "password") {
@@ -48,7 +48,7 @@ function NewPassWordInput({ name }) {
     const handleNewPassChange = (e) => {
         setNewPass(e.target.value);
     };
-    const [type, setType] = useState("");
+    const [type, setType] = useState("password");
     const [icon, setIcon] = useState(eyeOff);
     const handleHidePassword = () => {
         if (type === "password") {
@@ -85,7 +85,7 @@ function ReNewPassWordInput({ name }) {
     const handleReNewPassChange = (e) => {
         setReNewPass(e.target.value);
     };
-    const [type, setType] = useState("");
+    const [type, setType] = useState("password");
     const [icon, setIcon] = useState(eyeOff);
     const handleHidePassword = () => {
         if (type === "password") {
