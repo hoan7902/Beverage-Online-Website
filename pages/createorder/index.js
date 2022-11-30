@@ -7,10 +7,10 @@ import Advertisement from "../../components/home/Advertisement";
 function CreateOrderPage() {
   return (
     <>
-      {/* <ResponsiveAppBar /> */}
+      <ResponsiveAppBar />
       <CreateOrder />
-      {/* <Advertisement />
-      <Footer /> */}
+      <Advertisement />
+      <Footer />
     </>
   );
 }
