@@ -16,6 +16,8 @@ import styles from "../../styles/Login.module.css";
 import { useAppContext } from "../../contexts/AppProvider";
 import { useRouter } from "next/router";
 import { message } from "antd";
+import Form from '@mui/material';
+import Alert from '@mui/material/Alert';
 
 
 function Profile() {
@@ -68,6 +70,9 @@ function Profile() {
             top:"100px",
         });
           message.success("Cập nhật thông tin người dùng thành công");
+        //   <Alert variant="filled" severity="success">
+        //   Cập nhật thông tin người dùng thành công
+        // </Alert>
         }
       })
       .catch((err) => {

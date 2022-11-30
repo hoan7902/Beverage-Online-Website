@@ -7,8 +7,8 @@ import { check } from "react-icons-kit/fa/check";
 import { chevronRight } from "react-icons-kit/fa/chevronRight";
 import { arrowLeft } from "react-icons-kit/fa/arrowLeft";
 import { arrowRight } from "react-icons-kit/fa/arrowRight";
-import styled from "styled-components";
 import Link from "next/link";
+import style from '../../styles/CreateOrder.module.css';
 
 function Step3() {
   const [form, setForm] = useState();
@@ -19,7 +19,7 @@ function Step3() {
   return (
     <>
       <div>
-        <TitleForward>
+        <div className={style["title-forward"]}>
           <div style={{ display: "flex", borderBottom: "2px soild #D8B979" }}>
             <div
               style={{
@@ -35,10 +35,10 @@ function Step3() {
                 <Icon icon={check} style={{ color: "#fff" }} />
               </span>
             </div>
-            <Title>
+            <div className={style["title"]}>
               Địa chỉ giao hàng
               <Icon icon={chevronRight} style={{ marginLeft: "10px" }} />
-            </Title>
+            </div>
           </div>
           <div style={{ display: "flex", borderBottom: "2px soild #D8B979" }}>
             <div
@@ -55,12 +55,12 @@ function Step3() {
                 <Icon icon={check} style={{ color: "#fff" }} />
               </span>
             </div>
-            <Title>
+            <div className={style["title"]}>
               Kiểm tra đơn hàng
               <Icon icon={chevronRight} style={{ marginLeft: "10px" }} />
-            </Title>
+            </div>
           </div>
-          <TitleContain>
+          <div className={style["title-contain"]}>
             <div
               style={{
                 borderRadius: "50%",
@@ -73,11 +73,11 @@ function Step3() {
             >
               <span style={{ fontSize: "20px", color: "#ffffff" }}>3</span>
             </div>
-            <TitleCurrent>
+            <div className={style["title-current"]}>
               Hình thức thanh toán
               <Icon icon={chevronRight} style={{ marginLeft: "30px" }} />
-            </TitleCurrent>
-          </TitleContain>
+            </div>
+          </div>
           <div style={{ display: "flex" }}>
             <div
               style={{
@@ -91,12 +91,12 @@ function Step3() {
             >
               <span style={{ fontSize: "20px", color: "#333" }}>4</span>
             </div>
-            <Title>
+            <div className={style["title"]}>
               Xác nhận và mua hàng
               <Icon icon={chevronRight} style={{ marginLeft: "10px" }} />
-            </Title>
+            </div>
           </div>
-        </TitleForward>
+        </div>
         <p
           style={{
             fontSize: "28px",
@@ -107,7 +107,7 @@ function Step3() {
           Chọn hình thức thành toán
         </p>
         <div style={{ display: "flex", margin: "50px 50px 0 50px" }}>
-          <FormPay>
+          <div className={style["form-pay"]}>
             <div style={{ display: "flex", marginLeft: "50px" }}>
               <input
                 name="form"
@@ -126,8 +126,8 @@ function Step3() {
             >
               <Image src={Cod} alt="Cod" />
             </div>
-          </FormPay>
-          <FormPay>
+          </div>
+          <div className={style["form-pay"]}>
             <div style={{ display: "flex", marginLeft: "50px" }}>
               <input
                 name="form"
@@ -146,9 +146,9 @@ function Step3() {
             >
               <Image src={MoMo} alt="MoMo" />
             </div>
-          </FormPay>
+          </div>
         </div>
-        <Cost style={{ height: "100px" }}>
+        <div className={style["cost"]} style={{ height: "100px",flexDirection:"row"}}>
           <p
             style={{
               fontSize: "25px",
@@ -169,7 +169,7 @@ function Step3() {
           >
             246.000đ
           </p>
-        </Cost>
+        </div>
         <div
           style={{
             display: "flex",
@@ -177,76 +177,18 @@ function Step3() {
             margin: "50px 50px",
           }}
         >
-          <ButtonBack>
+          <button className={style["button-back"]}>
             <Icon icon={arrowLeft} style={{ marginRight: "10px" }} />
             <Link href="/createorder/step2">Quay lại</Link>
-          </ButtonBack>
-          <ButtonCon>
+          </button>
+          <button className={style["button-con"]}>
             {" "}
             <Link href="/createorder/step4">Tiếp tục</Link>
             <Icon icon={arrowRight} style={{ marginLeft: "10px" }} />
-          </ButtonCon>
+          </button>
         </div>
       </div>
     </>
   );
 }
 export default Step3;
-const FormPay = styled.div`
-  box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%),
-    0 9px 28px 8px rgb(0 0 0 / 5%);
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  position: relative;
-  height: 300px;
-`;
-const Cost = styled.div`
-  margin: 20px 50px;
-  height: 200px;
-  box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%),
-    0 9px 28px 8px rgb(0 0 0 / 5%);
-  display: flex;
-`;
-const ButtonBack = styled.button`
-  background-color: #b9fad6;
-  border: none;
-  color: #8e8b8b;
-  border-radius: 5px;
-  width: 210px;
-  height: 46px;
-  cursor: pointer;
-  font-size: 18px;
-  align-items: center;
-  justify-content: center;
-`;
-const ButtonCon = styled.button`
-  background-color: #d8b979;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  width: 210px;
-  height: 46px;
-  cursor: pointer;
-  font-size: 18px;
-`;
-const TitleContain = styled.div`
-  display: flex;
-  border-bottom: 4px solid #d8b979;
-`;
-const TitleForward = styled.div`
-  display: flex;
-  justify-content: space-between;
-  height: 40px;
-  margin: 100px 50px 10px 50px;
-`;
-const TitleCurrent = styled.div`
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 10px;
-`;
-const Title = styled.div`
-  font-size: 20px;
-  font-weight: 600;
-  opacity: 0.45;
-`;
