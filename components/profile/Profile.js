@@ -13,7 +13,6 @@ import { calendar } from "react-icons-kit/fa/calendar";
 import style from "../../styles/Profile.module.css";
 import { useAppContext } from "../../contexts/AppProvider";
 import { useRouter } from "next/router";
-import { message } from "antd";
 
 
 function Profile() {
@@ -61,13 +60,14 @@ function Profile() {
     })
       .then((response) => response.json())
       .then((response) => {
-        if(response.code==111){
-          message.config({
-            top:"100px",
-        });
-          message.success("Cập nhật thông tin người dùng thành công");
+        // if(response.code==111){
+        //   message.config({
+        //     top:"100px",
+        // });
+        //   message.success("Cập nhật thông tin người dùng thành công");
         
-        }
+        // }
+        console.log(response);
       })
       .catch((err) => {
         console.log(err);
