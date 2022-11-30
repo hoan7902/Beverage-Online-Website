@@ -5,7 +5,7 @@ import { chevronRight } from "react-icons-kit/fa/chevronRight";
 import { arrowLeft } from "react-icons-kit/fa/arrowLeft";
 import { arrowRight } from "react-icons-kit/fa/arrowRight";
 import Link from "next/link";
-import style from '../../styles/CreateOrder.module.css';
+import style from "../../styles/CreateOrder.module.css";
 
 function Step2() {
   return (
@@ -86,7 +86,7 @@ function Step2() {
           </div>
         </div>
       </div>
-      
+
       <div>
         <div className={style["title-contain-order"]}>
           <div className={style["title-order"]}>Tên thức uống</div>

@@ -6,8 +6,8 @@ import Footer from "../components/home/Footer";
 import Advertisement from "../components/home/Advertisement";
 import homeStyles from "../styles/Home.module.css";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { Modal } from "@mui/material";
+import { useAppContext } from "../contexts/AppProvider";
 
 const Checkout = () => {
   const [listProduct, setListProduct] = useState();
@@ -27,19 +27,10 @@ const Checkout = () => {
     boxShadow: 24,
     p: 4,
   };
-
+  const { listCart } = useAppContext();
   useEffect(() => {
-    const fetchData = async () => {
-      const userId = localStorage.getItem("_id");
-      const res = await axios(
-        `https://sleepy-scrubland-61892.herokuapp.com/cart/get-all-cart?userId=${userId}`
-      );
-      if (res.data.data) {
-        setListProduct(res.data.data);
-      }
-    };
-    fetchData();
-  });
+    setListProduct(listCart);
+  }, [listCart]);
 
   return (
     <Stack

@@ -3,7 +3,7 @@ import Icon from "react-icons-kit";
 import { check } from "react-icons-kit/fa/check";
 import { chevronRight } from "react-icons-kit/fa/chevronRight";
 import Link from "next/link";
-import style from '../../styles/CreateOrder.module.css';
+import style from "../../styles/CreateOrder.module.css";
 
 function Step4() {
   return (
@@ -100,7 +100,10 @@ function Step4() {
           <Link href="/createorder">Thay đổi</Link>
         </button>
       </div>
-      <div className={style["info-customer"]} style={{margin:"10px 50px 10px 50px"}}>
+      <div
+        className={style["info-customer"]}
+        style={{ margin: "10px 50px 10px 50px" }}
+      >
         <div style={{ margin: "0 20px" }}>
           <p style={{ fontSize: "20px", fontWeight: 500, color: "#333" }}>
             Họ tên khách hàng
@@ -134,7 +137,10 @@ function Step4() {
           <Link href="/createorder/step2">Thay đổi</Link>
         </button>
       </div>
-      <div className={style["cost"]} style={{margin:"10px 50px 20px 50px",height:"300px"}}>
+      <div
+        className={style["cost"]}
+        style={{ margin: "10px 50px 20px 50px", height: "300px" }}
+      >
         <div style={{ borderBottom: "1px solid #BAB8B8" }}>
           <div style={{ display: "flex", margin: "10px 40px 10px 40px" }}>
             <p style={{ flex: "1", fontSize: "22px", color: "#6B6B6B" }}>
@@ -191,6 +197,3 @@ function Step4() {
   );
 }
 export default Step4;
-
-
-

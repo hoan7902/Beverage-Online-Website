@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import "../../styles/Profile.module.css";
 import Footer from "../home/Footer";
 import Advertisement from "../home/Advertisement";
-import RowRadioButtonsGroup from "./Gender";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
@@ -11,29 +10,35 @@ import ChangePassWord from "./ChangePassWord";
 import { Icon } from "react-icons-kit";
 import { calendar } from "react-icons-kit/fa/calendar";
 import style from "../../styles/Profile.module.css";
-import { useAppContext } from "../../contexts/AppProvider";
 import { useRouter } from "next/router";
-
+import { useAppContext } from "../../contexts/AppProvider";
 
 function Profile() {
   //Lấy thông tin hiện tại của user
-  const { user } = useAppContext();
   const router = useRouter();
+  const { user } = useAppContext();
+
+  console.log(user);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [birthDate, setBirthDate] = useState("");
   useEffect(() => {
-    if (!user) {
+    const userId = window.localStorage.getItem("_id");
+    if (!userId) {
       router.push("/login", "/login");
+    } else {
+      setName(user?.userName);
+      setEmail(user?.email);
+      setBirthDate(user?.birthDate);
     }
-  });
-  const [name,setName]=useState("");
-  const [email,setEmail]=useState("");
-  const [birthDate,setBirthDate]=useState("");
-  const handleName=(e)=>{
+  }, [user, router]);
+  const handleName = (e) => {
     setName(e.target.value);
   };
-  const handleEmail=(e)=>{
+  const handleEmail = (e) => {
     setEmail(e.target.value);
   };
-  const handleBirthDate=(e)=>{
+  const handleBirthDate = (e) => {
     setBirthDate(e.target.value);
   };
   const [open, setOpen] = useState(false);
@@ -42,38 +47,32 @@ function Profile() {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-  const ChangeInfoAPI=(e)=>{
+  const ChangeInfoAPI = (e) => {
     e.preventDefault();
-    fetch("https://sleepy-scrubland-61892.herokuapp.com/user/change-user-information", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        accept: "application/json",
-      },
-      body: JSON.stringify({
-        userName: "string",
-        avatar: "string",
-        email: email,
-        birthDate: birthDate,
-        userId: localStorage.getItem("_id"),
-      }),
-    })
+    fetch(
+      "https://sleepy-scrubland-61892.herokuapp.com/user/change-user-information",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          accept: "application/json",
+        },
+        body: JSON.stringify({
+          userName: name,
+          email: email,
+          birthDate: birthDate,
+          userId: localStorage.getItem("_id"),
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((response) => {
-        // if(response.code==111){
-        //   message.config({
-        //     top:"100px",
-        // });
-        //   message.success("Cập nhật thông tin người dùng thành công");
-        
-        // }
         console.log(response);
       })
       .catch((err) => {
         console.log(err);
       });
-
-  }
+  };
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -89,12 +88,6 @@ function Profile() {
             </div>
             <div className={style["title-forward"]}>
               <Link href="/profile/manageorders">QUẢN LÝ ĐƠN HÀNG</Link>
-            </div>
-            <div className={style["title-forward"]}>
-              <Link href="/profile/address">ĐỊA CHỈ GIAO HÀNG</Link>
-            </div>
-            <div className={style["title-forward"]}>
-              <Link href="/profile/wishlist">DANH SÁCH YÊU THÍCH</Link>
             </div>
           </div>
           <Box
@@ -124,25 +117,13 @@ function Profile() {
               >
                 Họ và Tên
               </Typography>
-              <input className={style["Input"]} value={name} onChange={handleName} style={{fontSize:"16px"}}/>
-            </Box>
-            <Box
-              sx={{
-                padding: "0 0 20px 20px",
-                width: "80%",
-              }}
-            >
-              <Typography
-                sx={{
-                  paddingBottom: "10px",
-                }}
-              >
-                Số điện thoại
-              </Typography>
-              <div className={style["phone-input"]}>
-                <input className={style["Input"]}/>
-                <button className={style["button-auth"]}>Gửi mã xác thực</button>
-              </div>
+              <input
+                className={style["Input"]}
+                value={name}
+                onChange={handleName}
+                style={{ fontSize: "16px" }}
+                placeholder={user?.userName}
+              />
             </Box>
 
             <Box padding="0 0 20px 20px">
@@ -153,18 +134,24 @@ function Profile() {
               >
                 Email
               </Typography>
-              <input className={style["Input"]} value={email} onChange={handleEmail} style={{fontSize:"16px"}}/>
-              
-              <button className={style["button-change-pass"]} onClick={handleOpen}>
+              <input
+                className={style["Input"]}
+                value={email}
+                onChange={handleEmail}
+                style={{ fontSize: "16px" }}
+                placeholder={user?.email}
+              />
+
+              <button
+                className={style["button-change-pass"]}
+                onClick={handleOpen}
+              >
                 Thay đổi mật khẩu
               </button>
-              
+
               <Modal open={open} onClose={handleClose}>
-                <ChangePassWord handleClose={handleClose} setOpen={setOpen}/>
-                
+                <ChangePassWord handleClose={handleClose} setOpen={setOpen} />
               </Modal>
-              <Typography>Giới tính</Typography>
-              <RowRadioButtonsGroup />
               <Box
                 sx={{
                   width: "70%",
@@ -176,7 +163,11 @@ function Profile() {
                   <span></span>
                   <div className={style["pass-word-input"]}>
                     <span className={style["pass-word-input-hide"]}>
-                      <input className={style["pass-input"]} value={birthDate} onChange={handleBirthDate}/>
+                      <input
+                        className={style["pass-input"]}
+                        value={birthDate}
+                        onChange={handleBirthDate}
+                      />
                       <Icon
                         className={style["pass-word-icon"]}
                         icon={calendar}
@@ -185,7 +176,12 @@ function Profile() {
                   </div>
                 </div>
 
-                <button className={style["button-submit"]} onClick={ChangeInfoAPI}>Cập nhật</button>
+                <button
+                  className={style["button-submit"]}
+                  onClick={ChangeInfoAPI}
+                >
+                  Cập nhật
+                </button>
               </Box>
             </Box>
           </Box>
@@ -197,5 +193,3 @@ function Profile() {
   );
 }
 export default Profile;
-
-

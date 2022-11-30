@@ -155,7 +155,12 @@ export default function Register() {
             <span style={{ display: "flex" }}>
               Đã có tài khoản?
               <Link href="/login">
-                <p className={styles["custom-link"]} style={{ color: "orange" }}>Đăng nhập</p>
+                <p
+                  className={styles["custom-link"]}
+                  style={{ color: "orange" }}
+                >
+                  Đăng nhập
+                </p>
               </Link>
             </span>
           </div>

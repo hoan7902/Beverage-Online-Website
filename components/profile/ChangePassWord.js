@@ -5,248 +5,243 @@ import { eye } from "react-icons-kit/feather/eye";
 import styles from "../../styles/Login.module.css";
 import styled from "styled-components";
 
-
 function PassWordInput({ name }) {
-    const { pass, setPass } = useContext(PassWordContext);
-    const handlePassChange = (e) => {
-        setPass(e.target.value);
-    };
-    const [type, setType] = useState("");
-    const [icon, setIcon] = useState(eyeOff);
-    const handleHidePassword = () => {
-        if (type === "password") {
-            setIcon(eye);
-            setType("text");
-        } else {
-            setIcon(eyeOff);
-            setType("password");
-        }
-    };
-    return (
-        <div className={styles["pass-word"]}>
-            <span id={styles["medium-text-icon"]}>{name}</span>
-            <div className={styles["pass-word-input"]}>
-                <span className={styles["pass-word-input-hide"]}>
-                    <input
-                        className={styles["pass-input"]}
-                        value={pass}
-                        onChange={handlePassChange}
-                        type={type}
-                    />
-                    <Icon
-                        className={styles["pass-word-icon"]}
-                        onClick={handleHidePassword}
-                        icon={icon}
-                    />
-                </span>
-            </div>
-        </div>
-    );
+  const { pass, setPass } = useContext(PassWordContext);
+  const handlePassChange = (e) => {
+    setPass(e.target.value);
+  };
+  const [type, setType] = useState("");
+  const [icon, setIcon] = useState(eyeOff);
+  const handleHidePassword = () => {
+    if (type === "password") {
+      setIcon(eye);
+      setType("text");
+    } else {
+      setIcon(eyeOff);
+      setType("password");
+    }
+  };
+  return (
+    <div className={styles["pass-word"]}>
+      <span id={styles["medium-text-icon"]}>{name}</span>
+      <div className={styles["pass-word-input"]}>
+        <span className={styles["pass-word-input-hide"]}>
+          <input
+            className={styles["pass-input"]}
+            value={pass}
+            onChange={handlePassChange}
+            type={type}
+          />
+          <Icon
+            className={styles["pass-word-icon"]}
+            onClick={handleHidePassword}
+            icon={icon}
+          />
+        </span>
+      </div>
+    </div>
+  );
 }
 function NewPassWordInput({ name }) {
-    const { newpass, setNewPass } = useContext(NewPassWordContext);
-    const handleNewPassChange = (e) => {
-        setNewPass(e.target.value);
-    };
-    const [type, setType] = useState("");
-    const [icon, setIcon] = useState(eyeOff);
-    const handleHidePassword = () => {
-        if (type === "password") {
-            setIcon(eye);
-            setType("text");
-        } else {
-            setIcon(eyeOff);
-            setType("password");
-        }
-    };
-    return (
-        <div className={styles["pass-word"]}>
-            <span id={styles["medium-text-icon"]}>{name}</span>
-            <div className={styles["pass-word-input"]}>
-                <span className={styles["pass-word-input-hide"]}>
-                    <input
-                        className={styles["pass-input"]}
-                        value={newpass}
-                        onChange={handleNewPassChange}
-                        type={type}
-                    />
-                    <Icon
-                        className={styles["pass-word-icon"]}
-                        onClick={handleHidePassword}
-                        icon={icon}
-                    />
-                </span>
-            </div>
-        </div>
-    );
+  const { newpass, setNewPass } = useContext(NewPassWordContext);
+  const handleNewPassChange = (e) => {
+    setNewPass(e.target.value);
+  };
+  const [type, setType] = useState("");
+  const [icon, setIcon] = useState(eyeOff);
+  const handleHidePassword = () => {
+    if (type === "password") {
+      setIcon(eye);
+      setType("text");
+    } else {
+      setIcon(eyeOff);
+      setType("password");
+    }
+  };
+  return (
+    <div className={styles["pass-word"]}>
+      <span id={styles["medium-text-icon"]}>{name}</span>
+      <div className={styles["pass-word-input"]}>
+        <span className={styles["pass-word-input-hide"]}>
+          <input
+            className={styles["pass-input"]}
+            value={newpass}
+            onChange={handleNewPassChange}
+            type={type}
+          />
+          <Icon
+            className={styles["pass-word-icon"]}
+            onClick={handleHidePassword}
+            icon={icon}
+          />
+        </span>
+      </div>
+    </div>
+  );
 }
 function ReNewPassWordInput({ name }) {
-    const { renewpass, setReNewPass } = useContext(ReNewPassWordContext);
-    const handleReNewPassChange = (e) => {
-        setReNewPass(e.target.value);
-    };
-    const [type, setType] = useState("");
-    const [icon, setIcon] = useState(eyeOff);
-    const handleHidePassword = () => {
-        if (type === "password") {
-            setIcon(eye);
-            setType("text");
-        } else {
-            setIcon(eyeOff);
-            setType("password");
-        }
-    };
-    return (
-        <div className={styles["pass-word"]}>
-            <span id={styles["medium-text-icon"]}>{name}</span>
-            <div className={styles["pass-word-input"]}>
-                <span className={styles["pass-word-input-hide"]}>
-                    <input
-                        className={styles["pass-input"]}
-                        value={renewpass}
-                        onChange={handleReNewPassChange}
-                        type={type}
-                    />
-                    <Icon
-                        className={styles["pass-word-icon"]}
-                        onClick={handleHidePassword}
-                        icon={icon}
-                    />
-                </span>
-            </div>
-        </div>
-    );
+  const { renewpass, setReNewPass } = useContext(ReNewPassWordContext);
+  const handleReNewPassChange = (e) => {
+    setReNewPass(e.target.value);
+  };
+  const [type, setType] = useState("");
+  const [icon, setIcon] = useState(eyeOff);
+  const handleHidePassword = () => {
+    if (type === "password") {
+      setIcon(eye);
+      setType("text");
+    } else {
+      setIcon(eyeOff);
+      setType("password");
+    }
+  };
+  return (
+    <div className={styles["pass-word"]}>
+      <span id={styles["medium-text-icon"]}>{name}</span>
+      <div className={styles["pass-word-input"]}>
+        <span className={styles["pass-word-input-hide"]}>
+          <input
+            className={styles["pass-input"]}
+            value={renewpass}
+            onChange={handleReNewPassChange}
+            type={type}
+          />
+          <Icon
+            className={styles["pass-word-icon"]}
+            onClick={handleHidePassword}
+            icon={icon}
+          />
+        </span>
+      </div>
+    </div>
+  );
 }
 export const PassWordContext = createContext();
 export const NewPassWordContext = createContext();
 export const ReNewPassWordContext = createContext();
-function ChangePassWord({ setOpen,handleClose}) {
-    const [pass, setPass] = useState("");
-    const [newpass, setNewPass] = useState("");
-    const [renewpass, setReNewPass] = useState("");
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    };
-    const ChangePassAPI = (e) => {
-        e.preventDefault();
-        fetch(
-            "https://sleepy-scrubland-61892.herokuapp.com/user/change-user-password",
-            {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json",
-                    accept: "application/json",
-                },
-                body: JSON.stringify({
-                    phoneNumber: localStorage.getItem("phoneNumber"),
-                    password: pass,
-                    newPassword: newpass,
-                }),
-            }
-        )
-            .then((response) => response.json())
-            .then((response) => {
-                console.log(response);
-                localStorage.setItem('code',response.code);
-        if(response.code==112)
-        {
-            setOpen(false);
-            message.config({
-                top:"100px",
-            });
-            message.success("Đổi mật khẩu thành công")
+function ChangePassWord({ setOpen, handleClose }) {
+  const [pass, setPass] = useState("");
+  const [newpass, setNewPass] = useState("");
+  const [renewpass, setReNewPass] = useState("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+  const ChangePassAPI = (e) => {
+    e.preventDefault();
+    fetch(
+      "https://sleepy-scrubland-61892.herokuapp.com/user/change-user-password",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          accept: "application/json",
+        },
+        body: JSON.stringify({
+          phoneNumber: localStorage.getItem("phoneNumber"),
+          password: pass,
+          newPassword: newpass,
+        }),
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem("code", response.code);
+        if (response.code == 112) {
+          setOpen(false);
+          message.config({
+            top: "100px",
+          });
+          message.success("Đổi mật khẩu thành công");
+        } else if (response.code == 114) {
+          setOpen(false);
+          message.config({
+            top: "100px",
+          });
+          message.error("Vui lòng nhập lại mật khẩu, mật khẩu không chính xác");
         }
-        else if(response.code==114){
-            setOpen(false);
-            message.config({
-                top:"100px",
-            });
-            message.error("Vui lòng nhập lại mật khẩu, mật khẩu không chính xác")
-        }
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
-    return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <ModalContainer>
-                    <ModalContent>
-                        <ModalTitle>
-                            <TitleForm>Đổi mật khẩu</TitleForm>
-                            <ModalClose onClick={handleClose}>X</ModalClose>
-                        </ModalTitle>
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <ModalContainer>
+          <ModalContent>
+            <ModalTitle>
+              <TitleForm>Đổi mật khẩu</TitleForm>
+              <ModalClose onClick={handleClose}>X</ModalClose>
+            </ModalTitle>
 
-                        <PassWordContext.Provider value={{ pass, setPass }}>
-                            <NewPassWordContext.Provider
-                                value={{ newpass, setNewPass }}
-                            >
-                                <ReNewPassWordContext.Provider
-                                    value={{ renewpass, setReNewPass }}
-                                >
-                                    <PassWordInput name="Mật khẩu hiện tại" />
-                                    <NewPassWordInput name="Mật khẩu mới" />
-                                    <ReNewPassWordInput name="Nhập mật khẩu mới" />
-                                </ReNewPassWordContext.Provider>
-                            </NewPassWordContext.Provider>
-                        </PassWordContext.Provider>
-                    </ModalContent>
-                    <ButtonContainer>
-                        <ButtonCancel onClick={handleClose}>Cancel</ButtonCancel>
-                        <ButtonOK onClick={ChangePassAPI}>OK</ButtonOK>
-                    </ButtonContainer>
-                </ModalContainer>
-            </form>
-        </div>
-    );
-};
+            <PassWordContext.Provider value={{ pass, setPass }}>
+              <NewPassWordContext.Provider value={{ newpass, setNewPass }}>
+                <ReNewPassWordContext.Provider
+                  value={{ renewpass, setReNewPass }}
+                >
+                  <PassWordInput name="Mật khẩu hiện tại" />
+                  <NewPassWordInput name="Mật khẩu mới" />
+                  <ReNewPassWordInput name="Nhập mật khẩu mới" />
+                </ReNewPassWordContext.Provider>
+              </NewPassWordContext.Provider>
+            </PassWordContext.Provider>
+          </ModalContent>
+          <ButtonContainer>
+            <ButtonCancel onClick={handleClose}>Cancel</ButtonCancel>
+            <ButtonOK onClick={ChangePassAPI}>OK</ButtonOK>
+          </ButtonContainer>
+        </ModalContainer>
+      </form>
+    </div>
+  );
+}
 export default ChangePassWord;
 const ButtonCancel = styled.button`
-    color: rgba(0, 0, 0, 0.85);
-    font-size: 14px;
-    box-sizing: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.4);
-    font-weight: 400;
-    cursor: pointer;
-    height: 30px;
-    margin-right: 10px;
-    padding: 0 15px;
-    &:hover {
-        color: #00793f;
-        border: 1px solid #00793f;
-    }
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 14px;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  font-weight: 400;
+  cursor: pointer;
+  height: 30px;
+  margin-right: 10px;
+  padding: 0 15px;
+  &:hover {
+    color: #00793f;
+    border: 1px solid #00793f;
+  }
 `;
 const ButtonOK = styled.button`
-    color: #fff;
-    font-size: 14px;
-    font-weight: 400;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  background-color: #00793f;
+  border-top-color: rgb(0, 121, 63);
+  border-right-color: rgb(0, 121, 63);
+  border-bottom-color: rgb(0, 121, 63);
+  border-left-color: rgb(0, 121, 63);
+  border: none;
+  cursor: pointer;
+  height: 30px;
+  width: 50px;
+  &:hover {
     background-color: #00793f;
-    border-top-color: rgb(0, 121, 63);
-    border-right-color: rgb(0, 121, 63);
-    border-bottom-color: rgb(0, 121, 63);
-    border-left-color: rgb(0, 121, 63);
-    border: none;
-    cursor: pointer;
-    height: 30px;
-    width: 50px;
-    &:hover {
-        background-color: #00793f;
-        opacity: 0.8;
-    }
+    opacity: 0.8;
+  }
 `;
 const ModalClose = styled.p`
-    font-size: 18px;
-    cursor: pointer;
-    padding-right: 10px;
-    opacity: 0.5;
-    &:hover {
-        opacity: 1;
-    }
+  font-size: 18px;
+  cursor: pointer;
+  padding-right: 10px;
+  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
 `;
 const ModalTitle = styled.div`
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 `;
 const ModalContainer = styled.div`
 position: absolute as absolute;
@@ -262,14 +257,14 @@ padding: 25px;
 border-bottom: 1px solid #fdfdfd;
 `;
 const TitleForm = styled.h2`
-    font-size: 32px;
-    font-weight: 600;
+  font-size: 32px;
+  font-weight: 600;
 `;
 const ModalContent = styled.div`
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 `;
 const ButtonContainer = styled.div`
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 `;

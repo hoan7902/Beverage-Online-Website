@@ -8,7 +8,7 @@ import { chevronRight } from "react-icons-kit/fa/chevronRight";
 import { arrowLeft } from "react-icons-kit/fa/arrowLeft";
 import { arrowRight } from "react-icons-kit/fa/arrowRight";
 import Link from "next/link";
-import style from '../../styles/CreateOrder.module.css';
+import style from "../../styles/CreateOrder.module.css";
 
 function Step3() {
   const [form, setForm] = useState();
@@ -148,7 +148,10 @@ function Step3() {
             </div>
           </div>
         </div>
-        <div className={style["cost"]} style={{ height: "100px",flexDirection:"row"}}>
+        <div
+          className={style["cost"]}
+          style={{ height: "100px", flexDirection: "row" }}
+        >
           <p
             style={{
               fontSize: "25px",

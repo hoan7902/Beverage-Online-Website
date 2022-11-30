@@ -71,7 +71,7 @@ export default function Login() {
       .then((response) => response.json())
       .then((response) => {
         setUser(response.data.user);
-        if(response.code==102){
+        if (response.code == 102) {
           // message.success("Đăng nhập thành công");
           router.push("/", "/");
         }

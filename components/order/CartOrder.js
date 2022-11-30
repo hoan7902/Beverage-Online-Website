@@ -3,13 +3,14 @@ import { Stack, Typography, Box } from "@mui/material";
 import homeStyles from "../../styles/Home.module.css";
 import axios from "axios";
 import Router from "next/router";
+import { useAppContext } from "../../contexts/AppProvider";
 
 // var getCart = undefined
 
 const CartOrder = ({ cart, setCart }) => {
   const [listProduct, setListProduct] = useState();
   const [toDelete, setToDelete] = useState(false);
-
+  const { setListCart } = useAppContext();
   const handleDeleteAll = () => {
     const userId = localStorage.getItem("_id");
     listProduct.forEach((item) => {
@@ -38,7 +39,8 @@ const CartOrder = ({ cart, setCart }) => {
   };
 
   const checkout = () => {
-    Router.push("/checkout");
+    setListCart(listProduct);
+    Router.push("/createorder");
   };
 
   const deleteItem = (_id) => {
