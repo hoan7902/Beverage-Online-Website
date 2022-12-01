@@ -21,10 +21,12 @@ function ManageOrders() {
   }
   function OrdersLoading() {
     return (
-      <div className={style["content-container"]} >
-        <div className={style["title-container"]} >
+      <div className={style["content-container"]}>
+        <div className={style["title-container"]}>
           <div className={style["title-color"]}>Đơn hàng đang xử lý</div>
-          <div className={style["title"]} onClick={handleOpenComplete}>Đơn hàng hoàn tất</div>
+          <div className={style["title"]} onClick={handleOpenComplete}>
+            Đơn hàng hoàn tất
+          </div>
         </div>
       </div>
     );
@@ -32,8 +34,10 @@ function ManageOrders() {
   function OrdersComplete() {
     return (
       <div className={style["content-container"]}>
-        <div className={style["title-container"]} >
-          <div className={style["title"]} onClick={handleOpenLoading}>Đơn hàng đang xử lý</div>
+        <div className={style["title-container"]}>
+          <div className={style["title"]} onClick={handleOpenLoading}>
+            Đơn hàng đang xử lý
+          </div>
           <div className={style["title-color"]}>Đơn hàng hoàn tất</div>
         </div>
       </div>
@@ -64,4 +68,3 @@ function ManageOrders() {
   );
 }
 export default ManageOrders;
-

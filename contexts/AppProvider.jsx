@@ -19,7 +19,20 @@ const AppProvider = ({ children }) => {
         console.log(error);
       }
     };
+    const getCart = async () => {
+      try {
+        const data = await axios.get(
+          `https://sleepy-scrubland-61892.herokuapp.com/cart/get-all-cart?userId=${localStorage.getItem(
+            "_id"
+          )}`
+        );
+        setListCart(data.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getProfile();
+    getCart();
   }, []);
   return (
     <AppContext.Provider value={{ user, setUser, listCart, setListCart }}>

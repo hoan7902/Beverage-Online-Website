@@ -11,7 +11,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-
 function PassWordInput({ name }) {
     const { pass, setPass } = useContext(PassWordContext);
     const handlePassChange = (e) => {
@@ -197,75 +196,73 @@ function ChangePassWord({ setOpen,handleClose}) {
                             <ModalClose onClick={handleClose}>X</ModalClose>
                         </ModalTitle>
 
-                        <PassWordContext.Provider value={{ pass, setPass }}>
-                            <NewPassWordContext.Provider
-                                value={{ newpass, setNewPass }}
-                            >
-                                <ReNewPassWordContext.Provider
-                                    value={{ renewpass, setReNewPass }}
-                                >
-                                    <PassWordInput name="Mật khẩu hiện tại" />
-                                    <NewPassWordInput name="Mật khẩu mới" />
-                                    <ReNewPassWordInput name="Nhập mật khẩu mới" />
-                                </ReNewPassWordContext.Provider>
-                            </NewPassWordContext.Provider>
-                        </PassWordContext.Provider>
-                    </ModalContent>
-                    <ButtonContainer>
-                        <ButtonCancel onClick={handleClose}>Cancel</ButtonCancel>
-                        <ButtonOK onClick={ChangePassAPI}>OK</ButtonOK>
-                    </ButtonContainer>
-                </ModalContainer>
-            </form>
-        </div>
-    );
-};
+            <PassWordContext.Provider value={{ pass, setPass }}>
+              <NewPassWordContext.Provider value={{ newpass, setNewPass }}>
+                <ReNewPassWordContext.Provider
+                  value={{ renewpass, setReNewPass }}
+                >
+                  <PassWordInput name="Mật khẩu hiện tại" />
+                  <NewPassWordInput name="Mật khẩu mới" />
+                  <ReNewPassWordInput name="Nhập mật khẩu mới" />
+                </ReNewPassWordContext.Provider>
+              </NewPassWordContext.Provider>
+            </PassWordContext.Provider>
+          </ModalContent>
+          <ButtonContainer>
+            <ButtonCancel onClick={handleClose}>Cancel</ButtonCancel>
+            <ButtonOK onClick={ChangePassAPI}>OK</ButtonOK>
+          </ButtonContainer>
+        </ModalContainer>
+      </form>
+    </div>
+  );
+}
 export default ChangePassWord;
 const ButtonCancel = styled.button`
-    color: rgba(0, 0, 0, 0.85);
-    font-size: 14px;
-    box-sizing: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.4);
-    font-weight: 400;
-    cursor: pointer;
-    height: 30px;
-    margin-right: 10px;
-    padding: 0 15px;
-    &:hover {
-        color: #00793f;
-        border: 1px solid #00793f;
-    }
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 14px;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  font-weight: 400;
+  cursor: pointer;
+  height: 30px;
+  margin-right: 10px;
+  padding: 0 15px;
+  &:hover {
+    color: #00793f;
+    border: 1px solid #00793f;
+  }
 `;
 const ButtonOK = styled.button`
-    color: #fff;
-    font-size: 14px;
-    font-weight: 400;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  background-color: #00793f;
+  border-top-color: rgb(0, 121, 63);
+  border-right-color: rgb(0, 121, 63);
+  border-bottom-color: rgb(0, 121, 63);
+  border-left-color: rgb(0, 121, 63);
+  border: none;
+  cursor: pointer;
+  height: 30px;
+  width: 50px;
+  &:hover {
     background-color: #00793f;
-    border-top-color: rgb(0, 121, 63);
-    border-right-color: rgb(0, 121, 63);
-    border-bottom-color: rgb(0, 121, 63);
-    border-left-color: rgb(0, 121, 63);
-    border: none;
-    cursor: pointer;
-    height: 30px;
-    width: 50px;
-    &:hover {
-        background-color: #00793f;
-        opacity: 0.8;
-    }
+    opacity: 0.8;
+  }
 `;
 const ModalClose = styled.p`
-    font-size: 18px;
-    cursor: pointer;
-    padding-right: 10px;
-    opacity: 0.5;
-    &:hover {
-        opacity: 1;
-    }
+  font-size: 18px;
+  cursor: pointer;
+  padding-right: 10px;
+  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
 `;
 const ModalTitle = styled.div`
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 `;
 const ModalContainer = styled.div`
 position: absolute as absolute;
@@ -281,14 +278,14 @@ padding: 25px;
 border-bottom: 1px solid #fdfdfd;
 `;
 const TitleForm = styled.h2`
-    font-size: 32px;
-    font-weight: 600;
+  font-size: 32px;
+  font-weight: 600;
 `;
 const ModalContent = styled.div`
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 `;
 const ButtonContainer = styled.div`
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 `;

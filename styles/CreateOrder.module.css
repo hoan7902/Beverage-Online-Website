@@ -1,22 +1,22 @@
-.title-forward{
+.title-forward {
   display: flex;
   justify-content: space-between;
   height: 40px;
   margin: 100px 50px 10px 50px;
 }
-.title-contain{
+.title-contain {
   display: flex;
   border-bottom: 4px solid #d8b979;
 }
-.title-contain-forward{
+.title-contain-forward {
   border-radius: 50%;
   height: 30px;
   width: 30px;
-  background-color: #D8B979;
+  background-color: #d8b979;
   text-align: center;
   margin-right: 10px;
 }
-.title-contain-notforward{
+.title-contain-notforward {
   border-radius: 50%;
   height: 30px;
   width: 30px;
@@ -24,57 +24,57 @@
   margin-right: 10px;
   border: 1px solid #333;
 }
-.title-current{
+.title-current {
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 10px;
 }
-.number-forward{
+.number-forward {
   font-size: 20px;
-  color:#fff;
+  color: #fff;
 }
-.number{
-  font-size:20px;
-  color:#333;
+.number {
+  font-size: 20px;
+  color: #333;
 }
-.info-customer{
+.info-customer {
   margin: 0 10px;
   flex-direction: column;
   display: flex;
   box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%),
     0 9px 28px 8px rgb(0 0 0 / 5%);
 }
-.content{
+.content {
   display: flex;
-  height: 580px;
+  /* height: 580px; */
   margin: 0 40px;
 }
-.title{
+.title {
   font-size: 20px;
   font-weight: 600;
   opacity: 0.45;
 }
-.address{
+.address {
   flex: 1;
   margin: 0 10px;
   flex-direction: column;
   display: flex;
   box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%),
     0 9px 28px 8px rgb(0 0 0 / 5%);
-    position:relative;
+  position: relative;
 }
-.Input{
+.Input {
   height: 40px;
   margin: 10px 20px;
-  position:relative;
+  position: relative;
 }
-.input:focus{
+.input:focus {
   outline-color: #00793f;
 }
-.input:hover{
+.input:hover {
   border: 1px solid #00793f;
 }
-.button-con{
+.button-con {
   background-color: #d8b979;
   color: #fff;
   border: none;
@@ -83,9 +83,9 @@
   height: 46px;
   cursor: pointer;
   font-size: 18px;
-  position:relative;
+  position: relative;
 }
-.cost{
+.cost {
   margin: 20px 50px;
   height: 200px;
   box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%),
@@ -93,25 +93,24 @@
   display: flex;
   flex-direction: column;
 }
-.order-contain{
+.order-contain {
   margin: 0 50px;
   height: 800px;
   box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%),
     0 9px 28px 8px rgb(0 0 0 / 5%);
 }
-.title-contain-order{
+.title-contain-order {
   display: flex;
   background-color: #e3e3e3;
   justify-content: space-around;
   margin: 10px 50px 0 50px;
   height: 50px;
 }
-.title-order{
+.title-order {
   font-size: 20px;
   color: #333;
-  
 }
-.button-back{
+.button-back {
   background-color: #b9fad6;
   border: none;
   color: #8e8b8b;
@@ -123,16 +122,16 @@
   align-items: center;
   justify-content: center;
 }
-.form-pay{
+.form-pay {
   box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%),
-  0 9px 28px 8px rgb(0 0 0 / 5%);
-display: flex;
-flex-direction: column;
-flex: 1;
-position: relative;
-height: 300px;
+    0 9px 28px 8px rgb(0 0 0 / 5%);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+  height: 300px;
 }
-.button-change{
+.button-change {
   font-size: 18px;
   color: #8e8b8b;
   background-color: #ffe9ab;
@@ -145,7 +144,7 @@ height: 300px;
   position: relative;
   cursor: pointer;
 }
-.confirm-order{
+.confirm-order {
   font-size: 28px;
   background-color: #d8b979;
   color: #fff;
@@ -155,7 +154,7 @@ height: 300px;
   border-radius: 5px;
   cursor: pointer;
 }
-.pay-ment{
+.pay-ment {
   height: 150px;
   box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%),
     0 9px 28px 8px rgb(0 0 0 / 5%);
@@ -164,7 +163,10 @@ height: 300px;
   display: flex;
   flex-direction: column;
 }
-.title-step{
+.title-step {
   font-size: 28px;
   font-weight: 600;
+}
+.not-allow {
+  cursor: not-allowed;
 }

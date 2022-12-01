@@ -87,7 +87,7 @@ function Step2() {
           </div>
         </div>
       </div>
-      
+
       <div>
         <div className={style["title-contain-order"]}>
           <div className={style["title-order"]}>Tên thức uống</div>
