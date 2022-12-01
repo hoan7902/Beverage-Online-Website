@@ -9,6 +9,7 @@ import { arrowLeft } from "react-icons-kit/fa/arrowLeft";
 import { arrowRight } from "react-icons-kit/fa/arrowRight";
 import Link from "next/link";
 import style from "../../styles/CreateOrder.module.css";
+import { useAppContext } from "../../contexts/AppProvider";
 
 function Step3() {
   const [form, setForm] = useState();
@@ -16,6 +17,17 @@ function Step3() {
   const handleFormChange = (e) => {
     setForm(e.target.value);
   };
+  const {listCart}=useAppContext();
+  let finalPrice = 0;
+  const shipFee=9000;
+  listCart.map((cart)=>{
+    let totalOfTopping = 0;
+     for (let i = 0; i < cart.listTopping.length; i++) {
+       totalOfTopping += cart.listTopping[i].price;
+     }
+     const totalPrice = (cart.product.price + totalOfTopping) * cart.quantity;
+     finalPrice += totalPrice;
+    });
   return (
     <>
       <div>
@@ -170,7 +182,7 @@ function Step3() {
               flex: "0.2",
             }}
           >
-            246.000đ
+            {finalPrice+shipFee}
           </p>
         </div>
         <div

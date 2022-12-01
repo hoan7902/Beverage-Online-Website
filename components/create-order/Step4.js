@@ -4,8 +4,21 @@ import { check } from "react-icons-kit/fa/check";
 import { chevronRight } from "react-icons-kit/fa/chevronRight";
 import Link from "next/link";
 import style from "../../styles/CreateOrder.module.css";
+import { useAppContext } from "../../contexts/AppProvider";
+
 
 function Step4() {
+  const {listCart}=useAppContext();
+  let finalPrice = 0;
+  const shipFee=9000;
+  listCart.map((cart)=>{
+    let totalOfTopping = 0;
+     for (let i = 0; i < cart.listTopping.length; i++) {
+       totalOfTopping += cart.listTopping[i].price;
+     }
+     const totalPrice = (cart.product.price + totalOfTopping) * cart.quantity;
+     finalPrice += totalPrice;
+    });
   return (
     <>
       <div className={style["title-forward"]}>
@@ -144,10 +157,10 @@ function Step4() {
         <div style={{ borderBottom: "1px solid #BAB8B8" }}>
           <div style={{ display: "flex", margin: "10px 40px 10px 40px" }}>
             <p style={{ flex: "1", fontSize: "22px", color: "#6B6B6B" }}>
-              Chi phí món ăn
+              Chi phí nước uống
             </p>
             <p style={{ flex: "0.2", fontSize: "22px", color: "#6B6B6B" }}>
-              69.000đ
+            {finalPrice}
             </p>
           </div>
           <div style={{ display: "flex", margin: "10px 40px 10px 40px" }}>
@@ -155,7 +168,7 @@ function Step4() {
               Phí vận chuyển
             </p>
             <p style={{ flex: "0.2", fontSize: "22px", color: "#6B6B6B" }}>
-              9.000đ
+              {shipFee}
             </p>
           </div>
         </div>
@@ -164,7 +177,7 @@ function Step4() {
             Tổng chi phí
           </p>
           <p style={{ flex: "0.2", fontSize: "30px", fontWeight: 500 }}>
-            246.000đ
+            {finalPrice+shipFee}
           </p>
         </div>
       </div>
