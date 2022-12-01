@@ -1,24 +1,85 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Icon from "react-icons-kit";
 import { check } from "react-icons-kit/fa/check";
 import { chevronRight } from "react-icons-kit/fa/chevronRight";
 import Link from "next/link";
 import style from "../../styles/CreateOrder.module.css";
 import { useAppContext } from "../../contexts/AppProvider";
-
+import { useRouter } from "next/router";
+import io from "socket.io-client";
+import axios from "axios";
+const socket = io("https://sleepy-scrubland-61892.herokuapp.com");
 
 function Step4() {
-  const {listCart}=useAppContext();
-  let finalPrice = 0;
-  const shipFee=9000;
-  listCart.map((cart)=>{
-    let totalOfTopping = 0;
-     for (let i = 0; i < cart.listTopping.length; i++) {
-       totalOfTopping += cart.listTopping[i].price;
-     }
-     const totalPrice = (cart.product.price + totalOfTopping) * cart.quantity;
-     finalPrice += totalPrice;
+  const { listCart, user } = useAppContext();
+  const [address, setAddress] = useState("");
+  const [momo, setMomo] = useState();
+  const router = useRouter();
+  console.log(momo);
+  const handleSubmit = async (totalPrice) => {
+    try {
+      if (momo) router.push("/momo");
+      else {
+        const listProduct = listCart.map((item) => {
+          return {
+            ...item.product,
+            productId: item.product._id,
+            quantity: item.quantity,
+            toppings: item.listTopping,
+          };
+        });
+        const data = {
+          phoneNumber: user?.phoneNumber,
+          userName: user?.userName,
+          listProduct: listProduct,
+          totalPrice,
+          isPay: momo,
+          status: "pending",
+          address,
+          userId: user?._id,
+          description: localStorage.getItem("notice"),
+        };
+        await axios.post(
+          "https://sleepy-scrubland-61892.herokuapp.com/order/add-order",
+          data
+        );
+        socket.emit("client-submit", { userId: user?._id });
+        router.push("/profile/manageorders");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    const data = `${localStorage.getItem("ward")} - ${localStorage.getItem(
+      "district"
+    )} - ${localStorage.getItem("province")}`;
+    const isMomo = localStorage.getItem("momo") === "true" ? true : false;
+    const handle = () => {
+      setMomo(isMomo);
+      setAddress(data);
+    };
+    handle();
+  }, []);
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("success");
     });
+    return () => {
+      socket.off("connect");
+    };
+  }, []);
+  console.log(listCart);
+  let finalPrice = 0;
+  const shipFee = 9000;
+  listCart.map((cart) => {
+    let totalOfTopping = 0;
+    for (let i = 0; i < cart.listTopping.length; i++) {
+      totalOfTopping += cart.listTopping[i].price;
+    }
+    const totalPrice = (cart.product.price + totalOfTopping) * cart.quantity;
+    finalPrice += totalPrice;
+  });
   return (
     <>
       <div className={style["title-forward"]}>
@@ -109,9 +170,10 @@ function Step4() {
         }}
       >
         <p className={style["title-step"]}>Thông tin giao hàng</p>
-        <button className={style["button-change"]}>
-          <Link href="/createorder">Thay đổi</Link>
-        </button>
+
+        <Link href="/createorder">
+          <button className={style["button-change"]}>Thay đổi</button>
+        </Link>
       </div>
       <div
         className={style["info-customer"]}
@@ -121,21 +183,21 @@ function Step4() {
           <p style={{ fontSize: "20px", fontWeight: 500, color: "#333" }}>
             Họ tên khách hàng
           </p>
-          <p style={{ fontSize: "20px", color: "#2F2F2F" }}>Vince</p>
+          <p style={{ fontSize: "20px", color: "#2F2F2F" }}>{user?.userName}</p>
         </div>
         <div style={{ margin: "0 20px" }}>
           <p style={{ fontSize: "20px", fontWeight: 500, color: "#333" }}>
             Điện thoại liên lạc
           </p>
-          <p style={{ fontSize: "20px", color: "#2F2F2F" }}>097 181 0800</p>
+          <p style={{ fontSize: "20px", color: "#2F2F2F" }}>
+            {user?.phoneNumber}
+          </p>
         </div>
         <div style={{ margin: "0 20px" }}>
           <p style={{ fontSize: "20px", fontWeight: 500, color: "#333" }}>
             Địa chỉ giao hàng
           </p>
-          <p style={{ fontSize: "20px", color: "#2F2F2F" }}>
-            22/4G, Mỹ Hòa 1, Trung Chánh, Hóc Môn, TP.HCM
-          </p>
+          <p style={{ fontSize: "20px", color: "#2F2F2F" }}>{address}</p>
         </div>
       </div>
       <div
@@ -146,9 +208,9 @@ function Step4() {
         }}
       >
         <p className={style["title-step"]}>Thông tin đơn hàng</p>
-        <button className={style["button-change"]}>
-          <Link href="/createorder/step2">Thay đổi</Link>
-        </button>
+        <Link href="/createorder/step2">
+          <button className={style["button-change"]}>Thay đổi</button>
+        </Link>
       </div>
       <div
         className={style["cost"]}
@@ -160,7 +222,7 @@ function Step4() {
               Chi phí nước uống
             </p>
             <p style={{ flex: "0.2", fontSize: "22px", color: "#6B6B6B" }}>
-            {finalPrice}
+              {finalPrice}
             </p>
           </div>
           <div style={{ display: "flex", margin: "10px 40px 10px 40px" }}>
@@ -177,7 +239,7 @@ function Step4() {
             Tổng chi phí
           </p>
           <p style={{ flex: "0.2", fontSize: "30px", fontWeight: 500 }}>
-            {finalPrice+shipFee}
+            {finalPrice + shipFee}
           </p>
         </div>
       </div>
@@ -189,9 +251,10 @@ function Step4() {
         }}
       >
         <p className={style["title-step"]}>Hình thức thanh toán</p>
-        <button className={style["button-change"]}>
-          <Link href="/createorder/step3">Thay đổi</Link>
-        </button>
+
+        <Link href="/createorder/step3">
+          <button className={style["button-change"]}>Thay đổi</button>
+        </Link>
       </div>
       <div className={style["pay-ment"]}>
         <div style={{ margin: "10px 40px" }}>
@@ -199,12 +262,19 @@ function Step4() {
             Khách hàng thanh toán
           </p>
           <p style={{ fontSize: "20px", color: "#2F2F2F" }}>
-            COD-Thanh toán khi nhận hàng
+            {momo === true
+              ? "Thanh toán bằng momo"
+              : "Thanh toán khi nhận hàng"}
           </p>
         </div>
       </div>
       <div style={{ textAlign: "center", marginBottom: "100px" }}>
-        <button className={style["confirm-order"]}>Tiến hành đặt hàng</button>
+        <button
+          className={style["confirm-order"]}
+          onClick={() => handleSubmit(finalPrice)}
+        >
+          Tiến hành đặt hàng
+        </button>
       </div>
     </>
   );

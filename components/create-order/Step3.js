@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Cod from "../../assets/image/cod.png";
 import MoMo from "../../assets/image/momo.png";
@@ -12,22 +12,24 @@ import style from "../../styles/CreateOrder.module.css";
 import { useAppContext } from "../../contexts/AppProvider";
 
 function Step3() {
-  const [form, setForm] = useState();
-  console.log(form);
+  const [momo, setMomo] = useState(false);
   const handleFormChange = (e) => {
-    setForm(e.target.value);
+    setMomo(e.target.value);
   };
-  const {listCart}=useAppContext();
+  useEffect(() => {
+    localStorage.setItem("momo", momo);
+  }, [momo]);
+  const { listCart } = useAppContext();
   let finalPrice = 0;
-  const shipFee=9000;
-  listCart.map((cart)=>{
+  const shipFee = 9000;
+  listCart.map((cart) => {
     let totalOfTopping = 0;
-     for (let i = 0; i < cart.listTopping.length; i++) {
-       totalOfTopping += cart.listTopping[i].price;
-     }
-     const totalPrice = (cart.product.price + totalOfTopping) * cart.quantity;
-     finalPrice += totalPrice;
-    });
+    for (let i = 0; i < cart.listTopping.length; i++) {
+      totalOfTopping += cart.listTopping[i].price;
+    }
+    const totalPrice = (cart.product.price + totalOfTopping) * cart.quantity;
+    finalPrice += totalPrice;
+  });
   return (
     <>
       <div>
@@ -124,8 +126,9 @@ function Step3() {
               <input
                 name="form"
                 type="radio"
-                value="COD(Thanh toán khi nhận hàng)"
+                value={false}
                 onChange={handleFormChange}
+                defaultChecked
               />
               <p>COD-Thanh toán khi nhận hàng</p>
             </div>
@@ -144,7 +147,7 @@ function Step3() {
               <input
                 name="form"
                 type="radio"
-                value="COD(Thanh toán khi nhận hàng)"
+                value={true}
                 onChange={handleFormChange}
               />
               <p>Thanh toán trực tuyến bằng ví điện tử MoMo</p>
@@ -182,7 +185,7 @@ function Step3() {
               flex: "0.2",
             }}
           >
-            {finalPrice+shipFee}
+            {finalPrice + shipFee}
           </p>
         </div>
         <div
@@ -192,15 +195,19 @@ function Step3() {
             margin: "50px 50px",
           }}
         >
-          <button className={style["button-back"]}>
-            <Icon icon={arrowLeft} style={{ marginRight: "10px" }} />
-            <Link href="/createorder/step2">Quay lại</Link>
-          </button>
-          <button className={style["button-con"]}>
-            {" "}
-            <Link href="/createorder/step4">Tiếp tục</Link>
-            <Icon icon={arrowRight} style={{ marginLeft: "10px" }} />
-          </button>
+          <Link href="/createorder/step2">
+            <button className={style["button-back"]}>
+              <Icon icon={arrowLeft} style={{ marginRight: "10px" }} />
+              Quay lại
+            </button>
+          </Link>
+
+          <Link href="/createorder/step4">
+            <button className={style["button-con"]}>
+              Tiếp tục
+              <Icon icon={arrowRight} style={{ marginLeft: "10px" }} />
+            </button>
+          </Link>
         </div>
       </div>
     </>

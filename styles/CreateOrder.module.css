@@ -173,37 +173,37 @@
 .not-allow {
   cursor: not-allowed;
 }
-.cart-item{
+.cart-item {
   display: flex;
-  margin:10px 0;
-  border-bottom: 1px solid #BAB8B8;
+  margin: 10px 0;
+  border-bottom: 1px solid #bab8b8;
   align-items: center;
   justify-content: space-between;
 }
-.cart-image{
+.cart-image {
   align-items: center;
   width: 250px;
   margin-bottom: 10px;
-  flex:1.9;
+  flex: 1.9;
 }
-.cart-item-name{
+.cart-item-name {
   font-size: 20px;
   margin-left: 5px;
 }
-.cart-item-quantity{
+.cart-item-quantity {
   font-size: 20px;
-  flex:1;
+  flex: 1;
 }
-.cart-item-topping{
+.cart-item-topping {
   font-size: 20px;
-  flex:1.1;
+  flex: 1.1;
 }
-.cart-item-price{
+.cart-item-price {
   font-size: 20px;
-  flex:0.7;
+  flex: 0.7;
   margin-left: 50px;
 }
-.img{
+.img {
   width: 100px;
   height: 100px;
 }

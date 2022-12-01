@@ -188,12 +188,12 @@ function CreateOrder() {
           margin: "50px 50px",
           position: "relative",
         }}
+        onClick={handleSubmit}
       >
         <button
           className={`${style["button-con"]} ${
             !allow ? style["not-allow"] : ""
           }`}
-          onClick={handleSubmit}
         >
           Tiếp tục
           <Icon icon={arrowRight} style={{ marginLeft: "10px" }} />
