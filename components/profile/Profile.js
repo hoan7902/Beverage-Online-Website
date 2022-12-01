@@ -91,10 +91,10 @@ function Profile() {
               <Link href="/profile/manageorders">QUẢN LÝ ĐƠN HÀNG</Link>
             </div>
             <div className={style["title-forward"]}>
-              ĐỊA CHỈ GIAO HÀNG
+              <Link href="/profile/address">ĐỊA CHỈ GIAO HÀNG</Link>
             </div>
             <div className={style["title-forward"]}>
-              DANH SÁCH YÊU THÍCH
+              <Link href="/profile/wishlist">DANH SÁCH YÊU THÍCH</Link>
             </div>
           </div>
           <Box

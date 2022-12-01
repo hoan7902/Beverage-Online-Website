@@ -8,6 +8,13 @@ import Logo from "../../assets/image/vietnam-flag.png";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useAppContext } from "../../contexts/AppProvider";
+import { Snackbar } from "@mui/material";
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 const PassWord = ({ name }) => {
   const { pass, setPass } = useContext(PassContext);
   const handlePassChange = (e) => {
@@ -46,6 +53,7 @@ const PassWord = ({ name }) => {
   );
 };
 export const PassContext = createContext();
+
 export default function Login() {
   const router = useRouter();
   const { setUser } = useAppContext();
@@ -54,9 +62,17 @@ export default function Login() {
   const handlePhoneChange = (e) => {
     setPhoneNumber(e.target.value);
   };
+  const [open,setOpen]=useState(false);
+  const [type,setType]=useState("");
+  const [message,setMessage]=useState("");
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // creates entity
     fetch("https://sleepy-scrubland-61892.herokuapp.com/user/login-user", {
       method: "POST",
       headers: {
@@ -70,19 +86,28 @@ export default function Login() {
     })
       .then((response) => response.json())
       .then((response) => {
-        setUser(response.data.user);
+        
+        
         if(response.code==102){
-          // message.success("Đăng nhập thành công");
+          setType("success");
+          setMessage("Đăng nhập thành công");
+          setOpen(true);
           router.push("/", "/");
         }
-        // else if(response.code==103){
-        //   message.error("Đăng nhập thất bại, mật khẩu không chính xác");
-        // }
-        // else if(response.code==110){
-        //   message.error("Người dùng không tồn tại, vui lòng đăng ký");
-        // }
+        else if(response.code==103){
+        setType("error");
+        setMessage("Đăng nhập thất bại, mật khẩu không chính xác");
+        setOpen(true);
+        }
+        else if(response.code==110){
+        setType("error");
+        setMessage("Người dùng không tồn tại, vui lòng đăng ký");
+        setOpen(true);
+        }
+        setUser(response.data.user);
         localStorage.setItem("_id", response.data.user._id);
         localStorage.setItem("phoneNumber", response.data.user.phoneNumber);
+        console.log(response);
       })
       .catch((err) => {
         console.log(err);
@@ -91,6 +116,14 @@ export default function Login() {
 
   return (
     <PassContext.Provider value={{ pass, setPass }}>
+     
+      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{ vertical:'top', horizontal:'center' }}>
+        <Alert onClose={handleClose} severity={type} sx={{ width: '100%' }}>
+          {message}
+        </Alert>
+      </Snackbar>
+      
+     
       <div className={styles["auth-form-container-login"]}>
         <form onSubmit={handleSubmit} className={styles.login}>
           <h2 className={styles.title}>Đăng nhập</h2>
@@ -123,8 +156,8 @@ export default function Login() {
               <p className={styles["small-link"]}>Cài đặt lại mật khẩu</p>
             </Link>
           </span>
-          <button type="submit" className={styles["Orange_Button"]}>
-            <span>Đăng nhập</span>
+          <button className={styles["Orange_Button"]} >
+            Đăng nhập
           </button>
         </form>
         <div className={styles["note"]}>

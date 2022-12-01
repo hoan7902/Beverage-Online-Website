@@ -6,9 +6,10 @@ import { arrowLeft } from "react-icons-kit/fa/arrowLeft";
 import { arrowRight } from "react-icons-kit/fa/arrowRight";
 import Link from "next/link";
 import style from '../../styles/CreateOrder.module.css';
+import { useAppContext } from "../../contexts/AppProvider";
 
 function Step2() {
-  return (
+    return (
     <>
       <div className={style["title-forward"]}>
         <div style={{ display: "flex", borderBottom: "2px soild #D8B979" }}>
@@ -90,12 +91,14 @@ function Step2() {
       <div>
         <div className={style["title-contain-order"]}>
           <div className={style["title-order"]}>Tên thức uống</div>
-          <div className={style["title-order"]}>Tên thức uống</div>
-          <div className={style["title-order"]}>Tên thức uống</div>
-          <div className={style["title-order"]}>Tên thức uống</div>
+          <div className={style["title-order"]}>Số lượng</div>
+          <div className={style["title-order"]}>Topping</div>
+          <div className={style["title-order"]}>Thành phần</div>
         </div>
       </div>
-      <div className={style["order-contain"]}></div>
+      <div className={style["order-contain"]}>
+        
+      </div>
 
       <div className={style["cost"]}>
         <div style={{ fontSize: "22px", display: "flex" }}>

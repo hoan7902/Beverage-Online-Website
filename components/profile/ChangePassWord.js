@@ -4,6 +4,12 @@ import { eyeOff } from "react-icons-kit/feather/eyeOff";
 import { eye } from "react-icons-kit/feather/eye";
 import styles from "../../styles/Login.module.css";
 import styled from "styled-components";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 
 function PassWordInput({ name }) {
@@ -124,6 +130,15 @@ function ChangePassWord({ setOpen,handleClose}) {
     const [pass, setPass] = useState("");
     const [newpass, setNewPass] = useState("");
     const [renewpass, setReNewPass] = useState("");
+    const [type,setType]=useState("");
+    const [message,setMessage]=useState("");
+    const [openMess,setOpenMess]=useState(false);
+    const handleCloseMess = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpenMess(false);
+      };
     const handleSubmit = (e) => {
         e.preventDefault();
     };
@@ -150,18 +165,17 @@ function ChangePassWord({ setOpen,handleClose}) {
                 localStorage.setItem('code',response.code);
         if(response.code==112)
         {
-            setOpen(false);
-            message.config({
-                top:"100px",
-            });
-            message.success("Đổi mật khẩu thành công")
+            setType("success");
+            setMessage("Thay đổi mật khẩu thành công");
+            setOpenMess(true);
+            setTimeout(() => {
+                setOpen(false);
+              }, 1000);
         }
         else if(response.code==114){
-            setOpen(false);
-            message.config({
-                top:"100px",
-            });
-            message.error("Vui lòng nhập lại mật khẩu, mật khẩu không chính xác")
+            setType("error");
+            setMessage("Vui lòng nhập lại mật khẩu, mật khẩu không đúng");
+            setOpenMess(true);
         }
             })
             .catch((err) => {
@@ -171,6 +185,11 @@ function ChangePassWord({ setOpen,handleClose}) {
     return (
         <div>
             <form onSubmit={handleSubmit}>
+            <Snackbar open={openMess} autoHideDuration={6000} onClose={handleCloseMess} anchorOrigin={{ vertical:'top', horizontal:'center' }}>
+        <Alert onClose={handleCloseMess} severity={type} sx={{ width: '100%' }}>
+          {message}
+        </Alert>
+      </Snackbar>
                 <ModalContainer>
                     <ModalContent>
                         <ModalTitle>
