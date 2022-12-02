@@ -33,7 +33,7 @@ const PassWord = ({ name }) => {
   };
   return (
     <div className={styles["pass-word"]}>
-      <span id={styles["medium-text"]}>{name}</span>
+      <span id={styles["pass-word-size"]}>{name}</span>
       <div className={styles["pass-word-input"]}>
         <span className={styles["pass-word-input-hide"]}>
           <input
