@@ -144,7 +144,7 @@ function ChangePassWord({ setOpen,handleClose}) {
     const ChangePassAPI = (e) => {
         e.preventDefault();
         fetch(
-            "https://sleepy-scrubland-61892.herokuapp.com/user/change-user-password",
+            "http://localhost:3000/user/change-user-password",
             {
                 method: "POST",
                 headers: {

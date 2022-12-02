@@ -33,7 +33,7 @@ const PassWord = ({ name }) => {
   };
   return (
     <div className={styles["pass-word"]}>
-      <span id={styles["medium-text"]}>{name}</span>
+      <span id={styles["pass-word-size"]}>{name}</span>
       <div className={styles["pass-word-input"]}>
         <span className={styles["pass-word-input-hide"]}>
           <input
@@ -73,7 +73,7 @@ export default function Login() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("https://sleepy-scrubland-61892.herokuapp.com/user/login-user", {
+    fetch("http://localhost:3000/user/login-user", {
       method: "POST",
       headers: {
         "content-type": "application/json",

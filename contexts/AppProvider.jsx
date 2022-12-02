@@ -9,7 +9,7 @@ const AppProvider = ({ children }) => {
     const getProfile = async () => {
       try {
         const data = await axios.post(
-          "https://sleepy-scrubland-61892.herokuapp.com/user/get-detail-user",
+          "http://localhost:3000/user/get-detail-user",
           {
             userId: localStorage.getItem("_id"),
           }
@@ -22,7 +22,7 @@ const AppProvider = ({ children }) => {
     const getCart = async () => {
       try {
         const data = await axios.get(
-          `https://sleepy-scrubland-61892.herokuapp.com/cart/get-all-cart?userId=${localStorage.getItem(
+          `http://localhost:3000/cart/get-all-cart?userId=${localStorage.getItem(
             "_id"
           )}`
         );

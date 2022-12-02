@@ -9,7 +9,7 @@ export default function MissPassword() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("https://sleepy-scrubland-61892.herokuapp.com/user/forgot-password", {
+    fetch("http://localhost:3000/user/forgot-password", {
       method: "POST",
       headers: {
         "content-type": "application/json",
