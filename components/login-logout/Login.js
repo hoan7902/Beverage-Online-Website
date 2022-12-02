@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useAppContext } from "../../contexts/AppProvider";
 import { Snackbar } from "@mui/material";
-import MuiAlert from '@mui/material/Alert';
+import MuiAlert from "@mui/material/Alert";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -62,11 +62,11 @@ export default function Login() {
   const handlePhoneChange = (e) => {
     setPhoneNumber(e.target.value);
   };
-  const [open,setOpen]=useState(false);
-  const [type,setType]=useState("");
-  const [message,setMessage]=useState("");
+  const [open, setOpen] = useState(false);
+  const [type, setType] = useState("");
+  const [message, setMessage] = useState("");
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setOpen(false);
@@ -86,23 +86,23 @@ export default function Login() {
     })
       .then((response) => response.json())
       .then((response) => {
-        
-        
-        if(response.code==102){
+        if (response.code == 102) {
           setType("success");
           setMessage("Đăng nhập thành công");
           setOpen(true);
           router.push("/", "/");
-        }
-        else if(response.code==103){
-        setType("error");
-        setMessage("Đăng nhập thất bại, mật khẩu không chính xác");
-        setOpen(true);
-        }
-        else if(response.code==110){
-        setType("error");
-        setMessage("Người dùng không tồn tại, vui lòng đăng ký");
-        setOpen(true);
+        } else if (response.code == 103) {
+          setType("error");
+          setMessage("Đăng nhập thất bại, mật khẩu không chính xác");
+          setOpen(true);
+        } else if (response.code == 110) {
+          setType("error");
+          setMessage("Người dùng không tồn tại, vui lòng đăng ký");
+          setOpen(true);
+        } else if (response.code == 101) {
+          setType("error");
+          setMessage("Tài khoản chưa xác thực");
+          router.push("/authentication", "/authentication");
         }
         setUser(response.data.user);
         localStorage.setItem("_id", response.data.user._id);
@@ -116,14 +116,17 @@ export default function Login() {
 
   return (
     <PassContext.Provider value={{ pass, setPass }}>
-     
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{ vertical:'top', horizontal:'center' }}>
-        <Alert onClose={handleClose} severity={type} sx={{ width: '100%' }}>
+      <Snackbar
+        open={open}
+        autoHideDuration={2000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert onClose={handleClose} severity={type} sx={{ width: "100%" }}>
           {message}
         </Alert>
       </Snackbar>
-      
-     
+
       <div className={styles["auth-form-container-login"]}>
         <form onSubmit={handleSubmit} className={styles.login}>
           <h2 className={styles.title}>Đăng nhập</h2>
@@ -156,9 +159,7 @@ export default function Login() {
               <p className={styles["small-link"]}>Cài đặt lại mật khẩu</p>
             </Link>
           </span>
-          <button className={styles["Orange_Button"]} >
-            Đăng nhập
-          </button>
+          <button className={styles["Orange_Button"]}>Đăng nhập</button>
         </form>
         <div className={styles["note"]}>
           <span className={styles["medium-text"]}>

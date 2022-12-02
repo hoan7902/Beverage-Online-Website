@@ -95,7 +95,7 @@ const CartOrder = ({ cart, setCart }) => {
         // overflowY='scroll'
         width="300px"
         height="fit-content"
-        top="0"
+        top="20px"
         right="0"
         p="20px"
         backgroundColor="#fff"

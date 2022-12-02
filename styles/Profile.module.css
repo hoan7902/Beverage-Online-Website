@@ -12,6 +12,11 @@
   visibility: hidden;
   padding: 0 5px;
 }
+.container-order {
+  max-height: 400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
 .pass-word {
   margin: 15px 0;
 }
@@ -52,6 +57,7 @@
 .title {
   font-size: 20px;
   padding: 0 0 30px 20px;
+  cursor: pointer;
 }
 .button-submit {
   background-color: #00793f;

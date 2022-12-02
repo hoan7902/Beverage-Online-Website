@@ -84,11 +84,12 @@ function Profile() {
         >
           <div className={style["menu-container"]}>
             <div className={style["color-title-forward"]}>
-              <Link href="/profile">THÔNG TIN CÁ NHÂN</Link>
+              THÔNG TIN CÁ NHÂN
             </div>
-            <div className={style["title-forward"]}>
-              <Link href="/profile/manageorders">QUẢN LÝ ĐƠN HÀNG</Link>
-            </div>
+
+            <Link href="/profile/manageorders">
+              <div className={style["title-forward"]}>QUẢN LÝ ĐƠN HÀNG</div>
+            </Link>
           </div>
           <Box
             sx={{

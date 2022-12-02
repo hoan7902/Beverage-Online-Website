@@ -1,10 +1,16 @@
 import React from "react";
 import ResponsiveAppBar from "./menu";
-function Layout({ inputColor, children }) {
+function Layout({ children }) {
   return (
     <>
-      <ResponsiveAppBar inputColor={inputColor} />
-      <main>{children}</main>
+      <ResponsiveAppBar />
+      <main
+        style={{
+          paddingTop: 64,
+        }}
+      >
+        {children}
+      </main>
     </>
   );
 }
