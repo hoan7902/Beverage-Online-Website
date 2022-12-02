@@ -1,6 +1,6 @@
 import React from "react";
-import { Loader } from "semantic-ui-react";
+import CircularProgress from "@mui/material/CircularProgress";
 
-const LoaderWaiting = () => <Loader active inline />;
+const LoaderWaiting = () => <CircularProgress />;
 
 export default LoaderWaiting;

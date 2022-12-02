@@ -73,6 +73,7 @@ export default function Login() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    localStorage.setItem("phoneNumber", phoneNumber);
     fetch("https://sleepy-scrubland-61892.herokuapp.com/user/login-user", {
       method: "POST",
       headers: {
@@ -99,6 +100,10 @@ export default function Login() {
           setType("error");
           setMessage("Người dùng không tồn tại, vui lòng đăng ký");
           setOpen(true);
+        } else if (response.code == 101) {
+          setType("error");
+          setMessage("Tài khoản chưa xác thực");
+          router.push("/authentication", "/authentication");
         }
         setUser(response.data.user);
         localStorage.setItem("_id", response.data.user._id);

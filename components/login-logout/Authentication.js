@@ -1,6 +1,18 @@
+import { Alert, Snackbar } from "@mui/material";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import styles from "../../styles/Login.module.css";
 export default function Authentication() {
+  const [open, setOpen] = useState(false);
+  const [type, setType] = useState("");
+  const [message, setMessage] = useState("");
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+  const router = useRouter();
   const [code, setCode] = useState("");
   const handleCodeChange = (e) => {
     setCode(e.target.value);
@@ -15,11 +27,18 @@ export default function Authentication() {
       },
       body: JSON.stringify({
         phoneNumber: localStorage.getItem("phoneNumber"),
+        code: Number(code),
       }),
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
+        if (response.code === 116) {
+          router.push("/");
+        } else {
+          setType("error");
+          setMessage("Đăng nhập thất bại, mã xác thực không đúng");
+          setOpen(true);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -27,6 +46,16 @@ export default function Authentication() {
   };
   return (
     <div className={styles["auth-form-container-miss-password"]}>
+      <Snackbar
+        open={open}
+        autoHideDuration={2000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert onClose={handleClose} severity={type} sx={{ width: "100%" }}>
+          {message}
+        </Alert>
+      </Snackbar>
       <form onSubmit={handleSubmit}>
         <h2 className={styles.title}>Xác thực số điện thoại</h2>
         <div>

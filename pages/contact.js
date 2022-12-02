@@ -6,8 +6,42 @@ import Footer from "../components/home/Footer";
 import Advertisement from "../components/home/Advertisement";
 import homeStyles from "../styles/Home.module.css";
 import Layout from "../components/layout";
+import { useState } from "react";
+import axios from "axios";
 
 const Contact = () => {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [address, setAddress] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const handleSubmit = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("fullName", fullName);
+      formData.append("email", email);
+      formData.append("phoneNumber", phoneNumber.toString());
+      formData.append("address", address);
+      formData.append("title", title);
+      formData.append("content", content);
+      axios.post(
+        "https://sheet.best/api/sheets/a003ecca-3834-43e0-baa3-37a2c6539bcb",
+        formData
+      );
+      const resetData = () => {
+        setFullName("");
+        setEmail("");
+        setAddress("");
+        setContent("");
+        setPhoneNumber("");
+        setTitle("");
+      };
+      resetData();
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <Layout>
       <Stack
@@ -57,49 +91,73 @@ const Contact = () => {
           <Stack m="10px 0">
             <Typography>Họ và tên</Typography>
             <input
+              value={fullName}
               type="text"
               placeholder="Điền họ và tên"
               className={contactStyles.inputCss}
+              onChange={(e) => {
+                setFullName(e.target.value);
+              }}
             />
           </Stack>
           <Stack m="10px 0">
             <Typography>Email</Typography>
             <input
+              value={email}
               type="text"
               placeholder="Điền Email"
               className={contactStyles.inputCss}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
             />
           </Stack>
           <Stack m="10px 0">
             <Typography>Số điện thoại</Typography>
             <input
+              value={phoneNumber}
               type="text"
               placeholder="Điền Số điện thoại"
               className={contactStyles.inputCss}
+              onChange={(e) => {
+                setPhoneNumber(e.target.value);
+              }}
             />
           </Stack>
           <Stack m="10px 0">
             <Typography>Địa chỉ</Typography>
             <input
+              value={address}
               type="text"
               placeholder="Điền Địa chỉ"
               className={contactStyles.inputCss}
+              onChange={(e) => {
+                setAddress(e.target.value);
+              }}
             />
           </Stack>
           <Stack m="10px 0">
             <Typography>Tiêu đề</Typography>
             <input
+              value={title}
               type="text"
               placeholder="Điền Tiêu đề"
               className={contactStyles.inputCss}
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
             />
           </Stack>
           <Stack m="10px 0">
             <Typography>Nội dung</Typography>
             <input
+              value={content}
               style={{ minHeight: "100px" }}
               type="text"
               className={contactStyles.inputCss}
+              onChange={(e) => {
+                setContent(e.target.value);
+              }}
             />
           </Stack>
           <Box
@@ -110,6 +168,7 @@ const Contact = () => {
             backgroundColor="#d3b673"
             borderRadius="6px"
             style={{ cursor: "pointer" }}
+            onClick={handleSubmit}
           >
             <Typography
               textAlign="center"

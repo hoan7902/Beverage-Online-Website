@@ -3,7 +3,6 @@ import CategoryOrder from "../components/order/CategoryOrder";
 import ListOrder from "../components/order/ListOrder";
 import CartOrder from "../components/order/CartOrder";
 import { useState, useEffect } from "react";
-import "semantic-ui-css/semantic.min.css";
 import axios from "axios";
 import Layout from "../components/layout";
 

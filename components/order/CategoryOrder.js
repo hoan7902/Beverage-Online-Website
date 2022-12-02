@@ -10,7 +10,7 @@ const Category = ({ listNameCategory }) => {
         position="fixed"
         sx={{ display: { lg: "block", xs: "none" } }}
         minWidth="300px"
-        top="0"
+        top="20px"
         left="0"
         p="20px"
         justifyContent="center"

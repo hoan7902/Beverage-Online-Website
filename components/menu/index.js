@@ -7,16 +7,13 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-// import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-// import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import style from "./style.module.scss";
 import Link from "next/link";
 import { Avatar, Tooltip } from "@mui/material";
 import { useAppContext } from "../../contexts/AppProvider";
@@ -69,11 +66,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function ResponsiveAppBar({ inputColor }) {
+function ResponsiveAppBar() {
   const router = useRouter();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [color, setColor] = React.useState(inputColor || "transparent");
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -96,30 +92,8 @@ function ResponsiveAppBar({ inputColor }) {
     setAnchorElUser(null);
   };
 
-  React.useEffect(() => {
-    const changeColor = () => {
-      if (window && window.scrollY < 1) setColor("transparent");
-      else setColor("secondary");
-    };
-    addEventListener("scroll", changeColor);
-    return () => {
-      removeEventListener("scroll", changeColor);
-    };
-  }, [inputColor]);
-
   return (
-    <AppBar
-      position="fixed"
-      color={color}
-      id="menu-top"
-      className={
-        !inputColor
-          ? color === "transparent"
-            ? style.transparent
-            : style.green
-          : style.green
-      }
-    >
+    <AppBar position="fixed" id="menu-top">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
