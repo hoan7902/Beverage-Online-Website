@@ -34,6 +34,14 @@ export default function Authentication() {
       console.log(values);
       },
   });
+  const [isValid,setIsValid]=useState(false);
+  useEffect(()=>{
+    if(formik.errors.code)
+    {
+      setIsValid(false);
+    }
+    else setIsValid(true);
+  },[formik.errors.code])
   const router = useRouter();
   const APIAuth = () => {
     fetch("http://localhost:3000/user/verify-user", {
@@ -101,7 +109,7 @@ export default function Authentication() {
           <p style={{color:"#ff4d4f",fontSize:"14px",position:'absolute',bottom:"-18px",left:"0"}}> {formik.errors.code} </p>
         )}
         </div>
-        <button type="submit" className={styles["Orange_Button"]} onClick={APIAuth}>
+        <button type="submit" className={styles["Orange_Button"]} onClick={APIAuth} disabled={!isValid}>
           <span>Gửi</span>
         </button>
       </form>
