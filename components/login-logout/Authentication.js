@@ -1,7 +1,14 @@
-import { Alert, Snackbar } from "@mui/material";
+import { Snackbar } from "@mui/material";
+import MuiAlert from "@mui/material/Alert";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import styles from "../../styles/Login.module.css";
+import { useFormik } from "formik";
+import * as Yup from 'yup';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 export default function Authentication() {
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("");
@@ -12,13 +19,23 @@ export default function Authentication() {
     }
     setOpen(false);
   };
+  const formik = useFormik({
+    initialValues: {
+      code:"",
+    },
+    validationSchema: Yup.object({
+      code: Yup.string()
+        .required("Hãy nhập mã xác thực")
+        .matches(/^[0-9]+$/, "Mã xác thực chỉ bao gồm chữ số")
+        .min(6, 'Mã xác thực có chính xác 6 chữ số')
+        .max(6, 'Mã xác thực có chính xác 6 chữ số')
+    }),  
+    onSubmit: (values) => {
+      console.log(values);
+      },
+  });
   const router = useRouter();
-  const [code, setCode] = useState("");
-  const handleCodeChange = (e) => {
-    setCode(e.target.value);
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const APIAuth = () => {
     fetch("http://localhost:3000/user/verify-user", {
       method: "POST",
       headers: {
@@ -56,7 +73,7 @@ export default function Authentication() {
           {message}
         </Alert>
       </Snackbar>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={formik.handleSubmit}>
         <h2 className={styles.title}>Xác thực số điện thoại</h2>
         <div>
           <span className={styles["min-text-block"]}>
@@ -70,14 +87,21 @@ export default function Authentication() {
             <span className={styles["pass-word-input-hide"]}>
               <input
                 className={styles["pass-input"]}
-                value={code}
-                onChange={handleCodeChange}
+                value={formik.values.code}
+                id="code"
+                name="code"
+                onChange={formik.handleChange}
                 type="text"
               />
             </span>
           </div>
         </div>
-        <button type="submit" className={styles["Orange_Button"]}>
+        <div style={{height:"10px",position:"relative"}}>
+           {formik.errors.code && (
+          <p style={{color:"#ff4d4f",fontSize:"14px",position:'absolute',bottom:"-18px",left:"0"}}> {formik.errors.code} </p>
+        )}
+        </div>
+        <button type="submit" className={styles["Orange_Button"]} onClick={APIAuth}>
           <span>Gửi</span>
         </button>
       </form>
