@@ -59,6 +59,7 @@ function Login(){
     else setIsValid(true);
   },[formik.errors.pass,formik.errors.phone])
   const APILogin=()=>{
+    localStorage.setItem("phoneNumber", formik.values.phone);
     fetch("http://localhost:3000/user/login-user", {
        method: "POST",
        headers: {
