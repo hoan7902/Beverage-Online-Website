@@ -12,6 +12,7 @@ import { Snackbar } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 import {useFormik } from "formik";
 import * as Yup from 'yup';
+import { NavLink } from "react-router-dom";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -193,7 +194,7 @@ function Login(){
         <div className={styles["note"]}>
           <span className={styles["medium-text"]}>
             Chưa có tài khoản?
-            <Link href="/register">
+            <Link href="/register" style={{fontSize:"30px"}}>
               <p className={styles["custom-link"]}>Đăng ký</p>
             </Link>
           </span>
