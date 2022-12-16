@@ -45,7 +45,7 @@ export default function MissPassword() {
         accept: "application/json",
       },
       body: JSON.stringify({
-        phoneNumber: phoneNumber,
+        phoneNumber: formik.values.phone,
       }),
     })
       .then((response) => response.json())
