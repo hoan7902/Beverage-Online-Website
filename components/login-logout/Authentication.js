@@ -1,10 +1,10 @@
 import { Snackbar } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 import { useRouter } from "next/router";
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../../styles/Login.module.css";
 import { useFormik } from "formik";
-import * as Yup from 'yup';
+import * as Yup from "yup";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -21,30 +21,28 @@ export default function Authentication() {
   };
   const formik = useFormik({
     initialValues: {
-      code:"",
+      code: "",
     },
     validationSchema: Yup.object({
       code: Yup.string()
         .required("Hãy nhập mã xác thực")
         .matches(/^[0-9]+$/, "Mã xác thực chỉ bao gồm chữ số")
-        .min(6, 'Mã xác thực có chính xác 6 chữ số')
-        .max(6, 'Mã xác thực có chính xác 6 chữ số')
-    }),  
+        .min(6, "Mã xác thực có chính xác 6 chữ số")
+        .max(6, "Mã xác thực có chính xác 6 chữ số"),
+    }),
     onSubmit: (values) => {
       console.log(values);
-      },
+    },
   });
-  const [isValid,setIsValid]=useState(false);
-  useEffect(()=>{
-    if(formik.errors.code)
-    {
+  const [isValid, setIsValid] = useState(false);
+  useEffect(() => {
+    if (formik.errors.code) {
       setIsValid(false);
-    }
-    else setIsValid(true);
-  },[formik.errors.code])
+    } else setIsValid(true);
+  }, [formik.errors.code]);
   const router = useRouter();
   const APIAuth = () => {
-    fetch("http://localhost:3000/user/verify-user", {
+    fetch("https://sleepy-scrubland-61892.herokuapp.com/user/verify-user", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -104,12 +102,28 @@ export default function Authentication() {
             </span>
           </div>
         </div>
-        <div style={{height:"10px",position:"relative"}}>
-           {formik.errors.code && (
-          <p style={{color:"#ff4d4f",fontSize:"14px",position:'absolute',bottom:"-18px",left:"0"}}> {formik.errors.code} </p>
-        )}
+        <div style={{ height: "10px", position: "relative" }}>
+          {formik.errors.code && (
+            <p
+              style={{
+                color: "#ff4d4f",
+                fontSize: "14px",
+                position: "absolute",
+                bottom: "-18px",
+                left: "0",
+              }}
+            >
+              {" "}
+              {formik.errors.code}{" "}
+            </p>
+          )}
         </div>
-        <button type="submit" className={styles["Orange_Button"]} onClick={APIAuth} disabled={!isValid}>
+        <button
+          type="submit"
+          className={styles["Orange_Button"]}
+          onClick={APIAuth}
+          disabled={!isValid}
+        >
           <span>Gửi</span>
         </button>
       </form>

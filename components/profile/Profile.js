@@ -12,9 +12,9 @@ import { calendar } from "react-icons-kit/fa/calendar";
 import style from "../../styles/Profile.module.css";
 import { useRouter } from "next/router";
 import { useAppContext } from "../../contexts/AppProvider";
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
-import React from 'react';
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import React from "react";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -24,11 +24,11 @@ function Profile() {
   const [typeMess, setTypeMess] = useState("");
   const [message, setMessage] = useState("");
   const handleCloseMess = (event, reason) => {
-      if (reason === 'clickaway') {
-        return;
-      }
-      setOpenMess(false);
-    };
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenMess(false);
+  };
   //Lấy thông tin hiện tại của user
   const router = useRouter();
   const { user } = useAppContext();
@@ -65,7 +65,7 @@ function Profile() {
   const ChangeInfoAPI = (e) => {
     e.preventDefault();
     fetch(
-      "http://localhost:3000/user/change-user-information",
+      "https://sleepy-scrubland-61892.herokuapp.com/user/change-user-information",
       {
         method: "POST",
         headers: {
@@ -83,7 +83,7 @@ function Profile() {
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
-        if(response.code==111){
+        if (response.code == 111) {
           setTypeMess("success");
           setMessage("Cập nhật thông tin thành công");
           setOpenMess(true);
@@ -95,16 +95,20 @@ function Profile() {
   };
   return (
     <div>
-       <Snackbar
-         open={openMess}
-         autoHideDuration={2000}
-         onClose={handleCloseMess}
-         anchorOrigin={{ vertical: "top", horizontal: "center" }}
-       >
-         <Alert onClose={handleCloseMess} severity={typeMess} sx={{ width: "100%" }}>
-           {message}
-         </Alert>
-       </Snackbar>
+      <Snackbar
+        open={openMess}
+        autoHideDuration={2000}
+        onClose={handleCloseMess}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseMess}
+          severity={typeMess}
+          sx={{ width: "100%" }}
+        >
+          {message}
+        </Alert>
+      </Snackbar>
       <form onSubmit={handleSubmit}>
         <Box
           sx={{
