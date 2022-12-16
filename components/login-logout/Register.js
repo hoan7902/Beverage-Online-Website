@@ -67,8 +67,8 @@ function Register(){
          accept: "application/json",
        },
        body: JSON.stringify({
-         phoneNumber: phoneNumber,
-         password: pass,
+         phoneNumber: formik.values.phone,
+         password: formik.values.pass,
        }),
      })
        .then((response) => response.json())
