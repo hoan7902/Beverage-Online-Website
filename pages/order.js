@@ -16,12 +16,12 @@ const Order = () => {
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios(
-        "https://sleepy-scrubland-61892.herokuapp.com/category/get-category"
+        "http://localhost:3000/category/get-category"
       );
       setListNameCategory(res.data.data.listCategory);
 
       const resTopping = await axios(
-        `https://sleepy-scrubland-61892.herokuapp.com/topping/get-topping`
+        `http://localhost:3000/topping/get-topping`
       );
       if (resTopping.data.data) {
         setListTopping(resTopping.data.data.listTopping);

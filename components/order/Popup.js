@@ -37,7 +37,7 @@ const Popup = ({ item, trigger, setPop, listTopping, cart, setCart }) => {
 
     (async () => {
       const response = await axios.post(
-        "https://sleepy-scrubland-61892.herokuapp.com/cart/add-to-cart",
+        "http://localhost:3000/cart/add-to-cart",
         ItemToPost
       );
       console.log("Data...", response.data);
@@ -96,6 +96,7 @@ const Popup = ({ item, trigger, setPop, listTopping, cart, setCart }) => {
         backgroundColor="#fbfbfb"
         p="20px"
         borderRadius={2}
+        className={stylesOrder.myPopup}
       >
         <Stack flexDirection="row" justifyContent="space-between">
           <Image alt="img" src={item.image} width="170px" height="170px" />

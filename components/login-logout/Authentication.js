@@ -19,7 +19,7 @@ export default function Authentication() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("https://sleepy-scrubland-61892.herokuapp.com/user/verify-user", {
+    fetch("http://localhost:3000/user/verify-user", {
       method: "POST",
       headers: {
         "content-type": "application/json",

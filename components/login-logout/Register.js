@@ -92,7 +92,7 @@ export default function Register() {
   const [confirmpass, setConFirmPass] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("https://sleepy-scrubland-61892.herokuapp.com/user/create-user", {
+    fetch("http://localhost:3000/user/create-user", {
       method: "POST",
       headers: {
         "content-type": "application/json",

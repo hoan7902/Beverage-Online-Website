@@ -74,7 +74,7 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     localStorage.setItem("phoneNumber", phoneNumber);
-    fetch("https://sleepy-scrubland-61892.herokuapp.com/user/login-user", {
+    fetch("http://localhost:3000/user/login-user", {
       method: "POST",
       headers: {
         "content-type": "application/json",

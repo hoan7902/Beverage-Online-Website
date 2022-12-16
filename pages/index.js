@@ -16,7 +16,7 @@ export default function Home() {
   useEffect(() => {
     const fetchExercisesData = async () => {
       const listProduct = await axios(
-        "https://sleepy-scrubland-61892.herokuapp.com/product/get-product"
+        "http://localhost:3000/product/get-product"
       );
       setDataProduct(listProduct.data.data.listProduct);
     };
