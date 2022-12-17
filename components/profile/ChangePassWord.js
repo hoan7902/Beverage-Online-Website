@@ -1,150 +1,71 @@
-import React, { useState, createContext, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { Icon } from "react-icons-kit";
 import { eyeOff } from "react-icons-kit/feather/eyeOff";
 import { eye } from "react-icons-kit/feather/eye";
 import styles from "../../styles/Login.module.css";
-import styled from "styled-components";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import style from "../../styles/Profile.module.css";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
-
-function PassWordInput({ name }) {
-  const { pass, setPass } = useContext(PassWordContext);
-  const handlePassChange = (e) => {
-    setPass(e.target.value);
-  };
-  const [type, setType] = useState("password");
-  const [icon, setIcon] = useState(eyeOff);
-  const handleHidePassword = () => {
-    if (type === "password") {
-      setIcon(eye);
-      setType("text");
-    } else {
-      setIcon(eyeOff);
-      setType("password");
-    }
-  };
-  return (
-    <div className={styles["pass-word"]}>
-      <span id={styles["medium-text-icon"]}>{name}</span>
-      <div className={styles["pass-word-input"]}>
-        <span className={styles["pass-word-input-hide"]}>
-          <input
-            className={styles["pass-input"]}
-            value={pass}
-            onChange={handlePassChange}
-            type={type}
-          />
-          <Icon
-            className={styles["pass-word-icon"]}
-            onClick={handleHidePassword}
-            icon={icon}
-          />
-        </span>
-      </div>
-    </div>
-  );
-}
-function NewPassWordInput({ name }) {
-  const { newpass, setNewPass } = useContext(NewPassWordContext);
-  const handleNewPassChange = (e) => {
-    setNewPass(e.target.value);
-  };
-  const [type, setType] = useState("password");
-  const [icon, setIcon] = useState(eyeOff);
-  const handleHidePassword = () => {
-    if (type === "password") {
-      setIcon(eye);
-      setType("text");
-    } else {
-      setIcon(eyeOff);
-      setType("password");
-    }
-  };
-  return (
-    <div className={styles["pass-word"]}>
-      <span id={styles["medium-text-icon"]}>{name}</span>
-      <div className={styles["pass-word-input"]}>
-        <span className={styles["pass-word-input-hide"]}>
-          <input
-            className={styles["pass-input"]}
-            value={newpass}
-            onChange={handleNewPassChange}
-            type={type}
-          />
-          <Icon
-            className={styles["pass-word-icon"]}
-            onClick={handleHidePassword}
-            icon={icon}
-          />
-        </span>
-      </div>
-    </div>
-  );
-}
-function ReNewPassWordInput({ name }) {
-  const { renewpass, setReNewPass } = useContext(ReNewPassWordContext);
-  const handleReNewPassChange = (e) => {
-    setReNewPass(e.target.value);
-  };
-  const [type, setType] = useState("password");
-  const [icon, setIcon] = useState(eyeOff);
-  const handleHidePassword = () => {
-    if (type === "password") {
-      setIcon(eye);
-      setType("text");
-    } else {
-      setIcon(eyeOff);
-      setType("password");
-    }
-  };
-  return (
-    <div className={styles["pass-word"]}>
-      <span id={styles["medium-text-icon"]}>{name}</span>
-      <div className={styles["pass-word-input"]}>
-        <span className={styles["pass-word-input-hide"]}>
-          <input
-            className={styles["pass-input"]}
-            value={renewpass}
-            onChange={handleReNewPassChange}
-            type={type}
-          />
-          <Icon
-            className={styles["pass-word-icon"]}
-            onClick={handleHidePassword}
-            icon={icon}
-          />
-        </span>
-      </div>
-    </div>
-  );
-}
-export const PassWordContext = createContext();
-export const NewPassWordContext = createContext();
-export const ReNewPassWordContext = createContext();
 function ChangePassWord({ setOpen, handleClose }) {
-  const [pass, setPass] = useState("");
-  const [newpass, setNewPass] = useState("");
-  const [renewpass, setReNewPass] = useState("");
-  const [type, setType] = useState("");
-  const [message, setMessage] = useState("");
   const [openMess, setOpenMess] = useState(false);
+  const [typeMess, setTypeMess] = useState("");
+  const [message, setMessage] = useState("");
   const handleCloseMess = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
     setOpenMess(false);
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
-  const ChangePassAPI = (e) => {
-    e.preventDefault();
+  const formik = useFormik({
+    initialValues: {
+      pass: "",
+      newPass: "",
+      confirmNewPass: "",
+    },
+    validationSchema: Yup.object({
+      pass: Yup.string()
+        .required("Hãy nhập mật khẩu hiện tại")
+        .matches(
+          /^(?=.*[a-z])(?=.*[0-9])(?=.{8,})/,
+          "Mật khẩu từ phải từ 8 kí tự trở lên, gồm một chữ thường và một số"
+        ),
+      newPass: Yup.string()
+        .required("Hãy nhập mật khẩu mới")
+
+        .matches(
+          /^(?=.*[a-z])(?=.*[0-9])(?=.{8,})/,
+          "Mật khẩu từ phải từ 8 kí tự trở lên, gồm một chữ thường và một số"
+        ),
+      confirmNewPass: Yup.string()
+        .required("Hãy nhập lại mật khẩu mới")
+        .oneOf(
+          [Yup.ref("newPass"), null],
+          "Mật khẩu mới và xác thực mật khẩu mới không đúng"
+        ),
+    }),
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
+  const [isValid, setIsValid] = useState(false);
+  useEffect(() => {
+    if (
+      formik.errors.pass ||
+      formik.errors.newPass ||
+      formik.errors.confirmNewPass
+    ) {
+      setIsValid(false);
+    } else setIsValid(true);
+  }, [formik.errors.pass, formik.errors.newPass, formik.errors.confirmNewPass]);
+  const ChangePassAPI = () => {
     fetch(
-      "http://localhost:3000/user/change-user-password",
+      "https://sleepy-scrubland-61892.herokuapp.com/user/change-user-password",
       {
         method: "POST",
         headers: {
@@ -153,25 +74,32 @@ function ChangePassWord({ setOpen, handleClose }) {
         },
         body: JSON.stringify({
           phoneNumber: localStorage.getItem("phoneNumber"),
-          password: pass,
-          newPassword: newpass,
+          password: formik.values.pass,
+          newPassword: formik.values.newPass,
         }),
       }
     )
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
-        localStorage.setItem("code", response.code);
         if (response.code == 112) {
-          setType("success");
+          setTypeMess("success");
           setMessage("Thay đổi mật khẩu thành công");
           setOpenMess(true);
           setTimeout(() => {
             setOpen(false);
           }, 1000);
-        } else if (response.code == 114) {
-          setType("error");
-          setMessage("Vui lòng nhập lại mật khẩu, mật khẩu không đúng");
+        } else if (response.code == 113) {
+          setTypeMess("error");
+          setMessage("Mật khẩu mới và mật khẩu hiện tại phải khác nhau");
+          setOpenMess(true);
+        } else if (
+          response.code == 114 &&
+          formik.values.pass != "" &&
+          formik.values.newPass != "" &&
+          formik.values.confirmNewPass != ""
+        ) {
+          setTypeMess("error");
+          setMessage("Mật khẩu không đúng, vui lòng nhập lại mật khẩu");
           setOpenMess(true);
         }
       })
@@ -179,120 +107,208 @@ function ChangePassWord({ setOpen, handleClose }) {
         console.log(err);
       });
   };
+  const [type, setType] = useState("password");
+  const [icon, setIcon] = useState(eyeOff);
+  const handleHidePassword = () => {
+    if (type === "password") {
+      setIcon(eye);
+      setType("text");
+    } else {
+      setIcon(eyeOff);
+      setType("password");
+    }
+  };
+  const [typeNew, setTypeNew] = useState("password");
+  const [iconNew, setIconNew] = useState(eyeOff);
+  const handleHidePasswordNew = () => {
+    if (typeNew === "password") {
+      setIconNew(eye);
+      setTypeNew("text");
+    } else {
+      setIconNew(eyeOff);
+      setTypeNew("password");
+    }
+  };
+  const [typeCon, setTypeCon] = useState("password");
+  const [iconCon, setIconCon] = useState(eyeOff);
+  const handleHidePasswordCon = () => {
+    if (typeCon === "password") {
+      setIconCon(eye);
+      setTypeCon("text");
+    } else {
+      setIconCon(eyeOff);
+      setTypeCon("password");
+    }
+  };
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <Snackbar
-          open={openMess}
-          autoHideDuration={6000}
+    <section>
+      <Snackbar
+        open={openMess}
+        autoHideDuration={2000}
+        onClose={handleCloseMess}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
           onClose={handleCloseMess}
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          severity={typeMess}
+          sx={{ width: "100%" }}
         >
-          <Alert
-            onClose={handleCloseMess}
-            severity={type}
-            sx={{ width: "100%" }}
-          >
-            {message}
-          </Alert>
-        </Snackbar>
-        <ModalContainer>
-          <ModalContent>
-            <ModalTitle>
-              <TitleForm>Đổi mật khẩu</TitleForm>
-              <ModalClose onClick={handleClose}>X</ModalClose>
-            </ModalTitle>
-
-            <PassWordContext.Provider value={{ pass, setPass }}>
-              <NewPassWordContext.Provider value={{ newpass, setNewPass }}>
-                <ReNewPassWordContext.Provider
-                  value={{ renewpass, setReNewPass }}
-                >
-                  <PassWordInput name="Mật khẩu hiện tại" />
-                  <NewPassWordInput name="Mật khẩu mới" />
-                  <ReNewPassWordInput name="Nhập mật khẩu mới" />
-                </ReNewPassWordContext.Provider>
-              </NewPassWordContext.Provider>
-            </PassWordContext.Provider>
-          </ModalContent>
-          <ButtonContainer>
-            <ButtonCancel onClick={handleClose}>Cancel</ButtonCancel>
-            <ButtonOK onClick={ChangePassAPI}>OK</ButtonOK>
-          </ButtonContainer>
-        </ModalContainer>
+          {message}
+        </Alert>
+      </Snackbar>
+      <form onSubmit={formik.handleSubmit}>
+        <div className={style["modal-container"]}>
+          <div className={style["modal-content"]}>
+            <div className={style["modal-title"]}>
+              <p className={style["title-form"]}>Đổi mật khẩu</p>
+              <p className={style["modal-close"]} onClick={handleClose}>
+                X
+              </p>
+            </div>
+            <div className={styles["pass-word"]}>
+              <span id={styles["medium-text-icon"]}>Mật khẩu hiện tại</span>
+              <div className={styles["pass-word-input"]}>
+                <span className={styles["pass-word-input-hide"]}>
+                  <input
+                    className={styles["pass-input"]}
+                    type={type}
+                    id="pass"
+                    name="pass"
+                    value={formik.values.pass}
+                    onChange={formik.handleChange}
+                  />
+                  <Icon
+                    className={styles["pass-word-icon"]}
+                    onClick={handleHidePassword}
+                    icon={icon}
+                  />
+                </span>
+              </div>
+              <div
+                style={{
+                  height: "15px",
+                  position: "relative",
+                  marginBottom: "5px",
+                }}
+              >
+                {formik.errors.pass && (
+                  <p
+                    style={{
+                      color: "#ff4d4f",
+                      fontSize: "14px",
+                      position: "absolute",
+                      bottom: "-20px",
+                      left: "0",
+                    }}
+                  >
+                    {" "}
+                    {formik.errors.pass}{" "}
+                  </p>
+                )}
+              </div>
+              <div className={styles["pass-word"]}>
+                <span id={styles["medium-text-icon"]}>Mật khẩu mới</span>
+                <div className={styles["pass-word-input"]}>
+                  <span className={styles["pass-word-input-hide"]}>
+                    <input
+                      className={styles["pass-input"]}
+                      type={typeNew}
+                      id="newPass"
+                      name="newPass"
+                      value={formik.values.newPass}
+                      onChange={formik.handleChange}
+                    />
+                    <Icon
+                      className={styles["pass-word-icon"]}
+                      onClick={handleHidePasswordNew}
+                      icon={iconNew}
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                style={{
+                  height: "10px",
+                  position: "relative",
+                  marginBottom: "5px",
+                }}
+              >
+                {formik.errors.newPass && (
+                  <p
+                    style={{
+                      color: "#ff4d4f",
+                      fontSize: "14px",
+                      position: "absolute",
+                      bottom: "-20px",
+                      left: "0",
+                    }}
+                  >
+                    {" "}
+                    {formik.errors.newPass}{" "}
+                  </p>
+                )}
+              </div>
+              <div className={styles["pass-word"]}>
+                <span id={styles["medium-text-icon"]}>
+                  Nhập lại mật khẩu mới
+                </span>
+                <div className={styles["pass-word-input"]}>
+                  <span className={styles["pass-word-input-hide"]}>
+                    <input
+                      className={styles["pass-input"]}
+                      type={typeCon}
+                      id="confirmNewPass"
+                      name="confirmNewPass"
+                      value={formik.values.confirmNewPass}
+                      onChange={formik.handleChange}
+                    />
+                    <Icon
+                      className={styles["pass-word-icon"]}
+                      onClick={handleHidePasswordCon}
+                      icon={iconCon}
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                style={{
+                  height: "10px",
+                  position: "relative",
+                  marginBottom: "20px",
+                }}
+              >
+                {formik.errors.confirmNewPass && (
+                  <p
+                    style={{
+                      color: "#ff4d4f",
+                      fontSize: "14px",
+                      position: "absolute",
+                      bottom: "-20px",
+                      left: "0",
+                    }}
+                  >
+                    {" "}
+                    {formik.errors.confirmNewPass}{" "}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className={style["btn-container"]}>
+            <button className={style["btn-cancel"]} onClick={handleClose}>
+              Cancel
+            </button>
+            <button
+              className={style["btn-ok"]}
+              disabled={!isValid}
+              onClick={ChangePassAPI}
+            >
+              OK
+            </button>
+          </div>
+        </div>
       </form>
-    </div>
+    </section>
   );
 }
 export default ChangePassWord;
-const ButtonCancel = styled.button`
-  color: rgba(0, 0, 0, 0.85);
-  font-size: 14px;
-  box-sizing: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.4);
-  font-weight: 400;
-  cursor: pointer;
-  height: 30px;
-  margin-right: 10px;
-  padding: 0 15px;
-  &:hover {
-    color: #00793f;
-    border: 1px solid #00793f;
-  }
-`;
-const ButtonOK = styled.button`
-  color: #fff;
-  font-size: 14px;
-  font-weight: 400;
-  background-color: #00793f;
-  border-top-color: rgb(0, 121, 63);
-  border-right-color: rgb(0, 121, 63);
-  border-bottom-color: rgb(0, 121, 63);
-  border-left-color: rgb(0, 121, 63);
-  border: none;
-  cursor: pointer;
-  height: 30px;
-  width: 50px;
-  &:hover {
-    background-color: #00793f;
-    opacity: 0.8;
-  }
-`;
-const ModalClose = styled.p`
-  font-size: 18px;
-  cursor: pointer;
-  padding-right: 10px;
-  opacity: 0.5;
-  &:hover {
-    opacity: 1;
-  }
-`;
-const ModalTitle = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-const ModalContainer = styled.div`
-position: absolute as absolute;
-margin-top:28%;
-margin-left:50%;
-transform: translate(-50%, -50%);
-width: 550px;
-height:550px;
-background-color: #fff;
-border: 2px solid #000,
-box-shadow: 24;
-padding: 25px;
-border-bottom: 1px solid #fdfdfd;
-`;
-const TitleForm = styled.h2`
-  font-size: 32px;
-  font-weight: 600;
-`;
-const ModalContent = styled.div`
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-`;
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
