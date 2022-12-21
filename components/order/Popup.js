@@ -96,6 +96,7 @@ const Popup = ({ item, trigger, setPop, listTopping, cart, setCart }) => {
         backgroundColor="#fbfbfb"
         p="20px"
         borderRadius={2}
+        className={stylesOrder.myPopup}
       >
         <Stack flexDirection="row" justifyContent="space-between">
           <Image alt="img" src={item.image} width="170px" height="170px" />

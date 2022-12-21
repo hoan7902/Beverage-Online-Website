@@ -10,6 +10,16 @@ const nextConfig = {
       "cong-news.appwifi.com",
       "d1sag4ddilekf6.azureedge.net",
       "tocotocotea.com",
+      "43metvuongcaphe.com",
+      "4.bp.blogspot.com",
+      "product.hstatic.net",
+      "hipbcoffee.com",
+      "blog.beemart.vn",
+      "fogliancoffee.com",
+      "veganizta.com.vn",
+      "www.starbucksathome.com",
+      "saigoncasacafe.com.vn",
+      "cdn.beptruong.edu.vn"
     ],
   },
 };
