@@ -40,7 +40,7 @@ export default function Authentication() {
   }, [formik.errors.code]);
   const router = useRouter();
   const APIAuth = () => {
-    fetch("http://localhost:3000/user/verify-user", {
+    fetch("https://sleepy-scrubland-61892.herokuapp.com/user/verify-user", {
       method: "POST",
       headers: {
         "content-type": "application/json",

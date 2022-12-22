@@ -37,7 +37,7 @@ const Popup = ({ item, trigger, setPop, listTopping, cart, setCart }) => {
 
     (async () => {
       const response = await axios.post(
-        "http://localhost:3000/cart/add-to-cart",
+        "https://sleepy-scrubland-61892.herokuapp.com/cart/add-to-cart",
         ItemToPost
       );
       console.log("Data...", response.data);

@@ -65,7 +65,7 @@ function ChangePassWord({ setOpen, handleClose }) {
   }, [formik.errors.pass, formik.errors.newPass, formik.errors.confirmNewPass]);
   const ChangePassAPI = () => {
     fetch(
-      "http://localhost:3000/user/change-user-password",
+      "https://sleepy-scrubland-61892.herokuapp.com/user/change-user-password",
       {
         method: "POST",
         headers: {

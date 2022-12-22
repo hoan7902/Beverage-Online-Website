@@ -65,7 +65,7 @@ function Profile() {
   const ChangeInfoAPI = (e) => {
     e.preventDefault();
     fetch(
-      "http://localhost:3000/user/change-user-information",
+      "https://sleepy-scrubland-61892.herokuapp.com/user/change-user-information",
       {
         method: "POST",
         headers: {

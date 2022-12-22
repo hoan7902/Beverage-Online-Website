@@ -38,7 +38,7 @@ export default function MissPassword() {
     },
   });
   const APIForgetPass = () => {
-    fetch("http://localhost:3000/user/forgot-password", {
+    fetch("https://sleepy-scrubland-61892.herokuapp.com/user/forgot-password", {
       method: "POST",
       headers: {
         "content-type": "application/json",
