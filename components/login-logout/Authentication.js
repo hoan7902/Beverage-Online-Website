@@ -27,8 +27,6 @@ export default function Authentication() {
       code: Yup.string()
         .required("Hãy nhập mã xác thực")
         .matches(/^[0-9]+$/, "Mã xác thực chỉ bao gồm chữ số")
-        .min(6, "Mã xác thực có chính xác 6 chữ số")
-        .max(6, "Mã xác thực có chính xác 6 chữ số"),
     }),
     onSubmit: (values) => {
       console.log(values);
