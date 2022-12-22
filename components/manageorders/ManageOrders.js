@@ -86,6 +86,7 @@ function ManageOrders() {
           subheader={`Trạng thái: ${order.status}`}
           style={{
             borderBottom: "1px solid gray",
+
           }}
           action={
             order.status === "delivering" ? (

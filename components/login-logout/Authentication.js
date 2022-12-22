@@ -50,7 +50,7 @@ export default function Authentication() {
       },
       body: JSON.stringify({
         phoneNumber: localStorage.getItem("phoneNumber"),
-        code: Number(code),
+        code: Number(formik.values.code),
       }),
     })
       .then((response) => response.json())
