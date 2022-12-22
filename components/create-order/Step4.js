@@ -8,7 +8,7 @@ import { useAppContext } from "../../contexts/AppProvider";
 import { useRouter } from "next/router";
 import io from "socket.io-client";
 import axios from "axios";
-const socket = io("https://sleepy-scrubland-61892.herokuapp.com");
+const socket = io("http://localhost:3000");
 
 function Step4() {
   const { listCart, user } = useAppContext();
@@ -40,7 +40,7 @@ function Step4() {
           description: localStorage.getItem("notice"),
         };
         await axios.post(
-          "https://sleepy-scrubland-61892.herokuapp.com/order/add-order",
+          "http://localhost:3000/order/add-order",
           data
         );
         socket.emit("client-submit", { userId: user?._id });

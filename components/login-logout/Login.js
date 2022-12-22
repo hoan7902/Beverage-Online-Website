@@ -59,7 +59,7 @@ function Login() {
   }, [formik.errors.pass, formik.errors.phone]);
   const APILogin = () => {
     localStorage.setItem("phoneNumber", formik.values.phone);
-    fetch("https://sleepy-scrubland-61892.herokuapp.com/user/login-user", {
+    fetch("http://localhost:3000/user/login-user", {
       method: "POST",
       headers: {
         "content-type": "application/json",

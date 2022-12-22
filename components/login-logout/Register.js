@@ -67,7 +67,7 @@ function Register() {
     else setIsValid(true);
   },[formik.errors.pass,formik.errors.phone,formik.errors.confirmedPassword])
   const APIRegister=()=>{
-     fetch("https://sleepy-scrubland-61892.herokuapp.com/user/create-user", {
+     fetch("http://localhost:3000/user/create-user", {
        method: "POST",
        headers: {
          "content-type": "application/json",

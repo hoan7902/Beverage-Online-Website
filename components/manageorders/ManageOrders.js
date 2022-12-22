@@ -11,7 +11,7 @@ import axios from "axios";
 import io from "socket.io-client";
 import { useAppContext } from "../../contexts/AppProvider";
 
-const socket = io("https://sleepy-scrubland-61892.herokuapp.com");
+const socket = io("http://localhost:3000");
 
 function ManageOrders() {
   const [status, setStatus] = useState(1);
@@ -26,7 +26,7 @@ function ManageOrders() {
   const getOrders = async () => {
     try {
       const data = await axios.post(
-        "https://sleepy-scrubland-61892.herokuapp.com/order/get-list-order",
+        "http://localhost:3000/order/get-list-order",
         {
           userId: user?._id,
           status: !status ? "complete" : "",
@@ -62,7 +62,7 @@ function ManageOrders() {
     const completeHandle = async () => {
       try {
         await axios.post(
-          "https://sleepy-scrubland-61892.herokuapp.com/order/complete-order",
+          "http://localhost:3000/order/complete-order",
           {
             userId: user?._id,
             orderId: order._id,
