@@ -49,8 +49,8 @@ const Promotion = () => {
             style={{ borderRadius: "7px 7px 0 0" }}
             src={TraSua}
             alt="promotion"
-            width='300px'
-            height='156px'
+            width="300px"
+            height="156px"
           />
           <Typography
             variant=""
@@ -73,10 +73,10 @@ const Promotion = () => {
         >
           <Image
             style={{ borderRadius: "7px 7px 0 0" }}
-            src='https://tocotocotea.com/wp-content/uploads/2021/12/tocotoco-thi-truong-my.png'
+            src="https://tocotocotea.com/wp-content/uploads/2021/12/tocotoco-thi-truong-my.png"
             alt="promotion"
-            width='300px'
-            height='156px'
+            width="300px"
+            height="156px"
           />
           <Typography
             variant=""
@@ -86,7 +86,8 @@ const Promotion = () => {
             textAlign="center"
             color="#000"
           >
-          Vì sao khách hàng tại thị trường Mỹ ưa thích vị đậm đà khác biệt của chúng tôi?
+            Vì sao khách hàng tại thị trường Mỹ ưa thích vị đậm đà khác biệt của
+            chúng tôi?
           </Typography>
         </Stack>
         <Stack
@@ -101,8 +102,8 @@ const Promotion = () => {
             style={{ borderRadius: "7px 7px 0 0" }}
             src={TraSua}
             alt="promotion"
-            width='300px'
-            height='156px'
+            width="300px"
+            height="156px"
           />
           <Typography
             variant=""
@@ -112,7 +113,8 @@ const Promotion = () => {
             textAlign="center"
             color="#000"
           >
-          VỊ GIÒN TAN – GIÁNG SINH RỘN RÀNG CÙNG CHOCO NGŨ CỐC KEM CAFÉ VÀ HỒNG TRÀ NGŨ CỐC KEM CAFÉ 
+            VỊ GIÒN TAN – GIÁNG SINH RỘN RÀNG CÙNG CHOCO NGŨ CỐC KEM CAFÉ VÀ
+            HỒNG TRÀ NGŨ CỐC KEM CAFÉ
           </Typography>
         </Stack>
       </Stack>

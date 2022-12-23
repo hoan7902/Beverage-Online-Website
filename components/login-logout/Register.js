@@ -63,25 +63,27 @@ function Register() {
       formik.errors.confirmedPassword
     ) {
       setIsValid(false);
-    }
-    else setIsValid(true);
-  },[formik.errors.pass,formik.errors.phone,formik.errors.confirmedPassword])
-  const APIRegister=()=>{
-     fetch("https://sleepy-scrubland-61892.herokuapp.com/user/create-user", {
-       method: "POST",
-       headers: {
-         "content-type": "application/json",
-         accept: "application/json",
-       },
-       body: JSON.stringify({
-         phoneNumber: formik.values.phone,
-         password: formik.values.pass,
-       }),
-     })
-       .then((response) => response.json())
-       .then((response) => {
-        if(response.code==118||response.code==111)
-        {
+    } else setIsValid(true);
+  }, [
+    formik.errors.pass,
+    formik.errors.phone,
+    formik.errors.confirmedPassword,
+  ]);
+  const APIRegister = () => {
+    fetch("https://sleepy-scrubland-61892.herokuapp.com/user/create-user", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify({
+        phoneNumber: formik.values.phone,
+        password: formik.values.pass,
+      }),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code == 118 || response.code == 111) {
           setTypeMess("warning");
           setMessage("Vui lòng xác thực");
           setOpen(true);
