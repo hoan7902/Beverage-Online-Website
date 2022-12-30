@@ -92,6 +92,9 @@ function Register() {
           setTypeMess("error");
           setMessage("Số điện thoại đã sử dụng");
           setOpen(true);
+        } else {
+          setTypeMess("error");
+          setMessage(response.message);
         }
         localStorage.setItem("phoneNumber", response.data.user.phoneNumber);
       })
