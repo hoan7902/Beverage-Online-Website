@@ -26,7 +26,7 @@ export default function Authentication() {
     validationSchema: Yup.object({
       code: Yup.string()
         .required("Hãy nhập mã xác thực")
-        .matches(/^[0-9]+$/, "Mã xác thực chỉ bao gồm chữ số")
+        .matches(/^[0-9]+$/, "Mã xác thực chỉ bao gồm chữ số"),
     }),
     onSubmit: (values) => {
       console.log(values);

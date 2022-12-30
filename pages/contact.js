@@ -65,16 +65,19 @@ const Contact = () => {
               </Typography>
               <Box>
                 <Typography mt="20px">
-                  GPDKKD số 0314525625 do Sở KHDT TP.HCM cấp ngày 19/07/2017
+                  Địa chỉ liên hệ: Kí túc xá khu B đại học quốc gia
                 </Typography>
                 <Typography mt="20px">
-                  7/3 Hồ Biểu Chánh, Phường 12, Quận Phú Nhuận
+                  Email: phuccao.30012001@gmail.com
+                </Typography>
+                <Typography mt="20px">Số điện thoại: 0879250665</Typography>
+                <Typography mt="20px">
+                  Facebook: https://www.facebook.com/hieunghia.cao.37
                 </Typography>
                 <Typography mt="20px">
-                  www.flyfood.vn - www.tiectrongoi.vn
+                  Mọi thông tin của các thành viên trong nhóm xin hãy quét mã QR
+                  bên cạnh
                 </Typography>
-                <Typography mt="20px">flyfoodhcm@gmail.com</Typography>
-                <Typography mt="20px">02839911911</Typography>
               </Box>
             </Stack>
           </Stack>
