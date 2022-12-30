@@ -1,6 +1,6 @@
 import { Stack, Box, Typography } from "@mui/material";
 import contactStyles from "../styles/Contact.module.css";
-import qrImage from "../assets/image/QRCode.png";
+import qrImage from "../assets/image/qrcode.png";
 import Image from "next/image";
 import Footer from "../components/home/Footer";
 import Advertisement from "../components/home/Advertisement";
