@@ -1,6 +1,6 @@
 import { Stack, Box, Typography } from "@mui/material";
 import contactStyles from "../styles/Contact.module.css";
-import qrImage from "../assets/image/qrcode.png";
+import qrImage from "../public/qrcode.png";
 import Image from "next/image";
 import Footer from "../components/home/Footer";
 import Advertisement from "../components/home/Advertisement";
@@ -52,7 +52,7 @@ const Contact = () => {
       >
         <Stack m="40px 0" p="20px" backgroundColor="#fff" borderRadius="8px">
           <Stack flexDirection="row" justifyContent="space-between">
-            <Image src={qrImage} alt="qr" />
+            <Image width={250} height={250} src={qrImage} alt="qr" />
             <Stack ml="10px" justifyContent="space-between">
               <Typography
                 mt="25px"
