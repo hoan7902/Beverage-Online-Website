@@ -83,11 +83,11 @@ function Register() {
     })
       .then((response) => response.json())
       .then((response) => {
+        localStorage.setItem("phoneNumber", response.data.user.phoneNumber);
         if (response.code == 118 || response.code == 111) {
           setTypeMess("warning");
           setMessage("Vui lòng xác thực");
           setOpen(true);
-          localStorage.setItem("phoneNumber", response.data.user.phoneNumber);
           router.push("/authentication");
         } else if (response.code == 112) {
           setTypeMess("error");
