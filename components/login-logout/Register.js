@@ -87,16 +87,13 @@ function Register() {
           setTypeMess("warning");
           setMessage("Vui lòng xác thực");
           setOpen(true);
+          localStorage.setItem("phoneNumber", response.data.user.phoneNumber);
           router.push("/authentication");
         } else if (response.code == 112) {
           setTypeMess("error");
           setMessage("Số điện thoại đã sử dụng");
           setOpen(true);
-        } else {
-          setTypeMess("error");
-          setMessage(response.message);
         }
-        localStorage.setItem("phoneNumber", response.data.user.phoneNumber);
       })
       .catch((err) => {
         console.log(err);
