@@ -1,0 +1,12 @@
+.backgroundImage {
+  background: url("../assets/image/pexels-photo-7175579-1.png") no-repeat center;
+  background-size: cover;
+  min-height: 100vh;
+  min-width: 100vw;
+  padding-top: 68.5px;
+}
+
+.inputCss {
+  padding: 7px;
+  margin-top: 5px;
+}
