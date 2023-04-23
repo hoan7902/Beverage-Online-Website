@@ -42,7 +42,7 @@ export default function Authentication() {
   }, [formik.errors.code]);
   const router = useRouter();
   const APIAuth = () => {
-    fetch("https://sleepy-scrubland-61892.herokuapp.com/user/verify-user", {
+    fetch("https://beverage-store7902.onrender.com/user/verify-user", {
       method: "POST",
       headers: {
         "content-type": "application/json",

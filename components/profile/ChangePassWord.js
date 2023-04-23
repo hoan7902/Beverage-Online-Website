@@ -64,21 +64,18 @@ function ChangePassWord({ setOpen, handleClose }) {
     } else setIsValid(true);
   }, [formik.errors.pass, formik.errors.newPass, formik.errors.confirmNewPass]);
   const ChangePassAPI = () => {
-    fetch(
-      "https://sleepy-scrubland-61892.herokuapp.com/user/change-user-password",
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          accept: "application/json",
-        },
-        body: JSON.stringify({
-          phoneNumber: localStorage.getItem("phoneNumber"),
-          password: formik.values.pass,
-          newPassword: formik.values.newPass,
-        }),
-      }
-    )
+    fetch("https://beverage-store7902.onrender.com/user/change-user-password", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify({
+        phoneNumber: localStorage.getItem("phoneNumber"),
+        password: formik.values.pass,
+        newPassword: formik.values.newPass,
+      }),
+    })
       .then((response) => response.json())
       .then((response) => {
         if (response.code == 112) {

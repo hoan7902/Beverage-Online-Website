@@ -22,7 +22,7 @@ const CartOrder = ({ cart, setCart }) => {
       const functionDelete = async () => {
         // DELETE request using axios with async/await
         const res = await axios.delete(
-          "https://sleepy-scrubland-61892.herokuapp.com/cart/remove-from-cart",
+          "https://beverage-store7902.onrender.com/cart/remove-from-cart",
           { data: objectDelete },
           {
             headers: {
@@ -56,7 +56,7 @@ const CartOrder = ({ cart, setCart }) => {
     const functionDelete = async () => {
       // DELETE request using axios with async/await
       const res = await axios.delete(
-        "https://sleepy-scrubland-61892.herokuapp.com/cart/remove-from-cart",
+        "https://beverage-store7902.onrender.com/cart/remove-from-cart",
         { data: objectDelete },
         {
           headers: {
@@ -77,7 +77,7 @@ const CartOrder = ({ cart, setCart }) => {
       const userId = localStorage.getItem("_id");
 
       const res = await axios(
-        `https://sleepy-scrubland-61892.herokuapp.com/cart/get-all-cart?userId=${userId}`
+        `https://beverage-store7902.onrender.com/cart/get-all-cart?userId=${userId}`
       );
 
       if (res.data.data) {

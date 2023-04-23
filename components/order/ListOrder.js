@@ -18,7 +18,7 @@ const ListOrder = ({ title, id, listTopping, cart, setCart }) => {
   useEffect(() => {
     const fetchExercisesData = async () => {
       const res = await axios(
-        `https://sleepy-scrubland-61892.herokuapp.com/product/get-product?typeId=${id}`
+        `https://beverage-store7902.onrender.com/product/get-product?typeId=${id}`
       );
       if (res.data.data) {
         setListCategoryProduct(res.data.data.listProduct);

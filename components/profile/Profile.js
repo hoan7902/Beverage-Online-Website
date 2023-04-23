@@ -65,7 +65,7 @@ function Profile() {
   const ChangeInfoAPI = (e) => {
     e.preventDefault();
     fetch(
-      "https://sleepy-scrubland-61892.herokuapp.com/user/change-user-information",
+      "https://beverage-store7902.onrender.com/user/change-user-information",
       {
         method: "POST",
         headers: {

@@ -26,7 +26,7 @@ function ManageOrders() {
   const getOrders = async () => {
     try {
       const data = await axios.post(
-        "https://sleepy-scrubland-61892.herokuapp.com/order/get-list-order",
+        "https://beverage-store7902.onrender.com/order/get-list-order",
         {
           userId: user?._id,
           status: !status ? "complete" : "",
@@ -62,7 +62,7 @@ function ManageOrders() {
     const completeHandle = async () => {
       try {
         await axios.post(
-          "https://sleepy-scrubland-61892.herokuapp.com/order/complete-order",
+          "https://beverage-store7902.onrender.com/order/complete-order",
           {
             userId: user?._id,
             orderId: order._id,
@@ -86,7 +86,6 @@ function ManageOrders() {
           subheader={`Trạng thái: ${order.status}`}
           style={{
             borderBottom: "1px solid gray",
-
           }}
           action={
             order.status === "delivering" ? (

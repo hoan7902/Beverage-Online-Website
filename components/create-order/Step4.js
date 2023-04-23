@@ -40,7 +40,7 @@ function Step4() {
           description: localStorage.getItem("notice"),
         };
         await axios.post(
-          "https://sleepy-scrubland-61892.herokuapp.com/order/add-order",
+          "https://beverage-store7902.onrender.com/order/add-order",
           data
         );
         socket.emit("client-submit", { userId: user?._id });
