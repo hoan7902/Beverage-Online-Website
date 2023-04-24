@@ -44,26 +44,28 @@ const Footer = () => {
       >
         <Stack
           flexDirection="row"
+          flexWrap="wrap"
           justifyContent="space-around"
+          alignItems="center"
           color="#ccc"
           m="20px 0"
         >
-          <Typography fontSize="20px" fontWeight={550}>
+          <Typography textAlign="center" fontSize="20px" fontWeight={550}>
             Về Jucify
           </Typography>
-          <Typography fontSize="20px" fontWeight={550}>
+          <Typography textAlign="center" fontSize="20px" fontWeight={550}>
             Mở quán trên Jucify
           </Typography>
-          <Typography fontSize="20px" fontWeight={550}>
+          <Typography textAlign="center" fontSize="20px" fontWeight={550}>
             Trung tâm hỗ trợ
           </Typography>
-          <Typography fontSize="20px" fontWeight={550}>
+          <Typography textAlign="center" fontSize="20px" fontWeight={550}>
             Blog
           </Typography>
-          <Typography fontSize="20px" fontWeight={550}>
+          <Typography textAlign="center" fontSize="20px" fontWeight={550}>
             Trở thành tài xế Jucify
           </Typography>
-          <Typography fontSize="20px" fontWeight={550}>
+          <Typography textAlign="center" fontSize="20px" fontWeight={550}>
             Câu hỏi thường gặp
           </Typography>
         </Stack>

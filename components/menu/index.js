@@ -93,7 +93,7 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="fixed" id="menu-top">
+    <AppBar position="fixed" id="menu-top" style={{ backgroundColor: '#282828' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -112,7 +112,7 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            Logo
+            Jucify
           </Typography>
 
           <Box
@@ -175,7 +175,7 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            Jucify
           </Typography>
           <Box
             sx={{

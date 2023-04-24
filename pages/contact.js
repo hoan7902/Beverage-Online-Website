@@ -48,10 +48,10 @@ const Contact = () => {
         className={contactStyles.backgroundImage}
         position="relative"
         justifyContent="center"
-        alignItems="center"
+        alignItems="center" 
       >
-        <Stack m="40px 0" p="20px" backgroundColor="#fff" borderRadius="8px">
-          <Stack flexDirection="row" justifyContent="space-between">
+        <Stack sx={{ margin: { md: "40px 0"}}} p="20px" backgroundColor="#fff" borderRadius="8px">
+          <Stack sx={{ flexDirection: { xs: "column", md: "row"}}} justifyContent="space-between">
             <Image src={qrImage} alt="qr" />
             <Stack ml="10px" justifyContent="space-between">
               <Typography

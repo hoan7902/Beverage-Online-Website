@@ -18,11 +18,11 @@ const ListItem = ({ title, description, dataProduct }) => {
     >
       <Typography
         p="10px"
-        textTransform="uppercase"
         color="#d3b673"
         variant="h3"
-        fontSize="25px"
+        fontSize="1.6rem"
         fontWeight={700}
+        textAlign="center"
       >
         {title}
       </Typography>
@@ -31,17 +31,19 @@ const ListItem = ({ title, description, dataProduct }) => {
         textTransform="uppercase"
         letterSpacing={1.8}
         fontWeight="700"
-        fontSize="36px"
+        sx={{ fontSize: { xs: "1.7rem", sm: "2.1rem" } }}
         color="#00000"
+        textAlign="center"
       >
         {description}
       </Typography>
       <Image src={Homeline} alt="home-line" />
       <Stack
         width="70%"
-        flexDirection="row"
+        sx={{ flexDirection: { xs: "column", sm: "row" } }}
         flexWrap="wrap"
         justifyContent="center"
+        alignItems="center"
         m="30px 0"
       >
         {dataProduct ? (
@@ -53,13 +55,13 @@ const ListItem = ({ title, description, dataProduct }) => {
             <LoaderWaiting />
           </Stack>
         )}
+        </Stack>
         <Link href="/order">
           <Box
             className={homeStyles.mainButton}
-            mt="20px"
+            m="20px 0"
             p="10px 20px"
             backgroundColor="#d3b673"
-            borderRadius="6px"
             style={{ cursor: "pointer" }}
           >
             <Typography
@@ -71,7 +73,6 @@ const ListItem = ({ title, description, dataProduct }) => {
             </Typography>
           </Box>
         </Link>
-      </Stack>
     </Stack>
   );
 };

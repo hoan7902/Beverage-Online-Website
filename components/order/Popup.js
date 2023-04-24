@@ -62,8 +62,6 @@ const Popup = ({ item, trigger, setPop, listTopping, cart, setCart }) => {
   };
 
   const handleChange = (value) => {
-    //arrItem is array of Topping
-
     if (!arrItem.current.includes(value)) {
       arrItem.current = [...arrItem.current, value];
     } else {
@@ -92,14 +90,19 @@ const Popup = ({ item, trigger, setPop, listTopping, cart, setCart }) => {
   return trigger ? (
     <div className={stylesOrder.layer}>
       <Stack
-        minWidth="600px"
         backgroundColor="#fbfbfb"
         p="20px"
-        borderRadius={2}
         className={stylesOrder.myPopup}
+        sx={{ width: { xs: "90%", md: "600px" } }}
       >
         <Stack flexDirection="row" justifyContent="space-between">
-          <Image alt="img" src={item.image} width="170px" height="170px" />
+          <Image
+            className={stylesHome.imageProduct}
+            alt="img"
+            src={item.image}
+            width="170px"
+            height="170px"
+          />
           <Stack minWidth="70%" pl="20px" pr="100px">
             <Typography p="10px" fontSize="18px" fontWeight={600}>
               {item.name}
@@ -125,7 +128,6 @@ const Popup = ({ item, trigger, setPop, listTopping, cart, setCart }) => {
                 className={stylesHome.mainButton}
                 p="7px 12px"
                 backgroundColor="#d3b673"
-                borderRadius="6px"
                 style={{ cursor: "pointer" }}
                 ml="10px"
                 onClick={addToCart}

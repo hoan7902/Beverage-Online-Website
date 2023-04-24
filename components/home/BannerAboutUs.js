@@ -6,19 +6,19 @@ import Homeline from "../../assets/image/home_line.webp";
 const BannerAboutUs = () => {
   return (
     <Stack
-      m="5px 180px 40px 180px"
-      flexDirection="row"
+      flexDirection="column"
       justifyContent="flex-end"
       position="relative"
+      width="100%"
+      p="0 6%"
+      sx={{ position: "relative" }}
     >
-      <Image style={{ borderRadius: "7px" }} src={Banner} alt="banner" />
+      <Image src={Banner} alt="banner" />
       <Stack
-        top="240px"
-        right="50px"
-        position="absolute"
         zIndex="2"
         justifyContent="center"
         alignItems="center"
+        sx={{ position: { md: "absolute"}, left: { md: "50%", }, bottom: { md: "30%", sm: "0"} }}
       >
         <Typography
           p="10px"

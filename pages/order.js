@@ -36,14 +36,14 @@ const Order = () => {
         <Stack
           position="relative"
           backgroundColor="#fbfbfb"
-          flexDirection="row"
+          sx={{ flexDirection: { xs: "column", md: "row" } }}
           width="100vw"
           justifyContent="space-around"
         >
-          <Box width="30%">
+          <Box sx={{ width: { md: "30%", xs: "100%" } }} height="100%">
             <CategoryOrder listNameCategory={listNameCategory} />
           </Box>
-          <Stack width="40%">
+          <Stack sx={{ width: { md: "40%", xs: "100%" } }}>
             {listNameCategory
               ? listNameCategory.map((item) => (
                   <ListOrder
@@ -58,7 +58,7 @@ const Order = () => {
                 ))
               : ""}
           </Stack>
-          <Box width="30%">
+          <Box sx={{ width: { xs: "30%" } }}>
             <CartOrder
               checkChange={checkChange}
               cart={cart}

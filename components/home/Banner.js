@@ -12,6 +12,7 @@ const Banner = () => {
         position="relative"
         zIndex="2"
         height="100vh"
+        sx={{ height: { xs: "40vh", md: "100vh" } }}
         justifyContent="center"
         alignItems="center"
       >
@@ -33,7 +34,6 @@ const Banner = () => {
             p="8px 15px"
             border="2px solid #fff"
             backgroundColor="transparent"
-            borderRadius="6px"
             letterSpacing={4}
             fontWeight={700}
             textAlign="center"

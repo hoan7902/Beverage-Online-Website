@@ -1,64 +1,45 @@
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import { Icon } from "react-icons-kit";
-import { eyeOff } from "react-icons-kit/feather/eyeOff";
-import { eye } from "react-icons-kit/feather/eye";
-import styles from "../../styles/Login.module.css";
-import Logo from "../../assets/image/vietnam-flag.png";
-import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import {
+  Alert,
+  AlertColor,
+  Box,
+  Snackbar,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import styles from "./styles.module.scss";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useRouter } from "next/router";
-import { useAppContext } from "../../contexts/AppProvider";
-import { Snackbar } from "@mui/material";
-import MuiAlert from "@mui/material/Alert";
-import { useFormik } from "formik";
-import * as Yup from "yup";
 
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-function Login() {
+const Login = () => {
   const router = useRouter();
-  const { setUser } = useAppContext();
-  const [open, setOpen] = useState(false);
-  const [typeMess, setTypeMess] = useState("");
-  const [message, setMessage] = useState("");
-  const handleClose = (event, reason) => {
+  const [phone, setPhone] = useState("0786170902");
+  const [password, setPassword] = useState("01227793662an");
+  const [isVisibility, setIsVisibility] = useState(false);
+  const handleChangeVisibility = () => {
+    setIsVisibility(!isVisibility);
+  };
+  const [openNoti, setOpenNoti] = useState(false);
+  const [statusAlert, setStatusAlert] = useState("error");
+  const [messageAlert, setMessageAlert] = useState("Thiếu thông tin");
+
+  const hanldOpenNoti = () => {
+    setOpenNoti(true);
+  };
+
+  const handleCloseNoti = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-    setOpen(false);
+
+    setOpenNoti(false);
   };
-  const formik = useFormik({
-    initialValues: {
-      phone: "",
-      pass: "",
-    },
-    validationSchema: Yup.object({
-      pass: Yup.string()
-        .required("Hãy nhập mật khẩu")
-        .matches(
-          /^(?=.*[a-z])(?=.*[0-9])(?=.{8,})/,
-          "Mật khẩu từ phải từ 8 kí tự trở lên, gồm một chữ thường và một số"
-        ),
-      phone: Yup.string()
-        .required("Hãy nhập số điện thoại")
-        .matches(
-          /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
-          "Số điện thoại không hợp lệ"
-        ),
-    }),
-    onSubmit: (values) => {
-      console.log(values);
-    },
-  });
-  const [isValid, setIsValid] = useState(false);
-  useEffect(() => {
-    if (formik.errors.pass || formik.errors.phone) {
-      setIsValid(false);
-    } else setIsValid(true);
-  }, [formik.errors.pass, formik.errors.phone]);
-  const APILogin = () => {
-    localStorage.setItem("phoneNumber", formik.values.phone);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    localStorage.setItem("phoneNumber", phone);
     fetch("https://beverage-store7902.onrender.com/user/login-user", {
       method: "POST",
       headers: {
@@ -66,35 +47,33 @@ function Login() {
         accept: "application/json",
       },
       body: JSON.stringify({
-        phoneNumber: formik.values.phone,
-        password: formik.values.pass,
+        phoneNumber: phone,
+        password: password,
       }),
     })
       .then((response) => response.json())
       .then((response) => {
+        console.log("check res: ", response);
         if (response.code == 102) {
-          setTypeMess("success");
-          setMessage("Đăng nhập thành công");
-          setOpen(true);
+          setStatusAlert("success");
+          setMessageAlert("Đăng nhập thành công");
+          setOpenNoti(true);
           router.push("/", "/");
         } else if (response.code == 103) {
-          setTypeMess("error");
-          setMessage("Vui lòng nhập lại mật khẩu, mật khẩu không chính xác");
-          setOpen(true);
-        } else if (
-          response.code == 110 &&
-          formik.values.pass != "" &&
-          formik.phone != ""
-        ) {
-          setTypeMess("error");
-          setMessage("Người dùng không tồn tại, vui lòng đăng ký");
-          setOpen(true);
+          setStatusAlert("error");
+          setMessageAlert(
+            "Vui lòng nhập lại mật khẩu, mật khẩu không chính xác"
+          );
+          setOpenNoti(true);
+        } else if (response.code == 110 && password != "" && phone != "") {
+          setStatusAlert("error");
+          setMessageAlert("Người dùng không tồn tại, vui lòng đăng ký");
+          setOpenNoti(true);
         } else if (response.code == 101) {
-          setTypeMess("error");
-          setMessage("Tài khoản chưa xác thực");
+          setStatusAlert("error");
+          setMessageAlert("Tài khoản chưa xác thực");
           router.push("/authentication", "/authentication");
         }
-        setUser(response.data.user);
         localStorage.setItem("_id", response.data.user._id);
         localStorage.setItem("phoneNumber", response.data.user.phoneNumber);
       })
@@ -102,130 +81,99 @@ function Login() {
         console.log(err);
       });
   };
-  const [type, setType] = useState("password");
-  const [icon, setIcon] = useState(eyeOff);
-  const handleHidePassword = () => {
-    if (type === "password") {
-      setIcon(eye);
-      setType("text");
-    } else {
-      setIcon(eyeOff);
-      setType("password");
-    }
-  };
+
   return (
-    <section className={styles["auth-form-container-login"]}>
+    <div className={styles.background}>
+      <Box className={styles.wrapperPopup}>
+        <Box backgroundColor="#fff" sx={{ p: {xs: "20px", md: "80px"}}} borderRadius="6px" mb="40px">
+          <Stack
+            flexDirection="row"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Typography
+              textAlign="center"
+              fontSize="2rem"
+              textTransform="uppercase"
+              color="#d4b774"
+              width="100%"
+            >
+              Đăng nhập
+            </Typography>
+          </Stack>
+          <form className={styles.form} onSubmit={handleLogin}>
+            <Stack alignItems="center">
+              <Stack
+                className={styles.wrapInput}
+                flexDirection="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <input
+                  className={styles.input}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="Phone"
+                  value={phone}
+                  name="phone"
+                  type="text"
+                />
+              </Stack>
+            </Stack>
+            <Stack alignItems="center">
+              <Stack
+                className={styles.wrapInput}
+                flexDirection="row"
+                alignItems="center"
+              >
+                <input
+                  className={styles.input}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Mật khẩu"
+                  value={password}
+                  name="password"
+                  type={isVisibility ? "text" : "password"}
+                />
+                <Box onClick={handleChangeVisibility}>
+                  {isVisibility ? (
+                    <VisibilityOffIcon sx={{ marginTop: "30px" }} />
+                  ) : (
+                    <VisibilityIcon sx={{ marginTop: "30px" }} />
+                  )}
+                </Box>
+              </Stack>
+              <Typography
+                sx={{ "&:hover": { cursor: "pointer", opacity: "0.9" } }}
+                color="#d4b774"
+                p="20px 0"
+              >
+                Quên mật khẩu
+              </Typography>
+              <button className={styles.buttonLogin} type="submit">
+                Đăng nhập
+              </button>
+            </Stack>
+            <Typography color="#444" textAlign="justify">
+              Vì chức năng đăng kí bằng OTP không còn hợp lệ. Vui lòng đăng nhập
+              bằng tài khoản mặc định ở trên.
+            </Typography>
+          </form>
+        </Box>
+      </Box>
       <Snackbar
-        open={open}
-        autoHideDuration={2000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={openNoti}
+        autoHideDuration={null}
+        onClose={handleCloseNoti}
       >
-        <Alert onClose={handleClose} severity={typeMess} sx={{ width: "100%" }}>
-          {message}
+        <Alert
+          onClose={handleCloseNoti}
+          severity={statusAlert}
+          sx={{ width: "100%" }}
+        >
+          {messageAlert}
         </Alert>
       </Snackbar>
-      <form onSubmit={formik.handleSubmit} className={styles["login"]}>
-        <label className={styles["title"]}>Đăng nhập</label>
-        <div style={{ marginTop: "20px" }}>
-          <span id={styles["phone-size"]}>Số điện thoại</span>
-          <div className={styles["phone-number-input-logo"]}>
-            <div className={styles.phone}>
-              <span className={styles["logo-number"]}>
-                <Image
-                  className={styles["phone-image"]}
-                  src={Logo}
-                  alt="Logo Việt Nam"
-                />
-                <span>+84</span>
-              </span>
-              <input
-                className={styles["phone-input"]}
-                type="text"
-                id="phone"
-                name="phone"
-                value={formik.values.phone}
-                onChange={formik.handleChange}
-              />
-            </div>
-          </div>
-        </div>
-        <div style={{ height: "10px", position: "relative" }}>
-          {formik.errors.phone && (
-            <p
-              style={{
-                color: "#ff4d4f",
-                fontSize: "14px",
-                position: "absolute",
-                bottom: "-12px",
-                left: "0",
-              }}
-            >
-              {" "}
-              {formik.errors.phone}{" "}
-            </p>
-          )}
-        </div>
-        <div className={styles["pass-word"]}>
-          <span id={styles["pass-word-size"]}>Mật khẩu</span>
-          <div className={styles["pass-word-input"]}>
-            <span className={styles["pass-word-input-hide"]}>
-              <input
-                className={styles["pass-input"]}
-                type={type}
-                id="pass"
-                name="pass"
-                value={formik.values.pass}
-                onChange={formik.handleChange}
-              />
-              <Icon
-                className={styles["pass-word-icon"]}
-                onClick={handleHidePassword}
-                icon={icon}
-              />
-            </span>
-          </div>
-        </div>
-        <div style={{ height: "10px", position: "relative" }}>
-          {formik.errors.pass && (
-            <p
-              style={{
-                color: "#ff4d4f",
-                fontSize: "14px",
-                position: "absolute",
-                bottom: "-16px",
-                left: "0",
-              }}
-            >
-              {" "}
-              {formik.errors.pass}{" "}
-            </p>
-          )}
-        </div>
-        <span className={`${styles["min-text-gray"]} ${styles["min-text"]}`}>
-          Quên mật khẩu?
-          <Link href="/misspassword">
-            <p className={styles["small-link"]}>Cài đặt lại mật khẩu</p>
-          </Link>
-        </span>
-        <button
-          className={styles["Orange_Button"]}
-          type="submit"
-          onClick={APILogin}
-          disabled={!isValid}
-        >
-          Đăng nhập
-        </button>
-      </form>
-      <div className={styles["note"]}>
-        <span className={styles["medium-text"]}>
-          Chưa có tài khoản?
-          <Link href="/register">
-            <p className={styles["custom-link"]}>Đăng ký</p>
-          </Link>
-        </span>
-      </div>
-    </section>
+    </div>
   );
-}
+};
+
 export default Login;

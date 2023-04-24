@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import "../../styles/Profile.module.css";
 import Footer from "../home/Footer";
@@ -32,8 +32,6 @@ function Profile() {
   //Lấy thông tin hiện tại của user
   const router = useRouter();
   const { user } = useAppContext();
-
-  console.log(user);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [birthDate, setBirthDate] = useState("");
@@ -48,6 +46,7 @@ function Profile() {
     }
   }, [user, router]);
   const handleName = (e) => {
+    console.log(e.target.value);
     setName(e.target.value);
   };
   const handleEmail = (e) => {
@@ -109,42 +108,42 @@ function Profile() {
           {message}
         </Alert>
       </Snackbar>
+
       <form onSubmit={handleSubmit}>
         <Box
           sx={{
             display: "flex",
             backgroundColor: "#fafafa",
+            flexDirection: { xs: "column" },
           }}
+          mt="69px"
         >
-          <div className={style["menu-container"]}>
-            <div className={style["color-title-forward"]}>
+          <Stack>
+            <Typography className={style["color-title-forward"]}>
               THÔNG TIN CÁ NHÂN
-            </div>
+            </Typography>
 
             <Link href="/profile/manageorders">
               <div className={style["title-forward"]}>QUẢN LÝ ĐƠN HÀNG</div>
             </Link>
-          </div>
-          <Box
+          </Stack>
+          <Stack
             sx={{
-              marginTop: "120px",
+              marginTop: "50px",
+              mx: "20px",
               padding: "0 10px",
               backgroundColor: "#fff",
             }}
+            justifyContent="center"
           >
             <Box
               sx={{
                 borderBottom: "1px solid rgb(221, 221, 221)",
-                width: "935px",
               }}
             >
               <div className={style["title"]}>Thông tin cá nhân</div>
             </Box>
-            <Box
-              sx={{
-                padding: "50px 0 20px 20px",
-              }}
-            >
+            <Stack p="20px 0">
               <Typography
                 sx={{
                   paddingBottom: "10px",
@@ -159,9 +158,9 @@ function Profile() {
                 style={{ fontSize: "16px" }}
                 placeholder={user?.userName}
               />
-            </Box>
+            </Stack>
 
-            <Box padding="0 0 20px 20px">
+            <Box>
               <Typography
                 sx={{
                   paddingBottom: "10px",
@@ -185,11 +184,18 @@ function Profile() {
               </button>
 
               <Modal open={open} onClose={handleClose}>
-                <ChangePassWord handleClose={handleClose} setOpen={setOpen} />
+                <Stack
+                  width="100%"
+                  height="100%"
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <ChangePassWord handleClose={handleClose} setOpen={setOpen} />
+                </Stack>
               </Modal>
               <Box
                 sx={{
-                  width: "70%",
+                  width: "100%",
                   margin: "20px 0 40px 0",
                 }}
               >
@@ -210,16 +216,15 @@ function Profile() {
                     </span>
                   </div>
                 </div>
-
-                <button
-                  className={style["button-submit"]}
-                  onClick={ChangeInfoAPI}
-                >
-                  Cập nhật
-                </button>
               </Box>
+              <button
+                className={style["button-submit"]}
+                onClick={ChangeInfoAPI}
+              >
+                Cập nhật
+              </button>
             </Box>
-          </Box>
+          </Stack>
         </Box>
         <Advertisement />
         <Footer />

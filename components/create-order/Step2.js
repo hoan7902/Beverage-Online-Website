@@ -8,6 +8,7 @@ import Link from "next/link";
 import style from "../../styles/CreateOrder.module.css";
 import { useAppContext } from "../../contexts/AppProvider";
 import Image from "next/image";
+import { Box, Stack, Typography } from "@mui/material";
 
 function Step2() {
   const { listCart } = useAppContext();
@@ -16,9 +17,12 @@ function Step2() {
   let finalPrice = 0;
   const shipFee = 9000;
   return (
-    <>
-      <div className={style["title-forward"]}>
-        <div style={{ display: "flex", borderBottom: "2px soild #D8B979" }}>
+    <Stack>
+      <Stack
+        sx={{ flexDirection: { xs: "column", md: "row" } }}
+        className={style["title-forward"]}
+      >
+        <Box display="flex" borderBottom="2px soild #D8B979" p="10px 0">
           <div
             style={{
               borderRadius: "50%",
@@ -35,10 +39,9 @@ function Step2() {
           </div>
           <div className={style["title"]}>
             Địa chỉ giao hàng
-            <Icon icon={chevronRight} style={{ marginLeft: "10px" }} />
           </div>
-        </div>
-        <div style={{ display: "flex", borderBottom: "4px solid #D8B979" }}>
+        </Box>
+        <Box display="flex" borderBottom="2px soild #D8B979" p="10px 0">
           <div
             style={{
               borderRadius: "50%",
@@ -53,10 +56,9 @@ function Step2() {
           </div>
           <div className={style["title"]}>
             Kiểm tra đơn hàng
-            <Icon icon={chevronRight} style={{ marginLeft: "10px" }} />
           </div>
-        </div>
-        <div style={{ display: "flex" }}>
+        </Box>
+        <Box display="flex" borderBottom="2px soild #D8B979" p="10px 0">
           <div
             style={{
               borderRadius: "50%",
@@ -71,10 +73,9 @@ function Step2() {
           </div>
           <div className={style["title"]}>
             Hình thức thanh toán
-            <Icon icon={chevronRight} style={{ marginLeft: "10px" }} />
           </div>
-        </div>
-        <div style={{ display: "flex" }}>
+        </Box>
+        <Box display="flex" borderBottom="2px soild #D8B979" p="10px 0">
           <div
             style={{
               borderRadius: "50%",
@@ -89,18 +90,17 @@ function Step2() {
           </div>
           <div className={style["title"]}>
             Xác nhận và mua hàng
-            <Icon icon={chevronRight} style={{ marginLeft: "10px" }} />
           </div>
-        </div>
-      </div>
-      <div>
+        </Box>
+      </Stack>
+      <Stack>
         <div className={style["title-contain-order"]}>
           <div className={style["title-order"]}>Tên thức uống</div>
           <div className={style["title-order"]}>Số lượng</div>
           <div className={style["title-order"]}>Topping</div>
           <div className={style["title-order"]}>Thành tiền</div>
         </div>
-      </div>
+      </Stack>
       <div className={style["order-contain"]}>
         {listCart.map((cart, index) => {
           let totalOfTopping = 0;
@@ -130,7 +130,7 @@ function Step2() {
                 })}
               </div>
               <div className={style["cart-item-price"]}>
-                <p>{(cart.product.price + totalOfTopping) * cart.quantity}</p>
+                <p>{((cart.product.price + totalOfTopping) * cart.quantity).toLocaleString()} đ</p>
               </div>
             </div>
           );
@@ -138,41 +138,26 @@ function Step2() {
       </div>
 
       <div className={style["cost"]}>
-        <div style={{ fontSize: "22px", display: "flex" }}>
-          <p style={{ margin: "50px 0 0 50px", flex: "1" }}> Chi phí món ăn</p>
-          <p style={{ margin: "50px 0 0 50px", flex: "0.2" }}>{finalPrice}</p>
-        </div>
+        <Stack flexDirection="row" justifyContent="space-between" p="10px 30px">
+          <Typography fontSize="1.3rem"> Chi phí món ăn</Typography>
+          <Typography fontSize="1.3rem">
+            {parseInt(finalPrice).toLocaleString()} đ
+          </Typography>
+        </Stack>
 
-        <div style={{ fontSize: "22px", display: "flex" }}>
-          <p style={{ marginLeft: "50px", flex: "1" }}>Chi phí vận chuyển</p>
-          <p style={{ marginLeft: "50px", flex: "0.2" }}>{shipFee}</p>
-        </div>
+        <Stack flexDirection="row" justifyContent="space-between" p="10px 30px">
+          <Typography fontSize="1.3rem"> Chi phí vận chuyển</Typography>
+          <Typography fontSize="1.3rem">
+            {parseInt(shipFee).toLocaleString()} đ
+          </Typography>
+        </Stack>
       </div>
-      <div
-        className={style["cost"]}
-        style={{ height: "100px", display: "flex", flexDirection: "row" }}
-      >
-        <p
-          style={{
-            fontSize: "25px",
-            marginLeft: "50px",
-            fontWeight: 600,
-            flex: "1",
-          }}
-        >
-          Tổng chi phí
-        </p>
-        <p
-          style={{
-            fontSize: "25px",
-            marginLeft: "50px",
-            fontWeight: 600,
-            flex: "0.2",
-          }}
-        >
-          {finalPrice + shipFee}
-        </p>
-      </div>
+      <Stack flexDirection="row" justifyContent="space-between" p="10px 90px">
+        <Typography fontSize="1.3rem"> Tổng Chi Phí</Typography>
+        <Typography fontSize="1.3rem">
+          {parseInt(shipFee + finalPrice).toLocaleString()} đ
+        </Typography>
+      </Stack>
       <div
         style={{
           display: "flex",
@@ -193,7 +178,7 @@ function Step2() {
           </button>
         </Link>
       </div>
-    </>
+    </Stack>
   );
 }
 export default Step2;

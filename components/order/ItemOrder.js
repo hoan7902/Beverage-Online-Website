@@ -17,12 +17,9 @@ const ItemOrder = ({ item, listTopping, cart, setCart, checkChange }) => {
   return (
     <>
       <Stack
-        position="relative"
         justifyContent="center"
         textAlign="center"
-        width="31.5%"
         backgroundColor="#fff"
-        borderRadius="5px"
         boxShadow="0px 2px 1.5px 0px #ccc"
         alignItems="center"
         mb="10px"
@@ -57,7 +54,6 @@ const ItemOrder = ({ item, listTopping, cart, setCart, checkChange }) => {
             m="10px 20px"
             p="5px 10px"
             backgroundColor="#d3b673"
-            borderRadius="6px"
             style={{ cursor: "pointer" }}
             onClick={handleClick}
           >

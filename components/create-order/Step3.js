@@ -10,6 +10,7 @@ import { arrowRight } from "react-icons-kit/fa/arrowRight";
 import Link from "next/link";
 import style from "../../styles/CreateOrder.module.css";
 import { useAppContext } from "../../contexts/AppProvider";
+import { Box, Stack, Typography } from "@mui/material";
 
 function Step3() {
   const [momo, setMomo] = useState(false);
@@ -32,9 +33,12 @@ function Step3() {
   });
   return (
     <>
-      <div>
-        <div className={style["title-forward"]}>
-          <div style={{ display: "flex", borderBottom: "2px soild #D8B979" }}>
+      <Stack>
+        <Stack
+          sx={{ flexDirection: { xs: "column", md: "row" } }}
+          className={style["title-forward"]}
+        >
+          <Box display="flex" borderBottom="2px soild #D8B979" p="10px 0">
             <div
               style={{
                 borderRadius: "50%",
@@ -51,10 +55,9 @@ function Step3() {
             </div>
             <div className={style["title"]}>
               Địa chỉ giao hàng
-              <Icon icon={chevronRight} style={{ marginLeft: "10px" }} />
             </div>
-          </div>
-          <div style={{ display: "flex", borderBottom: "2px soild #D8B979" }}>
+          </Box>
+          <Box display="flex" borderBottom="2px soild #D8B979" p="10px 0">
             <div
               style={{
                 borderRadius: "50%",
@@ -71,10 +74,9 @@ function Step3() {
             </div>
             <div className={style["title"]}>
               Kiểm tra đơn hàng
-              <Icon icon={chevronRight} style={{ marginLeft: "10px" }} />
             </div>
-          </div>
-          <div className={style["title-contain"]}>
+          </Box>
+          <Box display="flex" borderBottom="2px soild #D8B979" p="10px 0">
             <div
               style={{
                 borderRadius: "50%",
@@ -87,12 +89,11 @@ function Step3() {
             >
               <span style={{ fontSize: "20px", color: "#ffffff" }}>3</span>
             </div>
-            <div className={style["title-current"]}>
+            <div className={style["title"]}>
               Hình thức thanh toán
-              <Icon icon={chevronRight} style={{ marginLeft: "30px" }} />
             </div>
-          </div>
-          <div style={{ display: "flex" }}>
+          </Box>
+          <Box display="flex" borderBottom="2px soild #D8B979" p="10px 0">
             <div
               style={{
                 borderRadius: "50%",
@@ -107,10 +108,9 @@ function Step3() {
             </div>
             <div className={style["title"]}>
               Xác nhận và mua hàng
-              <Icon icon={chevronRight} style={{ marginLeft: "10px" }} />
             </div>
-          </div>
-        </div>
+          </Box>
+        </Stack>
         <p
           style={{
             fontSize: "28px",
@@ -120,9 +120,9 @@ function Step3() {
         >
           Chọn hình thức thành toán
         </p>
-        <div style={{ display: "flex", margin: "50px 50px 0 50px" }}>
-          <div className={style["form-pay"]}>
-            <div style={{ display: "flex", marginLeft: "50px" }}>
+        <Stack style={{ display: "flex", margin: "50px 50px 0 50px" }}>
+          <Stack className={style["form-pay"]} mb="20px">
+            <Stack flexDirection="row" p="10px">
               <input
                 name="form"
                 type="radio"
@@ -130,9 +130,9 @@ function Step3() {
                 onChange={handleFormChange}
                 defaultChecked
               />
-              <p>COD-Thanh toán khi nhận hàng</p>
-            </div>
-            <div
+              <Typography ml="10px">COD-Thanh toán khi nhận hàng</Typography>
+            </Stack>
+            <Stack
               style={{
                 width: "150px",
                 position: "relative",
@@ -140,21 +140,22 @@ function Step3() {
               }}
             >
               <Image src={Cod} alt="Cod" />
-            </div>
-          </div>
+            </Stack>
+          </Stack>
           <div className={style["form-pay"]}>
-            <div style={{ display: "flex", marginLeft: "50px" }}>
+            <Stack flexDirection="row" p="10px">
               <input
                 name="form"
                 type="radio"
                 value={true}
                 onChange={handleFormChange}
               />
-              <p>Thanh toán trực tuyến bằng ví điện tử MoMo</p>
-            </div>
+              <Typography ml="10px">
+                Thanh toán trực tuyến bằng ví điện tử MoMo
+              </Typography>
+            </Stack>
             <div
               style={{
-                width: "300px",
                 position: "relative",
                 margin: "20px auto",
               }}
@@ -162,32 +163,13 @@ function Step3() {
               <Image src={MoMo} alt="MoMo" />
             </div>
           </div>
-        </div>
-        <div
-          className={style["cost"]}
-          style={{ height: "100px", flexDirection: "row" }}
-        >
-          <p
-            style={{
-              fontSize: "25px",
-              marginLeft: "50px",
-              fontWeight: 600,
-              flex: "1",
-            }}
-          >
-            Tổng chi phí
-          </p>
-          <p
-            style={{
-              fontSize: "25px",
-              marginLeft: "50px",
-              fontWeight: 600,
-              flex: "0.2",
-            }}
-          >
-            {finalPrice + shipFee}
-          </p>
-        </div>
+        </Stack>
+        <Stack flexDirection="row" justifyContent="space-between" m="20px 12%">
+          <Typography fontSize="2rem">Tổng chi phí</Typography>
+          <Typography fontSize="2rem">
+            {(finalPrice + shipFee).toLocaleString()} đ
+          </Typography>
+        </Stack>
         <div
           style={{
             display: "flex",
@@ -209,7 +191,7 @@ function Step3() {
             </button>
           </Link>
         </div>
-      </div>
+      </Stack>
     </>
   );
 }

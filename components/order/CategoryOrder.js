@@ -1,43 +1,85 @@
-import React from "react";
-import { Stack, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box, Stack, Typography } from "@mui/material";
 import { Link } from "react-scroll";
 import LoaderWaiting from "../Loader";
+import Down from "../../assets/image/chevron-down-solid.svg";
+import orderStyles from "../../styles/Order.module.css";
+import Image from "next/image";
+import { useMediaQuery } from "@mui/material";
 
 const Category = ({ listNameCategory }) => {
+  const isMobile = useMediaQuery("(max-width:600px)");
+  const [orderCategory, setOrderCategory] = useState(true);
+
+  const handleClick = () => {
+    setOrderCategory(!orderCategory);
+  };
+
   return (
     <>
       <Stack
-        position="fixed"
-        sx={{ display: { lg: "block", xs: "none" } }}
-        minWidth="300px"
-        top="20px"
-        left="0"
-        p="20px"
         justifyContent="center"
         backgroundColor="#fff"
-        m="60px 100px"
-        borderRadius="5px"
-        height="fit-content"
-        boxShadow="0 2px 7px 0 rgb(0 0 0 / 5%)"
+        sx={{
+          margin: { md: "25px" },
+          position: { md: "fixed" },
+          top: { md: "55px" },
+          left: { md: "20px" },
+        }}
+        p="0 20px"
+        boxShadow="0 2px 7px 0 rgba(0, 0, 0, .05)"
       >
         <Stack
           sx={{ cursor: "pointer" }}
-          p="10px"
           flexDirection="row"
           justifyContent="space-between"
           alignItems="center"
           borderBottom="1px solid #f1f1f1"
         >
-          <Typography ml="10px" fontSize="14px" variant="h2" fontWeight={700}>
-            DANH MỤC
-          </Typography>
+          <Stack
+            flexDirection="row"
+            alignItems="center"
+            justifyContent="space-between"
+            m="20px 0"
+            width="100%"
+          >
+            <Typography ml="20px" fontWeight={600} variant="h1" fontSize="16px">
+              Danh mục
+            </Typography>
+            <Box
+              onClick={handleClick}
+              style={{ cursor: "pointer" }}
+              fontWeight={600}
+              variant="h2"
+              fontSize="16px"
+              mr="20px"
+            >
+              <Image
+                className={orderStyles.iconDownListOrder}
+                height={15}
+                width={15}
+                src={Down}
+                alt="down"
+              />
+            </Box>
+          </Stack>
         </Stack>
         {listNameCategory ? (
           listNameCategory.map((item) => (
-            <Link key={item._id} to={item._id} spy={true} smooth={true}>
+            <Link
+              className={
+                orderCategory
+                  ? orderStyles.wrapperListOrder
+                  : orderStyles.wrapperListOrderHidden
+              }
+              key={item._id}
+              to={item._id}
+              spy={true}
+              smooth={true}
+            >
               <Stack
                 sx={{ cursor: "pointer" }}
-                p="10px"
+                p="15px 70px"
                 flexDirection="row"
                 justifyContent="space-between"
                 alignItems="center"

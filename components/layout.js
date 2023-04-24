@@ -1,16 +1,15 @@
+import { Box } from "@mui/material";
 import React from "react";
 import ResponsiveAppBar from "./menu";
 function Layout({ children }) {
   return (
     <>
       <ResponsiveAppBar />
-      <main
-        style={{
-          paddingTop: 64,
-        }}
+      <Box
+        sx={{marginTop: { xs: "56px", md: "69px"}}}
       >
         {children}
-      </main>
+      </Box>
     </>
   );
 }

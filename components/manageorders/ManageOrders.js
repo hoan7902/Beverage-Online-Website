@@ -5,7 +5,15 @@ import Advertisement from "../../components/home/Advertisement";
 import * as React from "react";
 import Link from "next/link";
 import { useState } from "react";
-import { Avatar, Card, CardContent, CardHeader } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  Stack,
+  Typography,
+} from "@mui/material";
 import style from "../../styles/Profile.module.css";
 import axios from "axios";
 import io from "socket.io-client";
@@ -37,27 +45,15 @@ function ManageOrders() {
       console.log(error);
     }
   };
-  React.useEffect(() => {
-    socket.on("connect", () => {
-      console.log("success");
-    });
-    socket.on(`${user?._id}-dashboard`, () => {
-      getOrders();
-    });
-    return () => {
-      socket.off(`connect`);
-      socket.off(`${user?._id}-dashboard`);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   React.useEffect(() => {
     user?._id && getOrders();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status, user]);
   function ChangeOrders({ status, listOrder }) {
     if (status) return <OrdersLoading listOrder={listOrder} />;
     else return <OrdersComplete listOrder={listOrder} />;
   }
+
   function ItemCard({ order }) {
     const completeHandle = async () => {
       try {
@@ -141,12 +137,21 @@ function ManageOrders() {
   function OrdersLoading({ listOrder }) {
     return (
       <div className={style["content-container"]}>
-        <div className={style["title-container"]}>
-          <div className={style["title-color"]}>Đơn hàng đang xử lý</div>
-          <div className={style["title"]} onClick={handleOpenComplete}>
+        <Stack className={style["title-container"]}>
+          <Box
+            width="100%"
+            className={status === 1 ? style["title-color"] : style["title"]}
+          >
+            Đơn hàng đang xử lý
+          </Box>
+          <Box
+            width="100%"
+            className={status === 0 ? style["title-color"] : style["title"]}
+            onClick={handleOpenComplete}
+          >
             Đơn hàng hoàn tất
-          </div>
-        </div>
+          </Box>
+        </Stack>
         <div className={style["container-order"]}>
           {listOrder?.map((order) => {
             return <ItemCard key={order._id} order={order} />;
@@ -158,12 +163,21 @@ function ManageOrders() {
   function OrdersComplete({ listOrder }) {
     return (
       <div className={style["content-container"]}>
-        <div className={style["title-container"]}>
-          <div className={style["title"]} onClick={handleOpenLoading}>
+        <Stack className={style["title-container"]}>
+          <Box
+            width="100%"
+            className={status === 1 ? style["title-color"] : style["title"]}
+            onClick={handleOpenLoading}
+          >
             Đơn hàng đang xử lý
-          </div>
-          <div className={style["title-color"]}>Đơn hàng hoàn tất</div>
-        </div>
+          </Box>
+          <Box
+            width="100%"
+            className={status === 0 ? style["title-color"] : style["title"]}
+          >
+            Đơn hàng hoàn tất
+          </Box>
+        </Stack>
         <div className={style["container-order"]}>
           {listOrder?.map((order) => {
             return <ItemCard key={order._id} order={order} />;
@@ -175,16 +189,33 @@ function ManageOrders() {
   return (
     <div clasName={styles.container}>
       <ResponsiveAppBar />
-      <div className={style["container"]}>
-        <div className={style["menu-container"]}>
-          <Link href="/profile">
-            <div className={style["title-forward"]}>THÔNG TIN CÁ NHÂN</div>
-          </Link>
-          <div className={style["color-title-forward"]}>QUẢN LÝ ĐƠN HÀNG</div>
-        </div>
+      <Box
+        sx={{
+          display: "flex",
+          backgroundColor: "#fafafa",
+          flexDirection: { xs: "column" },
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            backgroundColor: "#fafafa",
+            flexDirection: { xs: "column" },
+          }}
+          mt="69px"
+        >
+          <Stack>
+            <Link href="/profile/">
+              <div className={style["title-forward"]}>THÔNG TIN CÁ NHÂN</div>
+            </Link>
+            <Typography className={style["color-title-forward"]}>
+              QUẢN LÍ ĐƠN HÀNG
+            </Typography>
+          </Stack>
+        </Box>
 
         <ChangeOrders status={status} listOrder={listOrder} />
-      </div>
+      </Box>
       <Advertisement />
       <Footer />
     </div>

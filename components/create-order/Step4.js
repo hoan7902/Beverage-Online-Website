@@ -8,12 +8,14 @@ import { useAppContext } from "../../contexts/AppProvider";
 import { useRouter } from "next/router";
 import io from "socket.io-client";
 import axios from "axios";
+import { Box, Stack, Typography } from "@mui/material";
 const socket = io("https://sleepy-scrubland-61892.herokuapp.com");
 
 function Step4() {
   const { listCart, user } = useAppContext();
   const [address, setAddress] = useState("");
   const [momo, setMomo] = useState();
+  const userId = localStorage.getItem("_id");
   const router = useRouter();
   console.log(momo);
   const handleSubmit = async (totalPrice) => {
@@ -43,6 +45,27 @@ function Step4() {
           "https://beverage-store7902.onrender.com/order/add-order",
           data
         );
+
+        listCart.forEach((item) => {
+          const objectDelete = {
+            userId: userId,
+            productId: item.product._id,
+          };
+          const functionDelete = async () => {
+            // DELETE request using axios with async/await
+            const res = await axios.delete(
+              "https://beverage-store7902.onrender.com/cart/remove-from-cart",
+              { data: objectDelete },
+              {
+                headers: {
+                  "content-type": "application/json",
+                },
+              }
+            );
+          };
+          functionDelete();
+        });
+
         socket.emit("client-submit", { userId: user?._id });
         router.push("/profile/manageorders");
       }
@@ -69,7 +92,6 @@ function Step4() {
       socket.off("connect");
     };
   }, []);
-  console.log(listCart);
   let finalPrice = 0;
   const shipFee = 9000;
   listCart.map((cart) => {
@@ -81,9 +103,12 @@ function Step4() {
     finalPrice += totalPrice;
   });
   return (
-    <>
-      <div className={style["title-forward"]}>
-        <div style={{ display: "flex", borderBottom: "2px soild #D8B979" }}>
+    <Stack>
+      <Stack
+        sx={{ flexDirection: { xs: "column", md: "row" } }}
+        className={style["title-forward"]}
+      >
+        <Box display="flex" borderBottom="2px soild #D8B979" p="10px 0">
           <div
             style={{
               borderRadius: "50%",
@@ -98,12 +123,9 @@ function Step4() {
               <Icon icon={check} style={{ color: "#fff" }} />
             </span>
           </div>
-          <div className={style["title"]}>
-            Địa chỉ giao hàng
-            <Icon icon={chevronRight} style={{ marginLeft: "10px" }} />
-          </div>
-        </div>
-        <div style={{ display: "flex", borderBottom: "2px soild #D8B979" }}>
+          <div className={style["title"]}>Địa chỉ giao hàng</div>
+        </Box>
+        <Box display="flex" borderBottom="2px soild #D8B979" p="10px 0">
           <div
             style={{
               borderRadius: "50%",
@@ -118,12 +140,9 @@ function Step4() {
               <Icon icon={check} style={{ color: "#fff" }} />
             </span>
           </div>
-          <div className={style["title"]}>
-            Kiểm tra đơn hàng
-            <Icon icon={chevronRight} style={{ marginLeft: "10px" }} />
-          </div>
-        </div>
-        <div style={{ display: "flex", borderBottom: "2px soild #D8B979" }}>
+          <div className={style["title"]}>Kiểm tra đơn hàng</div>
+        </Box>
+        <Box display="flex" borderBottom="2px soild #D8B979" p="10px 0">
           <div
             style={{
               borderRadius: "50%",
@@ -138,12 +157,9 @@ function Step4() {
               <Icon icon={check} style={{ color: "#fff" }} />
             </span>
           </div>
-          <div className={style["title"]}>
-            Hình thức thanh toán
-            <Icon icon={chevronRight} style={{ marginLeft: "10px" }} />
-          </div>
-        </div>
-        <div className={style["title-contain"]}>
+          <div className={style["title"]}>Hình thức thanh toán</div>
+        </Box>
+        <Box display="flex" borderBottom="2px soild #D8B979" p="10px 0">
           <div
             style={{
               borderRadius: "50%",
@@ -156,26 +172,24 @@ function Step4() {
           >
             <span style={{ fontSize: "20px", color: "#ffffff" }}>4</span>
           </div>
-          <div className={style["title-current"]}>
-            Xác nhận và mua hàng
-            <Icon icon={chevronRight} style={{ marginLeft: "30px" }} />
-          </div>
-        </div>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          alignContent: "center",
-          margin: "10px 50px 0 50px",
-        }}
+          <div className={style["title"]}>Xác nhận và mua hàng</div>
+        </Box>
+      </Stack>
+      <Stack
+        p="10px"
+        flexDirection="row"
+        justifyContent="space-between"
+        alignItems="center"
+        mx="40px"
       >
         <p className={style["title-step"]}>Thông tin giao hàng</p>
 
         <Link href="/createorder">
           <button className={style["button-change"]}>Thay đổi</button>
         </Link>
-      </div>
-      <div
+      </Stack>
+      <Stack
+        p="20px 0"
         className={style["info-customer"]}
         style={{ margin: "10px 50px 10px 50px" }}
       >
@@ -199,19 +213,20 @@ function Step4() {
           </p>
           <p style={{ fontSize: "20px", color: "#2F2F2F" }}>{address}</p>
         </div>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          alignContent: "center",
-          margin: "10px 50px 0 50px",
-        }}
+      </Stack>
+
+      <Stack
+        p="10px"
+        flexDirection="row"
+        justifyContent="space-between"
+        alignItems="center"
+        mx="40px"
       >
         <p className={style["title-step"]}>Thông tin đơn hàng</p>
         <Link href="/createorder/step2">
           <button className={style["button-change"]}>Thay đổi</button>
         </Link>
-      </div>
+      </Stack>
       <div
         className={style["cost"]}
         style={{ margin: "10px 50px 20px 50px", height: "300px" }}
@@ -222,7 +237,7 @@ function Step4() {
               Chi phí nước uống
             </p>
             <p style={{ flex: "0.2", fontSize: "22px", color: "#6B6B6B" }}>
-              {finalPrice}
+              {finalPrice.toLocaleString()} đ
             </p>
           </div>
           <div style={{ display: "flex", margin: "10px 40px 10px 40px" }}>
@@ -230,7 +245,7 @@ function Step4() {
               Phí vận chuyển
             </p>
             <p style={{ flex: "0.2", fontSize: "22px", color: "#6B6B6B" }}>
-              {shipFee}
+              {shipFee.toLocaleString()} đ
             </p>
           </div>
         </div>
@@ -239,23 +254,22 @@ function Step4() {
             Tổng chi phí
           </p>
           <p style={{ flex: "0.2", fontSize: "30px", fontWeight: 500 }}>
-            {finalPrice + shipFee}
+            {(finalPrice + shipFee).toLocaleString()} đ
           </p>
         </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          alignContent: "center",
-          margin: "20px 50px 0 50px",
-        }}
+      <Stack
+        p="10px"
+        flexDirection="row"
+        justifyContent="space-between"
+        alignItems="center"
+        mx="40px"
       >
         <p className={style["title-step"]}>Hình thức thanh toán</p>
-
         <Link href="/createorder/step3">
           <button className={style["button-change"]}>Thay đổi</button>
         </Link>
-      </div>
+      </Stack>
       <div className={style["pay-ment"]}>
         <div style={{ margin: "10px 40px" }}>
           <p style={{ fontSize: "20px", fontWeight: 500, color: "#333" }}>
@@ -276,7 +290,7 @@ function Step4() {
           Tiến hành đặt hàng
         </button>
       </div>
-    </>
+    </Stack>
   );
 }
 export default Step4;

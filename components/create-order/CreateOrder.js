@@ -5,6 +5,9 @@ import { arrowRight } from "react-icons-kit/fa/arrowRight";
 import style from "../../styles/CreateOrder.module.css";
 import { useAppContext } from "../../contexts/AppProvider";
 import { useRouter } from "next/router";
+import { Box, Stack, Typography } from "@mui/material";
+import { check } from "react-icons-kit/fa/check";
+
 
 function CreateOrder() {
   const { user } = useAppContext();
@@ -38,158 +41,173 @@ function CreateOrder() {
     }
   };
   return (
-    <div>
-      <div className={style["title-forward"]}>
-        <div className={style["title-contain"]}>
-          <div className={style["title-contain-forward"]}>
-            <span className={style["number-forward"]}>1</span>
-          </div>
-          <div className={style["title-current"]}>
-            Địa chỉ giao hàng
-            <Icon icon={chevronRight} style={{ marginLeft: "10px" }} />
-          </div>
-        </div>
-        <div style={{ display: "flex" }}>
-          <div className={style["title-contain-notforward"]}>
-            <span className={style["number"]}>2</span>
-          </div>
-          <div className={style["title"]}>
-            Kiểm tra đơn hàng
-            <Icon icon={chevronRight} style={{ marginLeft: "10px" }} />
-          </div>
-        </div>
-        <div style={{ display: "flex" }}>
-          <div className={style["title-contain-notforward"]}>
-            <span className={style["number"]}>3</span>
-          </div>
-          <div className={style["title"]}>
-            Hình thức thanh toán
-            <Icon icon={chevronRight} style={{ marginLeft: "10px" }} />
-          </div>
-        </div>
-        <div style={{ display: "flex" }}>
-          <div className={style["title-contain-notforward"]}>
-            <span className={style["number"]}>4</span>
-          </div>
-          <div className={style["title"]}>
-            Xác nhận và mua hàng
-            <Icon icon={chevronRight} style={{ marginLeft: "10px" }} />
-          </div>
-        </div>
-      </div>
-      <div className={style["content"]}>
-        <div style={{ display: "flex", flexDirection: "column", flex: "1" }}>
-          <div
-            className={style["info-customer"]}
-            style={{ height: "fit-content", paddingBottom: 20 }}
-          >
-            <p
-              style={{ margin: "20px 40px", fontSize: "20px", fontWeight: 600 }}
-            >
-              Thông tin khách hàng
-            </p>
-            <div style={{ margin: "0 20px" }}>
-              <p style={{ margin: "0 20px" }}>Họ và tên</p>
-              <input
-                className={style["Input"]}
-                style={{ width: "90%" }}
-                disabled={true}
-                placeholder={user?.userName}
-              />
-            </div>
-            <div style={{ margin: "0 20px" }}>
-              <p style={{ margin: "0 20px" }}>Email</p>
-              <input
-                className={style["Input"]}
-                style={{ width: "90%" }}
-                disabled={true}
-                placeholder={user?.email}
-              />
-            </div>
-            <div style={{ margin: "0 20px" }}>
-              <p style={{ margin: "0 20px" }}>Số điện thoại</p>
-              <input
-                className={style["Input"]}
-                style={{ width: "90%" }}
-                disabled={true}
-                placeholder={user?.phoneNumber}
-              />
-            </div>
-          </div>
-        </div>
-        <div
-          className={style["address"]}
-          style={{ height: "fit-content", paddingBottom: 20 }}
-        >
-          <p style={{ margin: "20px 40px", fontSize: "20px", fontWeight: 600 }}>
-            Địa chỉ giao hàng
-          </p>
-
-          <div style={{ margin: "0 20px", position: "relative" }}>
-            <p style={{ margin: "0 20px" }}>Tỉnh/Thành phố</p>
-            <input
-              className={style["Input"]}
-              style={{ width: "90%" }}
-              value={province}
-              onChange={(e) => {
-                setProvince(e.target.value);
-              }}
-            />
-          </div>
-          <div
-            style={{
-              margin: "0 20px",
-              display: "flex",
-              justifyContent: "space-between",
-              width: "90%",
-              position: "relative",
-            }}
-          >
-            <div style={{ position: "relative" }}>
-              <p style={{ margin: "0 20px" }}>Quận/Huyện</p>
-              <input
-                className={style["Input"]}
-                style={{ width: "250px" }}
-                value={district}
-                onChange={(e) => {
-                  setDistrict(e.target.value);
-                }}
-              />
-            </div>
-            <div style={{ position: "relative" }}>
-              <p style={{ margin: "0 20px" }}>Phường/Xã</p>
-              <input
-                className={style["Input"]}
-                style={{ width: "250px" }}
-                value={ward}
-                onChange={(e) => {
-                  setWard(e.target.value);
-                }}
-              />
-            </div>
-          </div>
-          <div style={{ margin: "0px 20px", position: "relative" }}>
-            <p style={{ margin: "0 20px" }}>Ghi chú</p>
-            <input
-              className={style["Input"]}
-              style={{ width: "90%" }}
-              value={notice}
-              onChange={(e) => {
-                setNotice(e.target.value);
-              }}
-            />
-          </div>
-        </div>
-      </div>
+    <Stack mt="69px">
+    <Stack
+    sx={{ flexDirection: { xs: "column", md: "row" } }}
+    className={style["title-forward"]}
+  >
+    
+    <Box display="flex" borderBottom="2px soild #D8B979" p="10px 0">
       <div
         style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          margin: "50px 50px",
-          position: "relative",
+          borderRadius: "50%",
+          height: "30px",
+          width: "30px",
+          backgroundColor: "#D8B979",
+          textAlign: "center",
+          marginRight: "10px",
         }}
-        onClick={handleSubmit}
       >
+        <span style={{ fontSize: "20px", color: "#ffffff" }}>1</span>
+      </div>
+      <div className={style["title"]}>
+        Địa chỉ giao hàng
+      </div>
+    </Box>
+    <Box display="flex" borderBottom="2px soild #D8B979" p="10px 0">
+      <div
+        style={{
+          borderRadius: "50%",
+          height: "30px",
+          width: "30px",
+          textAlign: "center",
+          marginRight: "10px",
+          border: "1px solid #333",
+        }}
+      >
+        <span style={{ fontSize: "20px", color: "#333" }}>2</span>
+      </div>
+      <div className={style["title"]}>
+        Kiểm tra đơn hàng
+      </div>
+    </Box>
+    <Box display="flex" borderBottom="2px soild #D8B979" p="10px 0">
+      <div
+        style={{
+          borderRadius: "50%",
+          height: "30px",
+          width: "30px",
+          textAlign: "center",
+          marginRight: "10px",
+          border: "1px solid #333",
+        }}
+      >
+        <span style={{ fontSize: "20px", color: "#333" }}>3</span>
+      </div>
+      <div className={style["title"]}>
+        Hình thức thanh toán
+      </div>
+    </Box>
+    <Box display="flex" borderBottom="2px soild #D8B979" p="10px 0">
+      <div
+        style={{
+          borderRadius: "50%",
+          height: "30px",
+          width: "30px",
+          textAlign: "center",
+          marginRight: "10px",
+          border: "1px solid #333",
+        }}
+      >
+        <span style={{ fontSize: "20px", color: "#333" }}>4</span>
+      </div>
+      <div className={style["title"]}>
+        Xác nhận và mua hàng
+      </div>
+    </Box>
+  </Stack>
+      <Stack
+        sx={{ flexDirection: { xs: "column", md: "row" }, flex: "1" }}
+        width="100%"
+      >
+        <Stack width="100%">
+          <p style={{ margin: "20px 40px", fontSize: "20px", fontWeight: 600 }}>
+            Thông tin khách hàng
+          </p>
+          <Stack ml="20px">
+            <p style={{ margin: "0 20px" }}>Họ và tên</p>
+            <input
+              className={style["Input"]}
+              style={{ width: "60%", padding: "0 10px" }}
+              disabled={true}
+              placeholder={user?.userName}
+            />
+          </Stack>
+          <Stack ml="20px">
+            <p style={{ margin: "0 20px" }}>Email</p>
+            <input
+              className={style["Input"]}
+              style={{ width: "60%", padding: "0 10px" }}
+              disabled={true}
+              placeholder={user?.email}
+            />
+          </Stack>
+          <Stack ml="20px">
+            <p style={{ margin: "0 20px" }}>Số điện thoại</p>
+            <input
+              className={style["Input"]}
+              style={{ width: "60%", padding: "0 10px" }}
+              // disabled={true}
+              placeholder={user?.phoneNumber}
+            />
+          </Stack>
+        </Stack>
+      </Stack>
+
+      <Stack>
+        <Typography
+          variant="p"
+          style={{ margin: "20px 40px", fontSize: "20px", fontWeight: 600 }}
+        >
+          Địa chỉ giao hàng
+        </Typography>
+
+        <Stack ml="20px">
+          <p style={{ margin: "0 20px" }}>Tỉnh/Thành phố</p>
+          <input
+            className={style["Input"]}
+            style={{ width: "60%", padding: "0 10px" }}
+            value={province}
+            onChange={(e) => {
+              setProvince(e.target.value);
+            }}
+          />
+        </Stack>
+        <Stack ml="20px" style={{ position: "relative" }}>
+          <p style={{ margin: "0 20px" }}>Quận/Huyện</p>
+          <input
+            className={style["Input"]}
+            style={{ width: "60%", padding: "0 10px" }}
+            value={district}
+            onChange={(e) => {
+              setDistrict(e.target.value);
+            }}
+          />
+        </Stack>
+        <Stack ml="20px" style={{ position: "relative" }}>
+          <p style={{ margin: "0 20px" }}>Phường/Xã</p>
+          <input
+            className={style["Input"]}
+            style={{ width: "60%", padding: "0 10px" }}
+            value={ward}
+            onChange={(e) => {
+              setWard(e.target.value);
+            }}
+          />
+        </Stack>
+        <Stack ml="20px">
+          <p style={{ margin: "0 20px" }}>Ghi chú</p>
+          <input
+            className={style["Input"]}
+            style={{ width: "60%", padding: "0 10px" }}
+            value={notice}
+            onChange={(e) => {
+              setNotice(e.target.value);
+            }}
+          />
+        </Stack>
+      </Stack>
+      <Stack ml="40px" mt="20px" onClick={handleSubmit}>
         <button
           className={`${style["button-con"]} ${
             !allow ? style["not-allow"] : ""
@@ -198,8 +216,8 @@ function CreateOrder() {
           Tiếp tục
           <Icon icon={arrowRight} style={{ marginLeft: "10px" }} />
         </button>
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   );
 }
 export default CreateOrder;

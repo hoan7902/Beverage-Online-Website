@@ -6,7 +6,7 @@ import homeStyles from "../../styles/Home.module.css";
 
 const Promotion = () => {
   return (
-    <Stack justifyContent="center" alignItems="center" width="100%" mb="50px">
+    <Stack justifyContent="center" alignItems="center" width="100%" m="50px 0">
       <Stack justifyContent="center" alignItems="center">
         <Typography
           p="10px"
@@ -25,6 +25,8 @@ const Promotion = () => {
           fontWeight="700"
           fontSize="36px"
           color="#00000"
+          sx={{ fontSize: { xs: "1.7rem", sm: "2.1rem" } }}
+          textAlign="center"
         >
           Khám phá nhận ngay khuyến mãi
         </Typography>
@@ -38,7 +40,6 @@ const Promotion = () => {
         flexWrap="wrap"
       >
         <Stack
-          borderradius="7px"
           boxShadow="0px 2px 1.5px 0px #ccc"
           width="300px"
           m="15px"
@@ -46,7 +47,6 @@ const Promotion = () => {
           className={homeStyles.imageProduct}
         >
           <Image
-            style={{ borderRadius: "7px 7px 0 0" }}
             src={TraSua}
             alt="promotion"
             width='300px'
@@ -64,7 +64,6 @@ const Promotion = () => {
           </Typography>
         </Stack>
         <Stack
-          borderradius="7px"
           boxShadow="0px 2px 1.5px 0px #ccc"
           width="300px"
           m="15px"
@@ -72,7 +71,6 @@ const Promotion = () => {
           className={homeStyles.imageProduct}
         >
           <Image
-            style={{ borderRadius: "7px 7px 0 0" }}
             src='https://tocotocotea.com/wp-content/uploads/2021/12/tocotoco-thi-truong-my.png'
             alt="promotion"
             width='300px'
@@ -90,7 +88,6 @@ const Promotion = () => {
           </Typography>
         </Stack>
         <Stack
-          borderradius="7px"
           boxShadow="0px 2px 1.5px 0px #ccc"
           width="300px"
           m="15px"
@@ -98,7 +95,6 @@ const Promotion = () => {
           className={homeStyles.imageProduct}
         >
           <Image
-            style={{ borderRadius: "7px 7px 0 0" }}
             src={TraSua}
             alt="promotion"
             width='300px'

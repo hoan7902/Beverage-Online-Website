@@ -64,6 +64,8 @@ const ListOrder = ({ title, id, listTopping, cart, setCart }) => {
         </Stack>
         <Stack
           flexDirection="row"
+          justifyContent="space-around"
+          alignItems="center"
           flexWrap="wrap"
           ref={element}
           className={
