@@ -140,7 +140,7 @@ const CartOrder = ({ cart, setCart }) => {
         borderBottom="1px solid #f1f1f1"
       >
         {listProduct === undefined || listProduct.length === 0 ? (
-          <Typography mb="10px" width="100%" fontSize="14px" variant="h3" color="#282828">
+          <Typography my="10px" width="100%" fontSize="14px" variant="h3" color="#282828">
             Chưa có sản phẩm nào!
           </Typography>
         ) : (

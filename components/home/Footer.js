@@ -32,6 +32,7 @@ const Footer = () => {
           fontSize="40px"
           color="#ccc"
           textTransform="uppercase"
+          textAlign="center"
         >
           Jucify
         </Typography>

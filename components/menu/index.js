@@ -18,6 +18,10 @@ import Link from "next/link";
 import { Avatar, Tooltip } from "@mui/material";
 import { useAppContext } from "../../contexts/AppProvider";
 import { useRouter } from "next/router";
+import { ReloadContext } from "../../contexts/ReloadContext";
+import { useContext } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 const pages = [
   { title: "TRANG CHỦ", link: "/" },
   { title: "LOẠI ĐỒ UỐNG", link: "/order" },
@@ -70,17 +74,18 @@ function ResponsiveAppBar() {
   const router = useRouter();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const { reload, setReload } = useContext(ReloadContext);
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  const { user, setUser } = useAppContext();
+  const [userExist, setUserExist] = useState();
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
   const handleLogout = () => {
     handleCloseUserMenu();
     localStorage.clear();
-    setUser(undefined);
     router.push("/", "/");
   };
 
@@ -92,8 +97,16 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+  useEffect(() => {
+    setUserExist(localStorage.getItem("_id"));
+  }, [reload]);
+
   return (
-    <AppBar position="fixed" id="menu-top" style={{ backgroundColor: '#282828' }}>
+    <AppBar
+      position="fixed"
+      id="menu-top"
+      style={{ backgroundColor: "#282828" }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -224,7 +237,7 @@ function ResponsiveAppBar() {
             </Link>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            {user !== undefined ? (
+            {userExist ? (
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />

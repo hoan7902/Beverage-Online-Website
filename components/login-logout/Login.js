@@ -1,21 +1,18 @@
-import React, { useState } from "react";
-import {
-  Alert,
-  Box,
-  Snackbar,
-  Stack,
-  Typography,
-} from "@mui/material";
+import React, { useState, useContext } from "react";
+import { Alert, Box, Snackbar, Stack, Typography } from "@mui/material";
 import styles from "./styles.module.scss";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useRouter } from "next/router";
+import { ReloadContext } from "../../contexts/ReloadContext";
 
 const Login = () => {
   const router = useRouter();
   const [phone, setPhone] = useState("0786170902");
   const [password, setPassword] = useState("01227793662an");
   const [isVisibility, setIsVisibility] = useState(false);
+  const { reload, setReload } = useContext(ReloadContext);
+
   const handleChangeVisibility = () => {
     setIsVisibility(!isVisibility);
   };
@@ -52,7 +49,10 @@ const Login = () => {
           setStatusAlert("success");
           setMessageAlert("Đăng nhập thành công");
           setOpenNoti(true);
-          router.push("/", "/");
+          setTimeout(() => {
+            setReload(!reload);
+            router.push("/order");
+          }, 1000);
         } else if (response.code == 103) {
           setStatusAlert("error");
           setMessageAlert(
@@ -79,7 +79,12 @@ const Login = () => {
   return (
     <div className={styles.background}>
       <Box className={styles.wrapperPopup}>
-        <Box backgroundColor="#fff" sx={{ p: {xs: "20px", md: "80px"}}} borderRadius="6px" mb="40px">
+        <Box
+          backgroundColor="#fff"
+          sx={{ p: { xs: "20px", md: "80px" } }}
+          borderRadius="6px"
+          mb="40px"
+        >
           <Stack
             flexDirection="row"
             justifyContent="center"
