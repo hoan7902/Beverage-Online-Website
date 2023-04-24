@@ -47,8 +47,11 @@ function ManageOrders() {
   };
 
   React.useEffect(() => {
-    user?._id && getOrders();
+    if (user._id) {
+      getOrders();
+    }
   }, [status, user]);
+
   function ChangeOrders({ status, listOrder }) {
     if (status) return <OrdersLoading listOrder={listOrder} />;
     else return <OrdersComplete listOrder={listOrder} />;

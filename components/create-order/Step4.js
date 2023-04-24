@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Icon from "react-icons-kit";
 import { check } from "react-icons-kit/fa/check";
-import { chevronRight } from "react-icons-kit/fa/chevronRight";
 import Link from "next/link";
 import style from "../../styles/CreateOrder.module.css";
 import { useAppContext } from "../../contexts/AppProvider";
 import { useRouter } from "next/router";
 import io from "socket.io-client";
 import axios from "axios";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 const socket = io("https://sleepy-scrubland-61892.herokuapp.com");
 
 function Step4() {
@@ -53,7 +52,7 @@ function Step4() {
           };
           const functionDelete = async () => {
             // DELETE request using axios with async/await
-            const res = await axios.delete(
+            await axios.delete(
               "https://beverage-store7902.onrender.com/cart/remove-from-cart",
               { data: objectDelete },
               {

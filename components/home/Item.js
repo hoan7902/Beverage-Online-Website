@@ -1,7 +1,6 @@
 import { Box, Typography, Stack } from "@mui/material";
 import Image from "next/image";
 import homeStyles from "../../styles/Home.module.css";
-import { MediaQuery } from "react-responsive";
 
 const Item = ({ item }) => {
   return (

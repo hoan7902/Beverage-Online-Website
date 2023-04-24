@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Alert,
-  AlertColor,
   Box,
   Snackbar,
   Stack,
-  TextField,
   Typography,
 } from "@mui/material";
 import styles from "./styles.module.scss";
@@ -24,10 +22,6 @@ const Login = () => {
   const [openNoti, setOpenNoti] = useState(false);
   const [statusAlert, setStatusAlert] = useState("error");
   const [messageAlert, setMessageAlert] = useState("Thiếu thông tin");
-
-  const hanldOpenNoti = () => {
-    setOpenNoti(true);
-  };
 
   const handleCloseNoti = (event, reason) => {
     if (reason === "clickaway") {

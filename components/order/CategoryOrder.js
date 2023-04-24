@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import { Link } from "react-scroll";
 import LoaderWaiting from "../Loader";
 import Down from "../../assets/image/chevron-down-solid.svg";
 import orderStyles from "../../styles/Order.module.css";
 import Image from "next/image";
-import { useMediaQuery } from "@mui/material";
 
 const Category = ({ listNameCategory }) => {
-  const isMobile = useMediaQuery("(max-width:600px)");
   const [orderCategory, setOrderCategory] = useState(true);
 
   const handleClick = () => {

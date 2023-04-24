@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Icon from "react-icons-kit";
-import { chevronRight } from "react-icons-kit/fa/chevronRight";
 import { arrowRight } from "react-icons-kit/fa/arrowRight";
 import style from "../../styles/CreateOrder.module.css";
 import { useAppContext } from "../../contexts/AppProvider";
 import { useRouter } from "next/router";
 import { Box, Stack, Typography } from "@mui/material";
-import { check } from "react-icons-kit/fa/check";
-
 
 function CreateOrder() {
   const { user } = useAppContext();

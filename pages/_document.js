@@ -1,8 +1,8 @@
-import { Html, Head, Main, NextScript } from "next/document";
+import { Head, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
-    <Html>
+    <>
       <Head>
         <title>Jucify</title>
         <link rel="icon" href="/icon-glass-tea.png" />
@@ -11,6 +11,6 @@ export default function Document() {
         <Main />
         <NextScript />
       </body>
-    </Html>
+    </>
   );
 }

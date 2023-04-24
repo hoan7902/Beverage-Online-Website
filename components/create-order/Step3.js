@@ -4,7 +4,6 @@ import Cod from "../../assets/image/cod.png";
 import MoMo from "../../assets/image/momo.png";
 import Icon from "react-icons-kit";
 import { check } from "react-icons-kit/fa/check";
-import { chevronRight } from "react-icons-kit/fa/chevronRight";
 import { arrowLeft } from "react-icons-kit/fa/arrowLeft";
 import { arrowRight } from "react-icons-kit/fa/arrowRight";
 import Link from "next/link";
