@@ -10,78 +10,85 @@ import axios from "axios";
 import { Box, Stack } from "@mui/material";
 const socket = io("https://sleepy-scrubland-61892.herokuapp.com");
 
-function Step4() {
+const Step4 = () => {
   const { listCart, user } = useAppContext();
   const [address, setAddress] = useState("");
   const [momo, setMomo] = useState();
-  const userId = localStorage.getItem("_id");
+  const userId = "";
+  if (typeof window !== 'undefined') {
+    userId = localStorage.getItem("_id");
+  }
   const router = useRouter();
   console.log(momo);
   const handleSubmit = async (totalPrice) => {
     try {
-      if (momo) router.push("/momo");
-      else {
-        const listProduct = listCart.map((item) => {
-          return {
-            ...item.product,
-            productId: item.product._id,
-            quantity: item.quantity,
-            toppings: item.listTopping,
+      if (typeof window !== "undefined") {
+        if (momo) router.push("/momo");
+        else {
+          const listProduct = listCart.map((item) => {
+            return {
+              ...item.product,
+              productId: item.product._id,
+              quantity: item.quantity,
+              toppings: item.listTopping,
+            };
+          });
+          const data = {
+            phoneNumber: user?.phoneNumber,
+            userName: user?.userName,
+            listProduct: listProduct,
+            totalPrice,
+            isPay: momo,
+            status: "pending",
+            address,
+            userId: user?._id,
+            description: localStorage.getItem("notice"),
           };
-        });
-        const data = {
-          phoneNumber: user?.phoneNumber,
-          userName: user?.userName,
-          listProduct: listProduct,
-          totalPrice,
-          isPay: momo,
-          status: "pending",
-          address,
-          userId: user?._id,
-          description: localStorage.getItem("notice"),
-        };
-        await axios.post(
-          "https://beverage-store7902.onrender.com/order/add-order",
-          data
-        );
+          await axios.post(
+            "https://beverage-store7902.onrender.com/order/add-order",
+            data
+          );
 
-        listCart.forEach((item) => {
-          const objectDelete = {
-            userId: userId,
-            productId: item.product._id,
-          };
-          const functionDelete = async () => {
-            // DELETE request using axios with async/await
-            await axios.delete(
-              "https://beverage-store7902.onrender.com/cart/remove-from-cart",
-              { data: objectDelete },
-              {
-                headers: {
-                  "content-type": "application/json",
-                },
-              }
-            );
-          };
-          functionDelete();
-        });
+          listCart.forEach((item) => {
+            const objectDelete = {
+              userId: userId,
+              productId: item.product._id,
+            };
+            const functionDelete = async () => {
+              // DELETE request using axios with async/await
+              await axios.delete(
+                "https://beverage-store7902.onrender.com/cart/remove-from-cart",
+                { data: objectDelete },
+                {
+                  headers: {
+                    "content-type": "application/json",
+                  },
+                }
+              );
+            };
+            functionDelete();
+          });
 
-        socket.emit("client-submit", { userId: user?._id });
-        router.push("/profile/manageorders");
+          socket.emit("client-submit", { userId: user?._id });
+          router.push("/profile/manageorders");
+        }
       }
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
-    const data = `${localStorage.getItem("ward")} - ${localStorage.getItem(
-      "district"
-    )} - ${localStorage.getItem("province")}`;
-    const isMomo = localStorage.getItem("momo") === "true" ? true : false;
-    const handle = () => {
-      setMomo(isMomo);
-      setAddress(data);
-    };
-    handle();
+    if (typeof window !== "undefined") {
+      const data = `${localStorage.getItem("ward")} - ${localStorage.getItem(
+        "district"
+      )} - ${localStorage.getItem("province")}`;
+      const isMomo = localStorage.getItem("momo") === "true" ? true : false;
+      const handle = () => {
+        setMomo(isMomo);
+        setAddress(data);
+      };
+      handle();
+    }
   }, []);
   useEffect(() => {
     socket.on("connect", () => {
