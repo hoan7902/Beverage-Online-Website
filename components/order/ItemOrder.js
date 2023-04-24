@@ -46,7 +46,7 @@ const ItemOrder = ({ item, listTopping, cart, setCart, checkChange }) => {
             >
               {item.name}
             </Typography>
-            <Typography fontSize="13px">{item.price}đ</Typography>
+            <Typography fontSize="13px">{parseInt(item.price).toLocaleString()}đ</Typography>
           </Stack>
           <Box
             className={homeStyles.mainButton}
