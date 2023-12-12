@@ -21,13 +21,13 @@ function Step3() {
   }, [momo]);
   const { listCart } = useAppContext();
   let finalPrice = 0;
-  const shipFee = 9000;
+  const shipFee = 0;
   listCart.map((cart) => {
     let totalOfTopping = 0;
     for (let i = 0; i < cart.listTopping.length; i++) {
       totalOfTopping += cart.listTopping[i].price;
     }
-    const totalPrice = (cart.product.price + totalOfTopping) * cart.quantity;
+    const totalPrice = (cart.size[0].price + totalOfTopping) * cart.quantity;
     finalPrice += totalPrice;
   });
   return (

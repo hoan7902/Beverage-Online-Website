@@ -15,7 +15,7 @@ const Checkout = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const finalPrice = 0;
-  const feeShip = 69000;
+  const feeShip = 0;
   const style = {
     position: "absolute",
     top: "50%",

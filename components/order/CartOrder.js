@@ -8,6 +8,7 @@ import glassIcon from "../../assets/image/icon-glass-tea.png";
 import Image from "next/image";
 import Down from "../../assets/image/chevron-down-solid.svg";
 import orderStyles from "../../styles/Order.module.css";
+import { deleteAllProductFromCart, deleteProductFromCart, getAllProductsInCart } from "../../api";
 
 // var getCart = undefined
 
@@ -22,30 +23,10 @@ const CartOrder = ({ cart, setCart }) => {
     setOrderCategory(!orderCategory);
   };
 
-  const handleDeleteAll = () => {
-    const userId = localStorage.getItem("_id");
-    listProduct.forEach((item) => {
-      const objectDelete = {
-        userId: userId,
-        productId: item.product._id,
-      };
-
-      const functionDelete = async () => {
-        // DELETE request using axios with async/await
-        const res = await axios.delete(
-          "https://beverage-store7902.onrender.com/cart/remove-from-cart",
-          { data: objectDelete },
-          {
-            headers: {
-              "content-type": "application/json",
-            },
-          }
-        );
-        setToDelete(!toDelete);
-        console.log("Delete success", res);
-      };
-      functionDelete();
-    });
+  const handleDeleteAll = async () => {
+    const userId = localStorage.getItem("userId");
+    await deleteAllProductFromCart(userId);
+    setToDelete(!toDelete);
     setCart([]);
   };
 
@@ -54,42 +35,18 @@ const CartOrder = ({ cart, setCart }) => {
     Router.push("/createorder");
   };
 
-  const deleteItem = (_id) => {
-    const userId = localStorage.getItem("_id");
-
-    const objectDelete = {
-      userId: userId,
-      productId: _id,
-    };
-
-    const functionDelete = async () => {
-      // DELETE request using axios with async/await
-      const res = await axios.delete(
-        "https://beverage-store7902.onrender.com/cart/remove-from-cart",
-        { data: objectDelete },
-        {
-          headers: {
-            "content-type": "application/json",
-          },
-        }
-      );
-      setToDelete(!toDelete);
-      console.log("Delete success", res);
-    };
-
-    functionDelete();
+  const deleteItem = async (cartId) => {
+    await deleteProductFromCart(cartId);
+    setToDelete(!toDelete);
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      const userId = localStorage.getItem("_id");
+      const userId = localStorage.getItem("userId");
 
-      const res = await axios(
-        `https://beverage-store7902.onrender.com/cart/get-all-cart?userId=${userId}`
-      );
-
-      if (res.data.data) {
-        setListProduct(res.data.data);
+      const res = await getAllProductsInCart(userId);
+      if (res) {
+        setListProduct(res);
       }
     };
     fetchData();
@@ -177,12 +134,12 @@ const CartOrder = ({ cart, setCart }) => {
               </Box>
             </Stack>
             {listProduct.map((item, index) => {
-              const totalOfTopping = 0;
+              let totalOfTopping = 0;
               for (let i = 0; i < item.listTopping.length; i++) {
                 totalOfTopping += item.listTopping[i].price;
               }
               const totalPrice =
-                (item.product.price + totalOfTopping) * item.quantity;
+                (item.size[0].price + totalOfTopping) * item.quantity;
               return !isTablet ? (
                 <Stack pb="10px" key={index} borderBottom="1px solid #f1f1f1">
                   <Stack
@@ -198,7 +155,7 @@ const CartOrder = ({ cart, setCart }) => {
                       variant="h3"
                       fontSize="14px"
                     >
-                      {item.product.name} x {item.quantity}
+                      {item.name} x {item.quantity} (size {item.size[0].sizeName})
                     </Typography>
 
                     <Stack
@@ -210,7 +167,7 @@ const CartOrder = ({ cart, setCart }) => {
                         {totalPrice}đ
                       </Typography>
                       <Typography
-                        onClick={() => deleteItem(item.product._id)}
+                        onClick={() => deleteItem(item.cartId)}
                         p="10px"
                         style={{ cursor: "pointer" }}
                       >
@@ -268,7 +225,7 @@ const CartOrder = ({ cart, setCart }) => {
                       variant="h3"
                       fontSize="14px"
                     >
-                      {item.product.name} x {item.quantity}
+                      {item.name} x {item.quantity} (size {item.size[0].sizeName})
                     </Typography>
 
                     <Stack
@@ -280,7 +237,7 @@ const CartOrder = ({ cart, setCart }) => {
                         {totalPrice}đ
                       </Typography>
                       <Typography
-                        onClick={() => deleteItem(item.product._id)}
+                        onClick={() => deleteItem(item.cartId)}
                         p="10px"
                         style={{ cursor: "pointer" }}
                       >

@@ -3,15 +3,22 @@ import stylesOrder from "../../styles/Order.module.css";
 import stylesHome from "../../styles/Home.module.css";
 import Image from "next/image";
 import CloseIcon from "@mui/icons-material/Close";
-import { useState, useRef } from "react";
-import axios from "axios";
+import { useState, useRef, useEffect } from "react";
+import { customNextLoader } from "../../utils";
+import Sizes from "./Sizes";
+import { addToCart } from "../../api";
 
-const typeTopping = [];
-const Popup = ({ item, trigger, setPop, listTopping, cart, setCart }) => {
+let typeTopping = [];
+const Popup = ({ item, trigger, setPop, /* listTopping,*/ cart, setCart }) => {
   const arrItem = useRef([]);
-  const totalPrice = useRef(item.price);
+  const [indexOfSize, setIndexOfSize] = useState(0);
+  const totalPrice = useRef(item.sizes[indexOfSize].price);
   const [quantity, setQuantity] = useState(1);
-  const [priceRender, setPriceRender] = useState(item.price);
+  const [priceRender, setPriceRender] = useState(item.sizes[indexOfSize].price);
+
+  useEffect(() => {
+    setPriceRender(item.sizes[indexOfSize].price);
+  }, [indexOfSize]);
 
   const riseQuantity = () => {
     setQuantity(quantity + 1);
@@ -27,65 +34,62 @@ const Popup = ({ item, trigger, setPop, listTopping, cart, setCart }) => {
     }
   };
 
-  const addToCart = () => {
+  const handleAddToCart = () => {
     const ItemToPost = {
-      userId: localStorage.getItem("_id"),
-      productId: item._id,
+      userId: localStorage.getItem("userId"),
+      productId: item.productId,
       quantity: quantity,
-      listTopping: typeTopping,
+      size: item.sizes[indexOfSize].sizeName,
+      // listTopping: typeTopping,
     };
 
     (async () => {
-      const response = await axios.post(
-        "https://beverage-store7902.onrender.com/cart/add-to-cart",
-        ItemToPost
-      );
-      console.log("Data...", response.data);
+      await addToCart(ItemToPost);
       setCart([
         ...cart,
         {
-          id: item._id,
+          id: item.productId,
           name: item.name,
           totalPrice: totalPrice.curent,
-          image: item.image,
+          image: item.images[0],
           quantity: quantity,
           typeTopping: typeTopping,
         },
       ]);
     })();
 
-    totalPrice.current = item.price;
+    totalPrice.current = item.sizes[indexOfSize].price;
     setQuantity(1);
     arrItem.current = [];
     setPop(false);
     typeTopping = [];
   };
 
-  const handleChange = (value) => {
-    if (!arrItem.current.includes(value)) {
-      arrItem.current = [...arrItem.current, value];
-    } else {
-      const indexRm = arrItem.current.indexOf(value);
-      arrItem.current.splice(indexRm, 1);
-    }
+  // const handleChange = (value) => {
+  //   if (!arrItem.current.includes(value)) {
+  //     arrItem.current = [...arrItem.current, value];
+  //   } else {
+  //     const indexRm = arrItem.current.indexOf(value);
+  //     arrItem.current.splice(indexRm, 1);
+  //   }
 
-    const priceOfTopping = 0;
-    totalPrice.current = item.price;
-    typeTopping = [];
-    if (listTopping)
-      listTopping.map((topping, index) => {
-        if (arrItem.current.includes(index)) {
-          priceOfTopping += topping.price;
-          const object = {
-            name: topping.name,
-            price: topping.price,
-          };
-          typeTopping.push(object);
-        }
-      });
-    totalPrice.current = (totalPrice.current + priceOfTopping) * quantity;
-    setPriceRender(totalPrice.current);
-  };
+  //   let priceOfTopping = 0;
+  //   totalPrice.current = item.price;
+  //   typeTopping = [];
+  //   if (listTopping)
+  //     listTopping.map((topping, index) => {
+  //       if (arrItem.current.includes(index)) {
+  //         priceOfTopping += topping.price;
+  //         const object = {
+  //           name: topping.name,
+  //           price: topping.price,
+  //         };
+  //         typeTopping.push(object);
+  //       }
+  //     });
+  //   totalPrice.current = (totalPrice.current + priceOfTopping) * quantity;
+  //   setPriceRender(totalPrice.current);
+  // };
 
   return trigger ? (
     <div className={stylesOrder.layer}>
@@ -99,16 +103,17 @@ const Popup = ({ item, trigger, setPop, listTopping, cart, setCart }) => {
           <Image
             className={stylesHome.imageProduct}
             alt="img"
-            src={item.image}
+            src={item.images[0]}
             width="170px"
             height="170px"
+            loader={customNextLoader}
           />
           <Stack minWidth="70%" pl="20px" pr="100px">
             <Typography p="10px" fontSize="18px" fontWeight={600}>
               {item.name}
             </Typography>
             <Typography p="10px" color="#8a733f" fontWeight={600}>
-              {item.price}đ
+              {item.sizes[indexOfSize].price}đ
             </Typography>
             <Stack p="10px" flexDirection="row" alignItems="center">
               <div
@@ -130,7 +135,7 @@ const Popup = ({ item, trigger, setPop, listTopping, cart, setCart }) => {
                 backgroundColor="#d3b673"
                 style={{ cursor: "pointer" }}
                 ml="10px"
-                onClick={addToCart}
+                onClick={handleAddToCart}
               >
                 <Typography
                   className={stylesHome.textButton}
@@ -149,9 +154,9 @@ const Popup = ({ item, trigger, setPop, listTopping, cart, setCart }) => {
             className={stylesOrder.closeButton}
             onClick={() => {
               // setTotalPrice(item.price);
-              totalPrice.current = item.price;
+              totalPrice.current = item.sizes[indexOfSize].price;
               setQuantity(1);
-              setPriceRender(item.price);
+              setPriceRender(item.sizes[indexOfSize].price);
               // setArrItem([]);
               arrItem.current = [];
               setPop(false);
@@ -160,7 +165,8 @@ const Popup = ({ item, trigger, setPop, listTopping, cart, setCart }) => {
             cursor="pointer"
           />
         </Stack>
-        <Stack>
+        <Sizes sizes={item.sizes} indexOfSize={indexOfSize} setIndexOfSize={setIndexOfSize}/>
+        {/* <Stack>
           <Stack
             sx={{ cursor: "pointer" }}
             p="10px"
@@ -183,8 +189,8 @@ const Popup = ({ item, trigger, setPop, listTopping, cart, setCart }) => {
           </Stack>
           {listTopping
             ? listTopping.map((item, index) => (
-                <Stack key={item._id} to={item._id} spy={true} smooth={true}>
-                  <Stack
+              <Stack key={item.productId} to={item.productId} spy={true} smooth={true}>
+                <Stack
                     sx={{ cursor: "pointer" }}
                     p="10px"
                     flexDirection="row"
@@ -192,34 +198,34 @@ const Popup = ({ item, trigger, setPop, listTopping, cart, setCart }) => {
                     alignItems="center"
                     borderBottom="1px solid #f1f1f1"
                   >
-                    <Typography
+                  <Typography
                       fontSize="14px"
                       variant="h3"
                       color="#282828"
                       textTransform="capitalize"
                       fontWeight={600}
                     >
-                      {item.name}
-                    </Typography>
-                    <Stack flexDirection="row" alignItems="center">
-                      <Typography
+                    {item.name}
+                  </Typography>
+                  <Stack flexDirection="row" alignItems="center">
+                    <Typography
                         fontSize="14px"
                         variant="h3"
                         color="#282828"
                         mr="5px"
                       >
-                        + {item.price}đ
-                      </Typography>
-                      <input
+                      + {item.sizes[indexOfSize].price}đ
+                    </Typography>
+                    <input
                         type="checkbox"
                         onChange={() => handleChange(index)}
                       />
-                    </Stack>
                   </Stack>
                 </Stack>
+              </Stack>
               ))
             : ""}
-        </Stack>
+            </Stack> */ }
       </Stack>
     </div>
   ) : (

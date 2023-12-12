@@ -98,7 +98,7 @@ function ResponsiveAppBar() {
   };
 
   useEffect(() => {
-    setUserExist(localStorage.getItem("_id"));
+    setUserExist(localStorage.getItem("userId"));
   }, [reload]);
 
   return (

@@ -4,13 +4,14 @@ import homeStyles from "../../styles/Home.module.css";
 import Popup from "./Popup";
 import { useState } from "react";
 import Router from "next/router";
+import { customNextLoader } from "../../utils";
 
 const ItemOrder = ({ item, listTopping, cart, setCart, checkChange }) => {
   const [pop, setPop] = useState(false);
 
   const handleClick = () => {
-    const test = localStorage.getItem("_id");
-    if (test) setPop(true);
+    const isUserLogin = localStorage.getItem("userId");
+    if (isUserLogin) setPop(true);
     else Router.push("/login");
   };
 
@@ -22,8 +23,7 @@ const ItemOrder = ({ item, listTopping, cart, setCart, checkChange }) => {
         backgroundColor="#fff"
         boxShadow="0px 2px 1.5px 0px #ccc"
         alignItems="center"
-        mb="10px"
-        ml="10px"
+        width="180px"
       >
         <Box borderRadius="6px" grey className={homeStyles.wrapperImage}>
           <Image
@@ -31,9 +31,10 @@ const ItemOrder = ({ item, listTopping, cart, setCart, checkChange }) => {
             width="161.25px"
             height="161.25px"
             alt="product"
-            src={item.image}
+            src={item.images[0]}
             style={{ height: 50 }}
             borderRadius="5px"
+            loader={customNextLoader}
           />
         </Box>
         <Stack p="10px 0" justifyContent="center" alignItems="center">
@@ -46,7 +47,7 @@ const ItemOrder = ({ item, listTopping, cart, setCart, checkChange }) => {
             >
               {item.name}
             </Typography>
-            <Typography fontSize="13px">{parseInt(item.price).toLocaleString()}đ</Typography>
+            <Typography fontSize="13px">{parseInt(item.sizes[0].price).toLocaleString()}đ</Typography>
           </Stack>
           <Box
             className={homeStyles.mainButton}

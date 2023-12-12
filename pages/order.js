@@ -10,22 +10,22 @@ var checkChange = false;
 
 const Order = () => {
   const [cart, setCart] = useState([]);
-  const [listNameCategory, setListNameCategory] = useState("");
+  const [listNameCategory, setListNameCategory] = useState([{ _id: 2, name: 'Tất cả' }]);
   const [listTopping, setListTopping] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios(
-        "https://beverage-store7902.onrender.com/category/get-category"
-      );
-      setListNameCategory(res.data.data.listCategory);
+      // const res = await axios(
+      //   "https://beverage-store7902.onrender.com/category/get-category"
+      // );
+      // setListNameCategory(res.data.data.listCategory);
 
-      const resTopping = await axios(
-        `https://beverage-store7902.onrender.com/topping/get-topping`
-      );
-      if (resTopping.data.data) {
-        setListTopping(resTopping.data.data.listTopping);
-      }
+      // const resTopping = await axios(
+      //   `https://beverage-store7902.onrender.com/topping/get-topping`
+      // );
+      // if (resTopping.data.data) {
+      //   setListTopping(resTopping.data.data.listTopping);
+      // }
     };
     fetchData();
   }, []);
@@ -40,10 +40,10 @@ const Order = () => {
           width="100vw"
           justifyContent="space-around"
         >
-          <Box sx={{ width: { md: "30%", xs: "100%" } }} height="100%">
+          {/* <Box sx={{ width: { md: "30%", xs: "100%" } }} height="100%">
             <CategoryOrder listNameCategory={listNameCategory} />
-          </Box>
-          <Stack sx={{ width: { md: "40%", xs: "100%" } }}>
+          </Box> */}
+          <Stack sx={{ width: { md: "70%", xs: "100%" } }}>
             {listNameCategory
               ? listNameCategory.map((item) => (
                   <ListOrder

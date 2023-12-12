@@ -6,19 +6,18 @@ import Promotion from "../components/home/Promotion";
 import Shipper from "../components/home/Shipper";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import Layout from "../components/layout";
 import Advertisement from "../components/home/Advertisement"
+import { getListProduct } from "../api";
 
 export default function Home() {
   const [dataProduct, setDataProduct] = useState("");
   const { id } = useParams();
   useEffect(() => {
     const fetchExercisesData = async () => {
-      const listProduct = await axios(
-        "https://beverage-store7902.onrender.com/product/get-product"
-      );
-      setDataProduct(listProduct.data.data.listProduct);
+      const listbeverage = await getListProduct();
+      console.log('check listbeverage: ', listbeverage)
+      setDataProduct(listbeverage);
     };
     fetchExercisesData();
   }, [id]);

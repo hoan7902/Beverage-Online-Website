@@ -1,11 +1,11 @@
 import { Typography, Stack } from "@mui/material";
 import ItemOrder from "./ItemOrder";
 import { useRef, useState, useEffect } from "react";
-import axios from "axios";
 import orderStyles from "../../styles/Order.module.css";
 import Image from "next/image";
 import Down from "../../assets/image/chevron-down-solid.svg";
 import LoaderWaiting from "../Loader";
+import { getListProduct } from "../../api";
 
 const ListOrder = ({ title, id, listTopping, cart, setCart }) => {
   const [orderCategory, setOrderCategory] = useState(true);
@@ -17,11 +17,9 @@ const ListOrder = ({ title, id, listTopping, cart, setCart }) => {
 
   useEffect(() => {
     const fetchExercisesData = async () => {
-      const res = await axios(
-        `https://beverage-store7902.onrender.com/product/get-product?typeId=${id}`
-      );
-      if (res.data.data) {
-        setListCategoryProduct(res.data.data.listProduct);
+      const res = await getListProduct();
+      if (res) {
+        setListCategoryProduct(res);
       }
     };
     fetchExercisesData();
@@ -64,7 +62,7 @@ const ListOrder = ({ title, id, listTopping, cart, setCart }) => {
         </Stack>
         <Stack
           flexDirection="row"
-          justifyContent="space-around"
+          justifyContent="center"
           alignItems="center"
           flexWrap="wrap"
           ref={element}
@@ -73,6 +71,7 @@ const ListOrder = ({ title, id, listTopping, cart, setCart }) => {
               ? orderStyles.wrapperListOrder
               : orderStyles.wrapperListOrderHidden
           }
+          gap="20px"
         >
           {listCategoryProduct ? (
             listCategoryProduct.map((item) => (

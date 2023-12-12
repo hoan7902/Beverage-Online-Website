@@ -1,6 +1,7 @@
 import { Box, Typography, Stack } from "@mui/material";
 import Image from "next/image";
 import homeStyles from "../../styles/Home.module.css";
+import { customNextLoader } from "../../utils";
 
 const Item = ({ item }) => {
   return (
@@ -18,7 +19,8 @@ const Item = ({ item }) => {
           height="300px"
           width="300px"
           alt="product"
-          src={item.image}
+          src={item.images[0]}
+          loader={customNextLoader}
         />
       </Box>
 
@@ -31,7 +33,7 @@ const Item = ({ item }) => {
         >
           {item.name}
         </Typography>
-        <Typography>{parseInt(item.price).toLocaleString()}đ</Typography>
+        <Typography>{parseInt(item.sizes[0].price).toLocaleString()}đ</Typography>
       </Box>
     </Stack>
   );

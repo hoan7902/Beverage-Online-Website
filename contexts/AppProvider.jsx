@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { getUserById } from "../api";
 export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
@@ -8,13 +9,10 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     const getProfile = async () => {
       try {
-        const data = await axios.post(
-          "https://beverage-store7902.onrender.com/user/get-detail-user",
-          {
-            userId: localStorage.getItem("_id"),
-          }
-        );
-        setUser(data?.data?.data?.user);
+        const userId = localStorage.getItem('userId');
+        const userData = await getUserById(userId);
+        console.log('check userData.user: ', userData.user);
+        setUser(userData.user);
       } catch (error) {
         console.log(error);
       }

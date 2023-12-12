@@ -1,4 +1,3 @@
-import React from "react";
 import Icon from "react-icons-kit";
 import { check } from "react-icons-kit/fa/check";
 import { arrowLeft } from "react-icons-kit/fa/arrowLeft";
@@ -8,13 +7,15 @@ import style from "../../styles/CreateOrder.module.css";
 import { useAppContext } from "../../contexts/AppProvider";
 import Image from "next/image";
 import { Box, Stack, Typography } from "@mui/material";
+import { customNextLoader } from "../../utils";
 
 function Step2() {
   const { listCart } = useAppContext();
+  console.log('check listCart: ', listCart);
   console.log(listCart);
 
   let finalPrice = 0;
-  const shipFee = 9000;
+  const shipFee = 0;
   return (
     <Stack>
       <Stack
@@ -107,18 +108,19 @@ function Step2() {
             totalOfTopping += cart.listTopping[i].price;
           }
           const totalPrice =
-            (cart.product.price + totalOfTopping) * cart.quantity;
+            (cart.size[0].price + totalOfTopping) * cart.quantity;
           finalPrice += totalPrice;
           return (
             <div className={style["cart-item"]} key={index}>
               <div style={{ display: "flex" }} className={style["cart-image"]}>
                 <Image
-                  src={cart.product.image}
-                  alt={cart.product.name}
+                  src={cart.images[0].imageLink}
+                  alt={cart.name}
                   width={"100px"}
                   height={"100px"}
+                  loader={customNextLoader}
                 />
-                <p className={style["cart-item-name"]}>{cart.product.name}</p>
+                <p className={style["cart-item-name"]}>{cart.name}</p>
               </div>
               <div className={style["cart-item-quantity"]}>
                 <p>{cart.quantity}</p>
@@ -129,7 +131,7 @@ function Step2() {
                 })}
               </div>
               <div className={style["cart-item-price"]}>
-                <p>{((cart.product.price + totalOfTopping) * cart.quantity).toLocaleString()} đ</p>
+                <p>{((cart.size[0].price + totalOfTopping) * cart.quantity).toLocaleString()} đ</p>
               </div>
             </div>
           );

@@ -130,8 +130,7 @@
   /* border-radius: 6px 6px 0 0 !important; */
 }
 
-.homeButton:hover .imageProduct {
-}
+.homeButton:hover .imageProduct {}
 
 .mainButton {
   border: 1px solid #d3b673;
@@ -141,6 +140,13 @@
 .mainButton:hover {
   background-color: #fff;
   box-sizing: border-box;
+}
+
+.mainButtonReverse {
+  background-color: #fff;
+  box-sizing: border-box;
+  border: 1px solid #d3b673;
+  color: #d3b673;
 }
 
 .homeButton {
@@ -189,7 +195,7 @@
   overflow: visible !important;
 }
 
-.mouseMoveWrapper > span {
+.mouseMoveWrapper>span {
   overflow: visible !important;
 }
 
@@ -198,6 +204,7 @@
     margin-top: 100%;
     height: 200%;
   }
+
   to {
     margin-top: 0%;
     height: 100%;
@@ -211,13 +218,16 @@
 }
 
 @media (prefers-color-scheme: dark) {
+
   .card,
   .footer {
     border-color: #222;
   }
+
   .code {
     background: #111;
   }
+
   .logo img {
     filter: invert(1);
   }

@@ -5,16 +5,13 @@ import Footer from "../home/Footer";
 import Advertisement from "../home/Advertisement";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Modal from "@mui/material/Modal";
-import ChangePassWord from "./ChangePassWord";
-import { Icon } from "react-icons-kit";
-import { calendar } from "react-icons-kit/fa/calendar";
 import style from "../../styles/Profile.module.css";
 import { useRouter } from "next/router";
 import { useAppContext } from "../../contexts/AppProvider";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import React from "react";
+import { updateUserProfile } from "../../api";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -32,68 +29,91 @@ function Profile() {
   //Lấy thông tin hiện tại của user
   const router = useRouter();
   const { user } = useAppContext();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [birthDate, setBirthDate] = useState("");
+  const [name, setName] = useState(user?.name);
+  const [email, setEmail] = useState(user?.email);
+  const [phone, setPhone] = useState(user?.phone);
+  const [address, setAddress] = useState(user?.address);
+
   useEffect(() => {
-    const userId = window.localStorage.getItem("_id");
+    setName(user?.name);
+    setPhone(user?.phone);
+    setAddress(user?.address);
+  }, [user]);
+
+  // state to show alert
+  const [openNoti, setOpenNoti] = useState(false);
+  const [statusAlert, setStatusAlert] = useState();
+  const [messageAlert, setMessageAlert] = useState();
+
+  useEffect(() => {
+    const userId = window.localStorage.getItem("userId");
     if (!userId) {
       router.push("/login", "/login");
     } else {
       setName(user?.userName);
       setEmail(user?.email);
-      setBirthDate(user?.birthDate);
+      setPhone(user?.phone);
+      setAddress(user?.address);
     }
   }, [user, router]);
   const handleName = (e) => {
-    console.log(e.target.value);
     setName(e.target.value);
   };
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
-  const handleBirthDate = (e) => {
-    setBirthDate(e.target.value);
-  };
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-  const ChangeInfoAPI = (e) => {
+  const handlePhone = (e) => {
+    setPhone(e.target.value);
+  };
+
+  const handleAddress = (e) => {
+    setAddress(e.target.value);
+  };
+
+  const ChangeInfoAPI = async (e) => {
     e.preventDefault();
-    fetch(
-      "https://beverage-store7902.onrender.com/user/change-user-information",
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          accept: "application/json",
-        },
-        body: JSON.stringify({
-          userName: name,
-          email: email,
-          birthDate: birthDate,
-          userId: localStorage.getItem("_id"),
-        }),
-      }
-    )
-      .then((response) => response.json())
-      .then((response) => {
-        console.log(response);
-        if (response.code == 111) {
-          setTypeMess("success");
-          setMessage("Cập nhật thông tin thành công");
-          setOpenMess(true);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const userId = window.localStorage.getItem("userId");
+    const res = await updateUserProfile(userId, {
+      name,
+      email,
+      phone,
+      address
+    });
+    if (!res) {
+      setStatusAlert("error");
+      setMessageAlert("Cập nhật thông tin thất bại. Vui lòng kiểm tra lại thông tin");
+      setOpenNoti(true);
+    } else {
+      setStatusAlert("success");
+      setMessageAlert("Cập nhật thông tin thành công");
+      setOpenNoti(true);
+    }
+  };
+
+  const handleCloseNoti = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenNoti(false);
   };
   return (
     <div>
+      <Snackbar
+        open={openNoti}
+        autoHideDuration={null}
+        onClose={handleCloseNoti}
+      >
+        <Alert
+          onClose={handleCloseNoti}
+          severity={statusAlert}
+          sx={{ width: "100%" }}
+        >
+          {messageAlert}
+        </Alert>
+      </Snackbar>
       <Snackbar
         open={openMess}
         autoHideDuration={2000}
@@ -156,11 +176,44 @@ function Profile() {
                 value={name}
                 onChange={handleName}
                 style={{ fontSize: "16px" }}
-                placeholder={user?.userName}
+                placeholder={user?.name}
               />
             </Stack>
 
-            <Box>
+            <Stack p="20px 0">
+              <Typography
+              sx={{
+                paddingBottom: "10px",
+              }}
+            >
+                Số điện thoại
+              </Typography>
+              <input
+              className={style["Input"]}
+              value={phone}
+              onChange={handlePhone}
+              style={{ fontSize: "16px" }}
+              placeholder={user?.phone}
+            />
+            </Stack>
+
+            <Stack p="20px 0">
+              <Typography
+              sx={{
+                paddingBottom: "10px",
+              }}
+            >
+                Address
+              </Typography>
+              <input
+                className={style["Input"]}
+                value={address}
+                onChange={handleAddress}
+                style={{ fontSize: "16px" }}
+                placeholder={user?.address}
+              />
+            </Stack>
+            <Stack p="20px 0">
               <Typography
                 sx={{
                   paddingBottom: "10px",
@@ -174,56 +227,16 @@ function Profile() {
                 onChange={handleEmail}
                 style={{ fontSize: "16px" }}
                 placeholder={user?.email}
+                disabled
               />
-
-              <button
-                className={style["button-change-pass"]}
-                onClick={handleOpen}
-              >
-                Thay đổi mật khẩu
-              </button>
-
-              <Modal open={open} onClose={handleClose}>
-                <Stack
-                  width="100%"
-                  height="100%"
-                  justifyContent="center"
-                  alignItems="center"
-                >
-                  <ChangePassWord handleClose={handleClose} setOpen={setOpen} />
-                </Stack>
-              </Modal>
-              <Box
-                sx={{
-                  width: "100%",
-                  margin: "20px 0 40px 0",
-                }}
-              >
-                <Typography margin="0 0 20px 0">Ngày sinh</Typography>
-                <div className={style["pass-word"]}>
-                  <span></span>
-                  <div className={style["pass-word-input"]}>
-                    <span className={style["pass-word-input-hide"]}>
-                      <input
-                        className={style["pass-input"]}
-                        value={birthDate}
-                        onChange={handleBirthDate}
-                      />
-                      <Icon
-                        className={style["pass-word-icon"]}
-                        icon={calendar}
-                      />
-                    </span>
-                  </div>
-                </div>
-              </Box>
               <button
                 className={style["button-submit"]}
                 onClick={ChangeInfoAPI}
+                style={{ marginTop: '30px' }}
               >
                 Cập nhật
               </button>
-            </Box>
+            </Stack>
           </Stack>
         </Box>
         <Advertisement />

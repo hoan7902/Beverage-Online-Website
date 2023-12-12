@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Icon from "react-icons-kit";
 import { check } from "react-icons-kit/fa/check";
 import Link from "next/link";
@@ -8,68 +8,54 @@ import { useRouter } from "next/router";
 import io from "socket.io-client";
 import axios from "axios";
 import { Box, Stack } from "@mui/material";
+import { createUserOrder } from "../../api";
 const socket = io("https://sleepy-scrubland-61892.herokuapp.com");
 
 const Step4 = () => {
   const { listCart, user } = useAppContext();
+  console.log('check user step 4: ', user);
   const [address, setAddress] = useState("");
   const [momo, setMomo] = useState();
-  const userId = "";
+  let userId = "";
   if (typeof window !== 'undefined') {
-    userId = localStorage.getItem("_id");
+    userId = localStorage.getItem("userId");
   }
   const router = useRouter();
   console.log(momo);
-  const handleSubmit = async (totalPrice) => {
+  const handleSubmit = async () => {
     try {
       if (typeof window !== "undefined") {
         if (momo) router.push("/momo");
         else {
-          const listProduct = listCart.map((item) => {
-            return {
-              ...item.product,
-              productId: item.product._id,
-              quantity: item.quantity,
-              toppings: item.listTopping,
-            };
-          });
-          const data = {
-            phoneNumber: user?.phoneNumber,
-            userName: user?.userName,
-            listProduct: listProduct,
-            totalPrice,
-            isPay: momo,
-            status: "pending",
+          const payload = {
+            phone: user?.phoneNumber || user?.phone,
             address,
-            userId: user?._id,
-            description: localStorage.getItem("notice"),
+            userId: user?.userId,
+            note: localStorage.getItem("notice"),
           };
-          await axios.post(
-            "https://beverage-store7902.onrender.com/order/add-order",
-            data
-          );
+          await createUserOrder(payload);
 
-          listCart.forEach((item) => {
-            const objectDelete = {
-              userId: userId,
-              productId: item.product._id,
-            };
-            const functionDelete = async () => {
-              // DELETE request using axios with async/await
-              await axios.delete(
-                "https://beverage-store7902.onrender.com/cart/remove-from-cart",
-                { data: objectDelete },
-                {
-                  headers: {
-                    "content-type": "application/json",
-                  },
-                }
-              );
-            };
-            functionDelete();
-          });
+          // listCart.forEach((item) => {
+          //   const objectDelete = {
+          //     userId: userId,
+          //     productId: item.product._id,
+          //   };
+          //   const functionDelete = async () => {
+          //     // DELETE request using axios with async/await
+          //     await axios.delete(
+          //       "https://beverage-store7902.onrender.com/cart/remove-from-cart",
+          //       { data: objectDelete },
+          //       {
+          //         headers: {
+          //           "content-type": "application/json",
+          //         },
+          //       }
+          //     );
+          //   };
+          //   functionDelete();
+          // });
 
-          socket.emit("client-submit", { userId: user?._id });
+          socket.emit("client-submit", { userId: user?.userId });
           router.push("/profile/manageorders");
         }
       }
@@ -79,13 +65,11 @@ const Step4 = () => {
   };
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const data = `${localStorage.getItem("ward")} - ${localStorage.getItem(
-        "district"
-      )} - ${localStorage.getItem("province")}`;
+      const addressData = localStorage.getItem('address');
       const isMomo = localStorage.getItem("momo") === "true" ? true : false;
       const handle = () => {
         setMomo(isMomo);
-        setAddress(data);
+        setAddress(addressData);
       };
       handle();
     }
@@ -99,13 +83,13 @@ const Step4 = () => {
     };
   }, []);
   let finalPrice = 0;
-  const shipFee = 9000;
+  const shipFee = 0;
   listCart.map((cart) => {
     let totalOfTopping = 0;
     for (let i = 0; i < cart.listTopping.length; i++) {
       totalOfTopping += cart.listTopping[i].price;
     }
-    const totalPrice = (cart.product.price + totalOfTopping) * cart.quantity;
+    const totalPrice = (cart.size[0].price + totalOfTopping) * cart.quantity;
     finalPrice += totalPrice;
   });
   return (
@@ -203,14 +187,14 @@ const Step4 = () => {
           <p style={{ fontSize: "20px", fontWeight: 500, color: "#333" }}>
             Họ tên khách hàng
           </p>
-          <p style={{ fontSize: "20px", color: "#2F2F2F" }}>{user?.userName}</p>
+          <p style={{ fontSize: "20px", color: "#2F2F2F" }}>{user?.userName || user?.name}</p>
         </div>
         <div style={{ margin: "0 20px" }}>
           <p style={{ fontSize: "20px", fontWeight: 500, color: "#333" }}>
             Điện thoại liên lạc
           </p>
           <p style={{ fontSize: "20px", color: "#2F2F2F" }}>
-            {user?.phoneNumber}
+            {user?.phone}
           </p>
         </div>
         <div style={{ margin: "0 20px" }}>
@@ -291,12 +275,12 @@ const Step4 = () => {
       <div style={{ textAlign: "center", marginBottom: "100px" }}>
         <button
           className={style["confirm-order"]}
-          onClick={() => handleSubmit(finalPrice)}
+          onClick={() => handleSubmit()}
         >
           Tiến hành đặt hàng
         </button>
       </div>
     </Stack>
   );
-}
+};
 export default Step4;

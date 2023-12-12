@@ -1,24 +1,23 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { Alert, Box, Snackbar, Stack, Typography } from "@mui/material";
 import styles from "./styles.module.scss";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useRouter } from "next/router";
-import { ReloadContext } from "../../contexts/ReloadContext";
+import { signIn } from "../../api";
 
 const Login = () => {
   const router = useRouter();
-  const [phone, setPhone] = useState("0786170902");
-  const [password, setPassword] = useState("01227793662an");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isVisibility, setIsVisibility] = useState(false);
-  const { reload, setReload } = useContext(ReloadContext);
 
   const handleChangeVisibility = () => {
     setIsVisibility(!isVisibility);
   };
   const [openNoti, setOpenNoti] = useState(false);
-  const [statusAlert, setStatusAlert] = useState("error");
-  const [messageAlert, setMessageAlert] = useState("Thiếu thông tin");
+  const [statusAlert, setStatusAlert] = useState();
+  const [messageAlert, setMessageAlert] = useState();
 
   const handleCloseNoti = (event, reason) => {
     if (reason === "clickaway") {
@@ -30,50 +29,23 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    localStorage.setItem("phoneNumber", phone);
-    fetch("https://beverage-store7902.onrender.com/user/login-user", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        accept: "application/json",
-      },
-      body: JSON.stringify({
-        phoneNumber: phone,
-        password: password,
-      }),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        console.log("check res: ", response);
-        if (response.code == 102) {
-          setStatusAlert("success");
-          setMessageAlert("Đăng nhập thành công");
-          setOpenNoti(true);
-          setTimeout(() => {
-            setReload(!reload);
-            router.push("/order");
-          }, 1000);
-        } else if (response.code == 103) {
-          setStatusAlert("error");
-          setMessageAlert(
-            "Vui lòng nhập lại mật khẩu, mật khẩu không chính xác"
-          );
-          setOpenNoti(true);
-        } else if (response.code == 110 && password != "" && phone != "") {
-          setStatusAlert("error");
-          setMessageAlert("Người dùng không tồn tại, vui lòng đăng ký");
-          setOpenNoti(true);
-        } else if (response.code == 101) {
-          setStatusAlert("error");
-          setMessageAlert("Tài khoản chưa xác thực");
-          router.push("/authentication", "/authentication");
-        }
-        localStorage.setItem("_id", response.data.user._id);
-        localStorage.setItem("phoneNumber", response.data.user.phoneNumber);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const response = await signIn({ email, password });
+    console.log('check response: ', response);
+    if (!response) {
+      setStatusAlert("error");
+      setMessageAlert("Thông tin đăng nhập sai");
+      setOpenNoti(true);
+    } else {
+      const { userId, token } = response || {};
+      localStorage.setItem('userId', userId);
+      localStorage.setItem('email', email);
+      localStorage.setItem('token', token);
+
+      setStatusAlert("success");
+      setMessageAlert("Đăng nhập thành công");
+      setOpenNoti(true);
+      router.push('/');
+    }
   };
 
   return (
@@ -84,6 +56,7 @@ const Login = () => {
           sx={{ p: { xs: "20px", md: "80px" } }}
           borderRadius="6px"
           mb="40px"
+          minWidth="550px"
         >
           <Stack
             flexDirection="row"
@@ -110,10 +83,10 @@ const Login = () => {
               >
                 <input
                   className={styles.input}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="Phone"
-                  value={phone}
-                  name="phone"
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email"
+                  value={email}
+                  name="email"
                   type="text"
                 />
               </Stack>
@@ -151,10 +124,6 @@ const Login = () => {
                 Đăng nhập
               </button>
             </Stack>
-            <Typography color="#444" textAlign="justify">
-              Vì chức năng đăng kí bằng OTP không còn hợp lệ. Vui lòng đăng nhập
-              bằng tài khoản mặc định ở trên.
-            </Typography>
           </form>
         </Box>
       </Box>

@@ -18,6 +18,7 @@ import style from "../../styles/Profile.module.css";
 import axios from "axios";
 import io from "socket.io-client";
 import { useAppContext } from "../../contexts/AppProvider";
+import { getListUserOrder } from "../../api";
 
 const socket = io("https://sleepy-scrubland-61892.herokuapp.com");
 
@@ -33,21 +34,16 @@ function ManageOrders() {
   };
   const getOrders = async () => {
     try {
-      const data = await axios.post(
-        "https://beverage-store7902.onrender.com/order/get-list-order",
-        {
-          userId: user?._id,
-          status: !status ? "complete" : "",
-        }
-      );
-      setListOrder(data.data.data.listOrder);
+      const userId = localStorage.getItem('userId');
+      const dataOrder = await getListUserOrder(userId);
+      setListOrder(dataOrder);
     } catch (error) {
       console.log(error);
     }
   };
 
   React.useEffect(() => {
-    if (user._id) {
+    if (user?.userId) {
       getOrders();
     }
   }, [status, user]);
@@ -58,18 +54,12 @@ function ManageOrders() {
   }
 
   function ItemCard({ order }) {
+    console.log('check order: ', order);
     const completeHandle = async () => {
       try {
-        await axios.post(
-          "https://beverage-store7902.onrender.com/order/complete-order",
-          {
-            userId: user?._id,
-            orderId: order._id,
-          }
-        );
         await getOrders();
         socket.emit("client-submit", {
-          userId: user?._id,
+          userId: user?.userId,
         });
       } catch (error) {
         console.log(error);
@@ -108,16 +98,16 @@ function ManageOrders() {
           }
         />
         <CardContent>
-          {order?.listProduct?.map((product) => {
+          {(order?.listProductInfo || []).map((product) => {
             return (
               <div
-                key={product._id}
+                key={product.userId}
                 style={{
                   display: "flex",
                   alignItems: "center",
                 }}
               >
-                <Avatar alt="" src={product.image} />
+                <Avatar alt="" src={product.images[0].imageLink} />
                 <div
                   style={{
                     display: "flex",
@@ -127,8 +117,8 @@ function ManageOrders() {
                     paddingLeft: 10,
                   }}
                 >
-                  <p>{product.name}</p>
-                  <p>{"Số lượng: " + product.quantity}</p>
+                  <p style={{ textTransform: 'capitalize' }}>{product.name}</p>
+                  <p>{"Số lượng: " + order.quantity}</p>
                 </div>
               </div>
             );
@@ -145,19 +135,20 @@ function ManageOrders() {
             width="100%"
             className={status === 1 ? style["title-color"] : style["title"]}
           >
-            Đơn hàng đang xử lý
+            {/* Đơn hàng đang xử lý */}
+            Tất cả đơn hàng
           </Box>
-          <Box
+          {/* <Box
             width="100%"
             className={status === 0 ? style["title-color"] : style["title"]}
             onClick={handleOpenComplete}
           >
             Đơn hàng hoàn tất
-          </Box>
+    </Box> */}
         </Stack>
         <div className={style["container-order"]}>
           {listOrder?.map((order) => {
-            return <ItemCard key={order._id} order={order} />;
+            return <ItemCard key={order.userId} order={order} />;
           })}
         </div>
       </div>
@@ -172,18 +163,19 @@ function ManageOrders() {
             className={status === 1 ? style["title-color"] : style["title"]}
             onClick={handleOpenLoading}
           >
-            Đơn hàng đang xử lý
+            {/*Đơn hàng đang xử lý */}
+            Tất cả đơn hàng
           </Box>
-          <Box
+          {/*<Box
             width="100%"
             className={status === 0 ? style["title-color"] : style["title"]}
           >
             Đơn hàng hoàn tất
-          </Box>
+    </Box> */}
         </Stack>
         <div className={style["container-order"]}>
           {listOrder?.map((order) => {
-            return <ItemCard key={order._id} order={order} />;
+            return <ItemCard key={order.userId} order={order} />;
           })}
         </div>
       </div>

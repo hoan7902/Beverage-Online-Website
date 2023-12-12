@@ -19,7 +19,7 @@ const nextConfig = {
       "veganizta.com.vn",
       "www.starbucksathome.com",
       "saigoncasacafe.com.vn",
-      "cdn.beptruong.edu.vn"
+      "cdn.beptruong.edu.vn",
     ],
   },
 };
